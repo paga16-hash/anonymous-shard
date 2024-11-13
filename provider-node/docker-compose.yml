@@ -1,0 +1,11 @@
+services:
+
+  anonymous-shard-provider-node:
+    image: pagahubbing/anonymous-shard-provider-node:latest
+    container_name: ${PROVIDER_NODE_CONTAINER_NAME}
+    build:
+      context: .
+      dockerfile: ./provider-node/Dockerfile
+    restart: on-failure
+    ports:
+      - ${TOR_PORT}:${TOR_PORT}

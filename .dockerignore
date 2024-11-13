@@ -1,0 +1,16 @@
+LICENSE
+README.md
+docs
+kubernetes
+**/tsconfig.tsbuildinfo
+**/Dockerfile
+**/docker-compose.yml
+**/node_modules
+**/dist
+.dockerignore
+.gitattributes
+.gitignore
+.github
+.git
+.gradle
+.DS_Store

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "github>revue-org/renovate-config"
+  ],
+  "packageRules": [
+    {
+      "description": "Release a patch release for core deps in package.json files",
+      "matchPaths": [
+        "package.json"
+      ],
+      "semanticCommitScope": "core-deps"
+    }
+  ],
+  "customManagers": [
+    {
+      "datasourceTemplate": "npm",
+      "customType": "regex",
+      "fileMatch": ["(^|\\/).*\\.gradle\\.kts$"],
+      "matchStrings": [
+        "(?:\"(?<packageName>[^\\s\"]+)\"\\s*version\\s*\"(?<currentValue>.+)\")",
+        "(?:\"(?<packageName>[^\\s\"]+)\"\\s*[.]\\s*version\\s*\\(\\s*\"(?<currentValue>.+)\"\\s*\\))"
+      ]
+    }
+  ]
+}
