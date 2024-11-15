@@ -8,4 +8,5 @@ export interface NodeService {
     getCurrentMetrics(): Promise<Metric>;
 
     getPendingTask(): Promise<number>;
+
 }
