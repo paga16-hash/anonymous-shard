@@ -1,0 +1,71 @@
+asyncapi: 3.0.0
+info:
+    title: Metric Sharing API
+    version: 1.0.0
+    description: The API notifies you whenever a new metric is shared in the system.
+    tags:
+        - name: Metrics
+          description: Events about metrics shared in the system
+
+servers:
+    peer-to-peer-gossip-pubsub:
+        host: peers
+        description: Peer-to-peer gossip pubsub network
+        protocol: pubsub
+
+operations:
+    publishMetric:
+        action: send
+        summary: Publish a message to the Metric channel
+        channel:
+            $ref: "#/channels/metrics"
+    onMetricReceived:
+        action: receive
+        summary: Receive a message from the Metric channel
+        channel:
+            $ref: "#/channels/metrics"
+
+channels:
+    metrics:
+        tags:
+            - name: Metrics
+        description: This channel contains a message per each metric shared in the system.
+        address: metrics
+        messages:
+            Metric:
+                $ref: "#/components/messages/Metric"
+        servers:
+            - $ref: "#/servers/peer-to-peer-gossip-pubsub"
+
+components:
+    messages:
+        Metrics:
+            payload:
+                $ref: "#/components/schemas/Metrics"
+
+    Metrics:
+        PeerId:
+            additionalProperties: false
+            type: object
+            properties:
+                memory:
+                    type: object
+                    properties:
+                        total:
+                            type: number
+                            description: The total memory available
+                        free:
+                            type: number
+                            description: The free memory available
+                        used:
+                            type: number
+                            description: The used memory
+                cpu:
+                    type: object
+                    properties:
+                        cores:
+                            type: number
+                            description: The number of cores
+                        usage:
+                            type: number
+                            description: The CPU usage

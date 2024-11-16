@@ -1,4 +1,4 @@
-name: Revue CI and CD
+name: Anonymous Shard CI and CD
 
 on:
   push:
@@ -30,13 +30,10 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
       - name: Build
         run: ./gradlew npmBuild build --info
       - name: Test
-        run: ./gradlew auth:npmTest user:npmTest alarm:npmTest device:npmTest log:npmTest notification:npmTest location:npmTest --info --parallel
+        run: ./gradlew provider-node:npmTest consumer-node:npmTest --info --parallel
   style:
     runs-on: ubuntu-latest
     steps:
@@ -172,16 +169,8 @@ jobs:
       fail-fast: false
       matrix:
         image:
-          - alarm
-          - auth
-          - device
-          - frontend
-          - location
-          - log
-          - monitoring
-          - notification
-          - recognition
-          - user
+          - provider-node
+          - consumer-node
     needs:
       - compute-next-version
       - release
@@ -219,8 +208,8 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: ${{ fromJSON(needs.compute-next-version.outputs.will-release) }}
           tags: |
-            letsdothisshared/revue-${{ matrix.image }}:${{ env.releaseTag }}
-            letsdothisshared/revue-${{ matrix.image }}:latest
+            pagahubbing/anonymous-shard-${{ matrix.image }}:${{ env.releaseTag }}
+            pagahubbing/anonymous-shard-${{ matrix.image }}:latest
   success:
     runs-on: ubuntu-latest
     needs:
