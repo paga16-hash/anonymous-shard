@@ -1,0 +1,48 @@
+@startuml
+
+interface DomainEventId {
+  + getValue(): string
+}
+
+interface DomainEvent {
+  + getId(): DomainEventId
+  + getTimestamp(): Date
+}
+
+interface MetricEvent {
+  + getPeerId(): string
+}
+
+interface MetricAvailable {
+  + getMetric(): Metric
+}
+
+interface TaskEvent {
+  + getTaskId(): TaskId
+}
+
+interface TaskSubmission {
+  + taskDetails: TaskDetails
+}
+
+interface TaskResult {
+  + getResult(): TaskResult
+}
+
+interface TaskFailure {
+  + getError(): TaskError
+}
+
+
+DomainEvent *-up- DomainEventId
+
+DomainEvent <|-- TaskEvent
+TaskSubmission <|-- TaskEvent
+TaskResult <|-- TaskEvent
+TaskFailure <|-- TaskEvent
+
+DomainEvent <|-- MetricEvent
+MetricAvailable <|-- MetricEvent
+
+
+@enduml

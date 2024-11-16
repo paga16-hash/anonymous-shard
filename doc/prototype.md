@@ -29,6 +29,7 @@ I nodi saranno containerizzati per semplificare il processo di sviluppo e deploy
 In particolare anche per la gestione di tor. 
 Ho dato un'occhiata e ho visto come basta mantenere nel volume collegato al container il file di configurazione con all'interno la chiave privata per mantenere lo stesso indirizzo .onion, comodo per la fase di development. 
 
+
 ## Storage: IPFS
 
 Per lo storage dei dati, è stato scelto **IPFS** per la sua natura distribuita e l'utilizzo del concetto di "pinning" e "Content Identifier" (CID), che associa ogni file salvato a un identificatore senza dipendere da una posizione fisica. 
@@ -136,4 +137,8 @@ Altro:
 - tipologia di task
 - consigli? 
 
-Flusso: finire peer to peer ->  tor -> easy ipfs -> gossip pubsub per provider selection -> generalizzazione dei task -> reward system o test? -> sibyl simulation mi piacerebbe -> considerations e scrittura  
+Flusso: finire peer to peer ->  tor -> easy ipfs -> gossip pubsub per provider selection -> generalizzazione dei task -> reward system o test? -> sibyl simulation mi piacerebbe -> considerations e scrittura
+
+
+Retain the Hidden Service Directory: The private key is typically stored in the hidden service directory specified in the Tor configuration file (e.g., HiddenServiceDir /var/lib/tor/my_hidden_service/). By retaining this directory, you keep the same address across restarts.
+Back Up the Private Key: If you are deploying in a Docker container, for instance, ensure that the directory where the private key resides is either part of a persistent volume or backed up.

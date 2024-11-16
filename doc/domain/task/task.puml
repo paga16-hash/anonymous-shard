@@ -1,62 +1,65 @@
 
 @startuml
 
-interface NodeService {
-  + getUsers(): Promise<User[]>
-  + getUser(taxCode: string): Promise<User>
-  + insertUser(user: User): void
-  + updateUser(user: User): void
-  + deleteUser(taxCode: string): void
-  + getContacts(taxCode: string): Promise<Contact[]>
-  + addContact(taxCode: string, contact: Contact): void
-  + removeContact(taxCode: string, contact: Contact): void
+interface TaskService {
+  + getTasks(): Promise<Task[]>
+  + getActiveTasks(): Promise<Task[]>
+  + getPendingTasks(): Promise<Task[]>
+  + getFailedTask(taskId: TaskId): Promise<Task>
+  + pushTask(task: Task): void
+  + interruptTask(taskId: TaskId): void
+  + deleteTask(taskId: TaskId): void
 }
 
-UserService --> UserRepository : uses
-UserService --> UserFactory : uses
+TaskService --> TaskRepository : uses
+TaskService --> TaskFactory : uses
 
-interface UserRepository {
-  + getUsers(): Promise<User[]>
-  + getUserById(userId: string): Promise<User>
-  + getUserByUsername(username: string): Promise<User>
-  + insertUser(user: User): Promise<void>
-  + updateUser(user: User): Promise<void>
-  + deleteUser(userId: string): Promise<void>
+interface TaskRepository {
+  + saveResult(taskId: TaskId, result: string): void
 }
-UserRepository o-- User
+note top of TaskRepository : Maybe to avoid? Depending on IPFS design choice
 
-interface UserFactory {
-      + createUser(): User
+TaskRepository o-- Task
+
+interface TaskFactory {
+      + createTask(): Task
+      + taskFrom(taskId: TaskId, otherTaskDetails: string): Task
 }
-UserFactory -left-> User : creates
+TaskFactory -left-> Task : creates
 
-
-interface User {
- + getTaxId(): String
- + getName(): String
- + getSurname(): String
- + getMail(): String
- + getContacts(): List<Contact>
+interface Task {
+    + getId(): TaskId
+    + getStatus(): TaskStatus
+    + getResult(): string
+    + setResult(result: string): void
+    + setStatus(status: TaskStatus): void
+    + getDetails(): string
+    + setDetails(details: string): void
+    + getCreatedAt(): Date
+    + setCreatedAt(date: Date): void
+    + getUpdatedAt(): Date
+    + setUpdatedAt(date: Date): void
 }
-note bottom of User : Entity
-User o-left- Contact
+note bottom of Task : Entity
+Task o-left- TaskStatus
 
-interface Contact {
- + getValue(): String
- + getContactType(): ContactType
+interface TaskStatus {
+    + getStatus(): string
 }
-note left of Contact : Value Object
+note left of TaskStatus : Value Object
 
-interface ContactFactory {
- + createContact(): Contact
-}
-
-enum ContactType {
-  EMAIL
-  SMS
+enum StatusType {
+  ACTIVE
+  PENDING
+  FAILED
 }
 
-Contact o-- ContactType
-ContactFactory --> Contact : creates
+StatusType -down- TaskStatus : has
+
+interface TaskId {
+    + getValue(): string
+}
+
+TaskId -down-> Task : identifies
 
 @enduml

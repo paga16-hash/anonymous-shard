@@ -1,0 +1,29 @@
+@startuml
+
+interface MetricsService {
+    + getCurrentMetrics(): Metric
+    + getKnownPeersMetrics(): Metric
+}
+
+MetricsService --> MetricFactory : uses
+
+interface MetricFactory {
+      + currentMetric(): Metric
+      + metricFrom(totalMemory: number, freeMemory: number, otherMetricDetails: string): Metric
+}
+MetricFactory -left-> Metric : creates
+
+interface MetricEventHub {
+    + publishMetric(metric: Metric): void
+    + subscribeToMetrics(callback: (metric: Metric) => void): void
+}
+
+MetricsService --> MetricEventHub : uses
+
+interface Metric {
+    + getMemoryUsage(): number
+    + getCPUUsage(): number
+}
+note bottom of Metric : Value Object
+
+@enduml
