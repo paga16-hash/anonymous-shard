@@ -1,5 +1,5 @@
-import {Metric} from "../core/Metric";
 import si from "systeminformation";
+import {Metric} from "../../core/metric/Metric";
 
 export class MetricFactory {
     static async currentMetric(): Promise<Metric> {

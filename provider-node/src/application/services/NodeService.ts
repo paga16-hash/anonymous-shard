@@ -1,9 +1,6 @@
-import {Metric} from "../../domain/core/Metric.js";
+import {Metric} from "../../domain/core/metric/Metric.js";
 
 export interface NodeService {
-    subscribeToMetrics(): void;
-
-    publishMetrics(): void;
 
     getCurrentMetrics(): Promise<Metric>;
 
