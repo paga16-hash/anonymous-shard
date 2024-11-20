@@ -1,4 +1,4 @@
-import {TaskEvent} from "./TaskEvent";
+import {TaskEvent} from "./TaskEvent.js";
 
 export interface TaskSubmissionEvent extends TaskEvent {
 

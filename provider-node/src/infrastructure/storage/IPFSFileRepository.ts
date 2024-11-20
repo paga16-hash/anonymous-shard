@@ -3,10 +3,11 @@ import {FileId} from "../../domain/core/file/FileId";
 
 export class IPFSFileRepository implements FileRepository {
 
+    //TODO: to implement
     getById(fileId: FileId): File {
-        return new File();
         //retrieve file from IPFS
-
+        // @ts-ignore
+        return new File();
     }
 
     save(file: File): void {

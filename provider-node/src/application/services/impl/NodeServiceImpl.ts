@@ -10,6 +10,7 @@ export class NodeServiceImpl implements NodeService {
     private readonly node: Node;
     private readonly metricService: MetricService;
     //private readonly taskService: TaskService
+    //private readonly fileService: FileService;
     private readonly providerEventsHub: ProviderEventsHub;
 
     constructor(metricService: MetricService) {
@@ -17,6 +18,10 @@ export class NodeServiceImpl implements NodeService {
         this.providerEventsHub = new GossipProviderEventsHub(this.node);
         this.metricService = metricService;
         //this.taskService = new TaskService();
+    }
+
+    async startPropagation(): Promise<void> {
+        return Promise.resolve();
     }
 
     async getCurrentMetrics(): Promise<Metric> {
