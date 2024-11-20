@@ -5,23 +5,46 @@ import {Node} from "../../../domain/core/node/Node.js";
 import {NodeImpl} from "../../../domain/core/node/impl/NodeImpl.js";
 import {ProviderEventsHub} from "../../../infrastructure/events/ProviderEventsHub.js";
 import {GossipProviderEventsHub} from "../../../infrastructure/events/impl/GossipProviderEventsHub.js";
+import {boostrapAddresses} from "../../../utils/BootstrapNode.js";
 
 export class NodeServiceImpl implements NodeService {
     private readonly node: Node;
     private readonly metricService: MetricService;
     //private readonly taskService: TaskService
     //private readonly fileService: FileService;
-    private readonly providerEventsHub: ProviderEventsHub;
+    private  providerEventsHub: ProviderEventsHub | undefined;
 
-    constructor(metricService: MetricService) {
-        this.node = new NodeImpl();
-        this.providerEventsHub = new GossipProviderEventsHub(this.node);
+    constructor(nodeAddress: string, metricService: MetricService) {
+        this.node = new NodeImpl(nodeAddress, boostrapAddresses());
         this.metricService = metricService;
-        //this.taskService = new TaskService();
+        setTimeout(() => {
+            this.providerEventsHub = new GossipProviderEventsHub(this.node);
+            //this.taskService = new TaskService();
+            this.startMetricPropagation()
+                .then((): void => {
+                    console.log("Metric propagation started");
+                })
+                .catch((e: any): void => {
+                    console.error("Error starting metric propagation", e);
+                });
+        }, 6000);
+
     }
 
-    async startPropagation(): Promise<void> {
-        return Promise.resolve();
+    private async startMetricPropagation(): Promise<void> {
+        // @ts-ignore
+        this.providerEventsHub.subscribeToMetrics(async (metricEvent: Metric): Promise<void> => {
+            console.log("Received metric event", metricEvent);
+        });
+
+        setInterval(async (): Promise<void> => {
+            try {
+                // @ts-ignore
+                this.providerEventsHub.publishMetric(await this.getCurrentMetrics());
+            } catch (e) {
+                console.error("Error publishing metrics", e);
+            }
+        }, 8000);
     }
 
     async getCurrentMetrics(): Promise<Metric> {
@@ -29,6 +52,7 @@ export class NodeServiceImpl implements NodeService {
     }
 
     async getPendingTask(): Promise<number> {
-        return Promise.resolve(0);
+        return 0
+        //return this.taskService.getTasks()
     }
 }

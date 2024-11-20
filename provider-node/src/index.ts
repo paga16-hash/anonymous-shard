@@ -5,6 +5,4 @@ import {NodeService} from "./application/services/NodeService.js";
 
 config({path: process.cwd() + '/../.env'})
 
-const nodeService: NodeService = new NodeServiceImpl(new MetricServiceImpl());
-
-//nodeService.subscribeToMetrics();
+const nodeService: NodeService = new NodeServiceImpl("127.0.0.1", new MetricServiceImpl());

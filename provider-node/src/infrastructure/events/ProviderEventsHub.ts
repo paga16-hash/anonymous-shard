@@ -4,5 +4,5 @@ import {MetricEvent} from "../../domain/events/metric/MetricEvent.js";
 export interface ProviderEventsHub {
     publishMetric(metric: Metric): void
 
-    subscribeToMetrics(handler: (metricEvent: MetricEvent) => void): void
+    subscribeToMetrics(handler: (metricEvent: any) => Promise<void>): void
 }
