@@ -1,4 +1,9 @@
+import {Metric} from "../metric/Metric.js";
+import {MetricEvent} from "../../events/metric/MetricEvent.js";
+
 export interface Node {
+
+    init(): Promise<void>;
 
     start(): Promise<void>;
 
@@ -6,7 +11,7 @@ export interface Node {
 
     isRunning(): Promise<boolean>;
 
-    subscribe(topic: string, listener: (data: any) => void): Promise<void>;
+    registerMetricsHandler(handler: (metricEvent: any) => Promise<void>): void;
 
-    publish(topic: string, data: any): Promise<void>;
+    propagateMetric(metric: Metric): Promise<void>;
 }
