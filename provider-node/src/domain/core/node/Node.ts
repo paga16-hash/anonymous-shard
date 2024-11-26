@@ -1,7 +1,8 @@
-import {Metric} from "../metric/Metric.js";
 import {MetricEvent} from "../../events/metric/MetricEvent.js";
 
 export interface Node {
+
+    peerId(): string;
 
     init(): Promise<void>;
 
@@ -13,5 +14,5 @@ export interface Node {
 
     registerMetricsHandler(handler: (metricEvent: MetricEvent) => Promise<void>): void;
 
-    propagateMetric(metric: Metric): Promise<void>;
+    propagateMetric(metric: MetricEvent): Promise<void>;
 }

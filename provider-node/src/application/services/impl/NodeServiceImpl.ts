@@ -5,6 +5,8 @@ import {Node} from "../../../domain/core/node/Node.js";
 import {NodeImpl} from "../../../domain/core/node/impl/NodeImpl.js";
 import {boostrapAddresses} from "../../../utils/BootstrapNode.js";
 import {MetricEvent} from "../../../domain/events/metric/MetricEvent.js";
+import {MetricEventFactory} from "../../../domain/factories/events/MetricEventFactory.js";
+import {MetricAvailableEvent} from "../../../domain/events/metric/MetricAvailableEvent.js";
 
 export class NodeServiceImpl implements NodeService {
     private readonly node: Node;
@@ -23,20 +25,24 @@ export class NodeServiceImpl implements NodeService {
     private async init(): Promise<void> {
         await this.node.init();
         this.node.registerMetricsHandler(async (metricEvent: MetricEvent): Promise<void> => {
-            console.log("Received metric event", metricEvent);
+            console.log("Received metric event");
+            this.metricService.updateKnownMetrics(metricEvent.peerId, (metricEvent as MetricAvailableEvent).metric);
+            console.log(this.metricService.getKnownMetrics().size);
         })
         setInterval(async (): Promise<void> => {
-            this.node.propagateMetric(await this.getCurrentMetrics())
+            let metricEvent: MetricAvailableEvent =
+                MetricEventFactory.createMetricAvailableEvent(this.node.peerId(), await this.getCurrentMetrics());
+            this.node.propagateMetric(metricEvent)
                 .then((): void => {
                     console.log("Metric propagated");
-                }).catch((e): void => {
+                }).catch((e: any): void => {
                 console.error("Error propagating metric", e);
             })
-        }, 20000);
+        }, 10000);
     }
 
     async getCurrentMetrics(): Promise<Metric> {
-        return this.metricService.getCurrentMetrics();
+        return this.metricService.getCurrentMetric();
     }
 
     async getPendingTask(): Promise<number> {

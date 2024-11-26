@@ -7,6 +7,7 @@ import {GossipProviderEventsHub} from "../../../../infrastructure/events/impl/Go
 import {Metric} from "../../metric/Metric.js";
 import {createNode} from "./LibP2PImpl.js";
 import {MetricEvent} from "../../../events/metric/MetricEvent.js";
+import {Libp2p} from "libp2p/libp2p";
 
 config({path: process.cwd() + '/../.env'})
 
@@ -53,9 +54,9 @@ export class NodeImpl implements Node {
         await this.node.stop();
     }
 
-    async propagateMetric(metric: Metric): Promise<void> {
+    async propagateMetric(metricEvent: MetricEvent): Promise<void> {
         try {
-            this.providerEventsHub.publishMetric(metric);
+            this.providerEventsHub.publishMetric(metricEvent);
         } catch (e) {
             console.error("Error publishing metrics", e);
         }
@@ -71,5 +72,9 @@ export class NodeImpl implements Node {
 
     async isRunning(): Promise<boolean> {
         return this.node.isStarted();
+    }
+
+    peerId(): string {
+        return this.node.peerId.toString()
     }
 }

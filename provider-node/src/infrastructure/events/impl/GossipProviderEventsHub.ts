@@ -1,5 +1,4 @@
 import {ProviderEventsHub} from "../ProviderEventsHub.js";
-import {Metric} from "../../../domain/core/metric/Metric.js";
 import {MetricEvent} from "../../../domain/events/metric/MetricEvent.js";
 
 export class GossipProviderEventsHub implements ProviderEventsHub {
@@ -15,7 +14,6 @@ export class GossipProviderEventsHub implements ProviderEventsHub {
         this.node = node;
         this.node.services.pubsub.addEventListener('message', (evt: any): void => {
             if (evt.detail.data) {
-                console.log("Message received");
                 try {
                     const messageContent = evt.detail.data.toString();
                     const parsedData = JSON.parse(messageContent);
@@ -35,10 +33,8 @@ export class GossipProviderEventsHub implements ProviderEventsHub {
         })
     }
 
-    publishMetric(metric: Metric): void {
-        this.publish(this.METRICS_TOPIC!, metric).then((): void => {
-            console.log("Published metric");
-        }).catch((err: any): void => {
+    publishMetric(metricEvent: MetricEvent): void {
+        this.publish(this.METRICS_TOPIC!, metricEvent).catch((err: any): void => {
             console.error("Error publishing metric", err);
         })
     }

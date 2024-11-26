@@ -1,4 +1,3 @@
-import {Metric} from "../../domain/core/metric/Metric.js";
 import {MetricEvent} from "../../domain/events/metric/MetricEvent.js";
 import {Node} from "../../domain/core/node/Node.js";
 
@@ -7,7 +6,7 @@ export interface ProviderEventsHub {
     // subscribing to the necessary and mandatory topics or main events topics
     init(node: Node): Promise<void>
 
-    publishMetric(metric: Metric): void
+    publishMetric(metric: MetricEvent): void
 
     registerMetricsEvent(handler: (metricEvent: MetricEvent) => Promise<void>): void
 }
