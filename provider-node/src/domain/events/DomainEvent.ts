@@ -1,4 +1,4 @@
-import { DomainEventId } from './DomainEventId'
+import { DomainEventId } from './DomainEventId.js'
 
 export interface DomainEvent {
   readonly id: DomainEventId

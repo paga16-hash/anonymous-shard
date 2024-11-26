@@ -9,5 +9,5 @@ export interface ProviderEventsHub {
 
     publishMetric(metric: Metric): void
 
-    registerMetricsEvent(handler: (metricEvent: any) => Promise<void>): void
+    registerMetricsEvent(handler: (metricEvent: MetricEvent) => Promise<void>): void
 }

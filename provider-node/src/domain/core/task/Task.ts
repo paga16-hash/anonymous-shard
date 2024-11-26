@@ -1,5 +1,5 @@
-import {TaskDetails} from "./TaskDetails";
-import {TaskId} from "./TaskId";
+import {TaskDetails} from "./TaskDetails.js";
+import {TaskId} from "./TaskId.js";
 
 export interface Task {
     readonly id: TaskId

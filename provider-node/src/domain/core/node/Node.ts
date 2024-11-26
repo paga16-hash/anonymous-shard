@@ -11,7 +11,7 @@ export interface Node {
 
     isRunning(): Promise<boolean>;
 
-    registerMetricsHandler(handler: (metricEvent: any) => Promise<void>): void;
+    registerMetricsHandler(handler: (metricEvent: MetricEvent) => Promise<void>): void;
 
     propagateMetric(metric: Metric): Promise<void>;
 }

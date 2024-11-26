@@ -1,7 +1,6 @@
 import {ProviderEventsHub} from "../ProviderEventsHub.js";
 import {Metric} from "../../../domain/core/metric/Metric.js";
 import {MetricEvent} from "../../../domain/events/metric/MetricEvent.js";
-import {Node} from "../../../domain/core/node/Node.js";
 
 export class GossipProviderEventsHub implements ProviderEventsHub {
     private readonly METRICS_TOPIC = process.env.METRICS_TOPIC
@@ -12,16 +11,13 @@ export class GossipProviderEventsHub implements ProviderEventsHub {
         this.topicEventListeners = new Map<string, ((data: any) => void)>();
     }
 
-    async init(node: Node): Promise<void> {
+    async init(node: any): Promise<void> {
         this.node = node;
-
-        this.node.addEventListener('message', (evt: any): void => {
-            console.log("CI PASSO")
-            console.log(evt)
+        this.node.services.pubsub.addEventListener('message', (evt: any): void => {
             if (evt.detail.data) {
-                const messageContent = evt.detail.data.toString();
-                console.log("Raw message received:", messageContent);
+                console.log("Message received");
                 try {
+                    const messageContent = evt.detail.data.toString();
                     const parsedData = JSON.parse(messageContent);
                     this.onMessage(evt.detail.topic, parsedData);
                 } catch (e) {
@@ -31,7 +27,7 @@ export class GossipProviderEventsHub implements ProviderEventsHub {
         });
     }
 
-    registerMetricsEvent(handler: (metricEvent: any) => Promise<void>): void {
+    registerMetricsEvent(handler: (metricEvent: MetricEvent) => Promise<void>): void {
         this.subscribe(this.METRICS_TOPIC!, handler).then((): void => {
             console.log("Subscribed to metrics topic");
         }).catch((err: any): void => {

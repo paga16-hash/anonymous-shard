@@ -31,5 +31,5 @@ export const createNode = async (peerSeed: any, address: string, bootstrapNodes:
                 list: bootstrapNodes
             })
         ]
-    })
+    });
 }

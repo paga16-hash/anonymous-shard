@@ -15,24 +15,24 @@ export class NodeServiceImpl implements NodeService {
     constructor(nodeAddress: string, metricService: MetricService) {
         this.node = new NodeImpl(nodeAddress, boostrapAddresses());
         this.metricService = metricService;
-        this.init();
+        this.init().then((): void => {
+            console.log("Provider service node initialized");
+        })
     }
 
-    async init(): Promise<void> {
+    private async init(): Promise<void> {
         await this.node.init();
-        setTimeout(async (): Promise<void> => {
-            this.node.registerMetricsHandler(async (metricEvent: any): Promise<void> => {
-                console.log("Received metric event", metricEvent);
+        this.node.registerMetricsHandler(async (metricEvent: MetricEvent): Promise<void> => {
+            console.log("Received metric event", metricEvent);
+        })
+        setInterval(async (): Promise<void> => {
+            this.node.propagateMetric(await this.getCurrentMetrics())
+                .then((): void => {
+                    console.log("Metric propagated");
+                }).catch((e): void => {
+                console.error("Error propagating metric", e);
             })
-            setInterval(async (): Promise<void> => {
-                this.node.propagateMetric(await this.getCurrentMetrics())
-                    .then((): void => {
-                        console.log("Metric propagated");
-                    })
-            }, 20000);
-        }, 10000);
-
-
+        }, 20000);
     }
 
     async getCurrentMetrics(): Promise<Metric> {
