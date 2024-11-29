@@ -5,18 +5,22 @@ services:
     build:
       context: ./tor
       dockerfile: Dockerfile
+    ports:
+      - "9050:9050"
     volumes:
-      - tor1-data:/var/lib/tor/hidden_service
+      - tor1-data:/var/lib/tor.ts/hidden_service
     networks:
       - test-network
 
   node1:
     build:
-      context: ./libp2p
+      context: ./libp2p-test
       dockerfile: Dockerfile
     environment:
       - TOR_PROXY=socks5h://tor1:9050
-      - ONION_ADDRESS=i72bhp2qv7ibm5pce3kywxpody3bwjacbzn3w2ggmzckzmptc5rkogid.onion
+      - SOCKS_HOST=tor1
+      - SOCKS_PORT=9050
+      - ONION_ADDRESS=i72bhp2qv7ibm5pce3kywxpody3bwjacbzn3w2ggmzckzmptc5rkogid
     networks:
       - test-network
     depends_on:
@@ -26,18 +30,22 @@ services:
     build:
       context: ./tor
       dockerfile: Dockerfile
+    ports:
+      - "9051:9050"
     volumes:
-      - tor2-data:/var/lib/tor/hidden_service
+      - tor2-data:/var/lib/tor.ts/hidden_service
     networks:
       - test-network
 
   node2:
     build:
-      context: ./libp2p
+      context: ./libp2p-test
       dockerfile: Dockerfile
     environment:
       - TOR_PROXY=socks5h://tor2:9050
-      - ONION_ADDRESS=4pfz6moqvxj5ggvisjhv7ripfjldck5vyntzbrygpuekaog4wpyxypad.onion
+      - SOCKS_HOST=tor2
+      - SOCKS_PORT=9051
+      - ONION_ADDRESS=4pfz6moqvxj5ggvisjhv7ripfjldck5vyntzbrygpuekaog4wpyxypad
     networks:
       - test-network
     depends_on:

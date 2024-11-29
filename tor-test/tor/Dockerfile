@@ -7,4 +7,6 @@ RUN apt-get update && apt-get install -y tor && \
 # Add a custom torrc file
 COPY torrc /etc/tor/torrc
 
+EXPOSE 9050
+
 CMD ["tor", "-f", "/etc/tor/torrc"]
