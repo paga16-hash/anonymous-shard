@@ -2,19 +2,15 @@ import {config} from 'dotenv'
 import {Socks5Transport} from "./infrastructure/transport/socks5/Socks5Transport.js";
 import {TransportManager} from "./infrastructure/transport/TransportManager.js";
 import {Socks5TransportManager} from "./infrastructure/transport/socks5/Socks5TransportManager.js";
+import {bootstrapAddresses, mapBootstrapAddresses} from "./utils/BootstrapNode.js";
 
 config({path: process.cwd() + '/../.env'})
 
 //const nodeService: NodeService = new NodeServiceImpl("127.0.0.1", new MetricServiceImpl());
-//const bootstrapNodes = bootstrapAddresses().map((address:string) => [address, 3000])
-
 await (async () => {
     const transportManager: TransportManager = new Socks5TransportManager(
         new Socks5Transport({
-                onionMap: new Map([
-                    ["a7oxxul76cei44utvngfg2tnhqmedkjlwiiudbaqzer5z5w75gpgyeqd", 3000],
-                    ["eww4sjfxwj6vgucebupol2nk7yhbvhjzxo2v4t46f42gukn3btknzvid", 3000]
-                ])
+                onionMap: mapBootstrapAddresses(),
             },
             (message: string): void => {
                 console.log(message)
