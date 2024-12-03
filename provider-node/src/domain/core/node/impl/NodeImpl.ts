@@ -1,7 +1,7 @@
 import {config} from 'dotenv'
 import {generateKeyPairFromSeed} from '@libp2p/crypto/keys'
 import {Node} from "../Node.js";
-import {boostrapNodeSeedFromEnv} from "../../../../utils/BootstrapNode.js";
+import {bootstrapNodeSeedFromEnv} from "../../../../utils/BootstrapNode.js";
 import {ProviderEventsHub} from "../../../../infrastructure/events/ProviderEventsHub.js";
 import {GossipProviderEventsHub} from "../../../../infrastructure/events/impl/GossipProviderEventsHub.js";
 import {Metric} from "../../metric/Metric.js";
@@ -26,7 +26,7 @@ export class NodeImpl implements Node {
     async init(): Promise<void> {
         let peerSeed;
         if (process.env.BOOTSTRAP_NODE) {
-            peerSeed = boostrapNodeSeedFromEnv(parseInt(process.env.BOOTSTRAP_NODE!))
+            peerSeed = bootstrapNodeSeedFromEnv(parseInt(process.env.BOOTSTRAP_NODE!))
             peerSeed = await generateKeyPairFromSeed('Ed25519', Buffer.from(peerSeed!, 'utf8'))
         }
         this.node = await createNode(peerSeed, this.address, this.bootstrapNodes)

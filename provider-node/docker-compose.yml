@@ -1,11 +1,58 @@
-services:
+#services:
 
-  anonymous-shard-provider-node:
-    image: pagahubbing/anonymous-shard-provider-node:latest
-    container_name: ${PROVIDER_NODE_CONTAINER_NAME}
+  #  anonymous-shard-provider-node:
+  #   image: pagahubbing/anonymous-shard-provider-node:latest
+  #   container_name: ${PROVIDER_NODE_CONTAINER_NAME}
+  #   build:
+  #     context: .
+  #     dockerfile: ./provider-node/Dockerfile
+  #   restart: on-failure
+  #   ports:
+#     - ${TOR_PORT}:${TOR_PORT}
+
+
+services:
+  node1-with-tor:
+    #image: pagahubbing/anonymous-shard-provider-node:latest
     build:
       context: .
-      dockerfile: ./provider-node/Dockerfile
-    restart: on-failure
+      dockerfile: Dockerfile
+    environment:
+      - TOR_PROXY=socks5h://localhost:9050
+      - SOCKS_HOST=127.0.0.1
+      - SOCKS_PORT=9050
+      - ONION_ADDRESS=eww4sjfxwj6vgucebupol2nk7yhbvhjzxo2v4t46f42gukn3btknzvid
     ports:
-      - ${TOR_PORT}:${TOR_PORT}
+      - "3000:3000"
+      - "9050:9050"
+    volumes:
+      - tor1-data:/var/lib/tor/hidden_service
+    networks:
+      - test-network
+
+  node2-with-tor:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - TOR_PROXY=socks5h://localhost:9050
+      - SOCKS_HOST=127.0.0.1
+      - SOCKS_PORT=9050
+      - ONION_ADDRESS=a7oxxul76cei44utvngfg2tnhqmedkjlwiiudbaqzer5z5w75gpgyeqd
+    ports:
+      - "3001:3000"
+      - "9051:9050"
+    volumes:
+      - tor2-data:/var/lib/tor/hidden_service
+    networks:
+      - test-network
+
+volumes:
+  tor1-data:
+    name: tor1-data # Persistent volume for node1
+  tor2-data:
+    name: tor2-data # Persistent volume for node2
+
+networks:
+  test-network:
+    driver: bridge

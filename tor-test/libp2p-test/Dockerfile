@@ -20,7 +20,7 @@ RUN npm install
 COPY . .
 
 # Compile TypeScript code
-RUN npm run build
+#RUN npm run build
 
 # Install Tor on top of the Node.js image
 FROM app-base AS final

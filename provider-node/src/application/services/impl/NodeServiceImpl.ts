@@ -3,7 +3,7 @@ import {MetricService} from "../MetricService.js";
 import {Metric} from "../../../domain/core/metric/Metric.js";
 import {Node} from "../../../domain/core/node/Node.js";
 import {NodeImpl} from "../../../domain/core/node/impl/NodeImpl.js";
-import {boostrapAddresses} from "../../../utils/BootstrapNode.js";
+import {bootstrapAddresses} from "../../../utils/BootstrapNode.js";
 import {MetricEvent} from "../../../domain/events/metric/MetricEvent.js";
 import {MetricEventFactory} from "../../../domain/factories/events/MetricEventFactory.js";
 import {MetricAvailableEvent} from "../../../domain/events/metric/MetricAvailableEvent.js";
@@ -15,7 +15,7 @@ export class NodeServiceImpl implements NodeService {
     //private readonly fileService: FileService;
 
     constructor(nodeAddress: string, metricService: MetricService) {
-        this.node = new NodeImpl(nodeAddress, boostrapAddresses());
+        this.node = new NodeImpl(nodeAddress, bootstrapAddresses());
         this.metricService = metricService;
         this.init().then((): void => {
             console.log("Provider service node initialized");
