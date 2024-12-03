@@ -24,7 +24,7 @@ export class Socks5Transport implements Transport {
      * Get the onion addresses.
      * @returns the onion addresses
      */
-    getOnionAddresses(): string[] {
+    getAddresses(): string[] {
         return Array.from(this.config.onionMap.keys());
     }
 
@@ -33,7 +33,7 @@ export class Socks5Transport implements Transport {
      * @param onion the onion address
      * @param port the port to map to
      */
-    addOnionMapping(onion: string, port: number): void {
+    addAddressMapping(onion: string, port: number): void {
         this.config.onionMap.set(onion, port);
     }
 
@@ -41,7 +41,7 @@ export class Socks5Transport implements Transport {
      * Remove a mapping from an onion address.
      * @param onion the onion address
      */
-    removeOnionMapping(onion: string): void {
+    removeAddressMapping(onion: string): void {
         this.config.onionMap.delete(onion);
     }
 

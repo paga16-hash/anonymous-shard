@@ -25,10 +25,27 @@ export class Socks5TransportManager implements TransportManager {
      * @param message the message to send
      */
     async sendToBroadcast(message: string): Promise<void> {
-        for (const address of this.transport.getOnionAddresses()) {
+        for (const address of this.transport.getAddresses()) {
             await this.sendToPeer(address, message);
         }
     }
+
+    async sendToRandomPeers(message: string, gossipFactor: number): Promise<void> {
+        const addresses = this.transport.getAddresses();
+        if (!addresses.length) {
+            console.warn("No addresses available to send messages to.");
+            return;
+        }
+        const uniqueRandomAddresses: Set<string> = new Set<string>();
+        while (uniqueRandomAddresses.size < gossipFactor && uniqueRandomAddresses.size < addresses.length) {
+            const randomIndex: number = Math.floor(Math.random() * addresses.length);
+            uniqueRandomAddresses.add(addresses[randomIndex]);
+        }
+        await Promise.all(
+            Array.from(uniqueRandomAddresses).map((address: string) => this.sendToPeer(address, message))
+        );
+    }
+
 
     /**
      * Listen on the given address.
