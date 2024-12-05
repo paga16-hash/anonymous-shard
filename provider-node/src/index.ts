@@ -2,23 +2,25 @@ import {config} from 'dotenv'
 import {Socks5Transport} from "./infrastructure/transport/socks5/Socks5Transport.js";
 import {TransportManager} from "./infrastructure/transport/TransportManager.js";
 import {Socks5TransportManager} from "./infrastructure/transport/socks5/Socks5TransportManager.js";
-import {bootstrapAddresses, mapBootstrapAddresses} from "./utils/BootstrapNode.js";
+import {mapBootstrapAddresses} from "./utils/BootstrapNode.js";
 
 config({path: process.cwd() + '/../.env'})
 
+console.log(mapBootstrapAddresses())
+
 //const nodeService: NodeService = new NodeServiceImpl("127.0.0.1", new MetricServiceImpl());
-await (async () => {
+await (async (): Promise<void> => {
     const transportManager: TransportManager = new Socks5TransportManager(
         new Socks5Transport({
                 onionMap: mapBootstrapAddresses(),
             },
             (message: string): void => {
-                console.log(message)
+                console.log("Handler onMessage: " + message)
             })
     );
 
     // for testing the other node address
-    let addressToContact = process.env.ONION_ADDRESS!;
+    let addressToContact: string = process.env.ONION_ADDRESS!;
     try {
         await transportManager.listen(addressToContact);
     } catch (err) {

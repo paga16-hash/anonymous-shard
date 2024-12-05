@@ -1,27 +1,15 @@
-#services:
-
-  #  anonymous-shard-provider-node:
-  #   image: pagahubbing/anonymous-shard-provider-node:latest
-  #   container_name: ${PROVIDER_NODE_CONTAINER_NAME}
-  #   build:
-  #     context: .
-  #     dockerfile: ./provider-node/Dockerfile
-  #   restart: on-failure
-  #   ports:
-#     - ${TOR_PORT}:${TOR_PORT}
-
-
 services:
-  node1-with-tor:
+  node-1:
     #image: pagahubbing/anonymous-shard-provider-node:latest
     build:
       context: .
       dockerfile: Dockerfile
     environment:
-      - TOR_PROXY=socks5h://localhost:9050
-      - SOCKS_HOST=127.0.0.1
-      - SOCKS_PORT=9050
-      - ONION_ADDRESS=eww4sjfxwj6vgucebupol2nk7yhbvhjzxo2v4t46f42gukn3btknzvid
+      - BOOTSTRAP_NODE_ADDRESS_1=a7oxxul76cei44utvngfg2tnhqmedkjlwiiudbaqzer5z5w75gpgyeqd
+      - BOOTSTRAP_NODE_PORT_1=3000
+      - BOOTSTRAP_NODE_ADDRESS_2=eww4sjfxwj6vgucebupol2nk7yhbvhjzxo2v4t46f42gukn3btknzvid
+      - BOOTSTRAP_NODE_PORT_2=3000
+      # and so on and so forth for multiple bootstrap nodes
     ports:
       - "3000:3000"
       - "9050:9050"
@@ -30,15 +18,17 @@ services:
     networks:
       - test-network
 
-  node2-with-tor:
+  node-2:
+    #image: pagahubbing/anonymous-shard-provider-node:latest
     build:
       context: .
       dockerfile: Dockerfile
     environment:
-      - TOR_PROXY=socks5h://localhost:9050
-      - SOCKS_HOST=127.0.0.1
-      - SOCKS_PORT=9050
-      - ONION_ADDRESS=a7oxxul76cei44utvngfg2tnhqmedkjlwiiudbaqzer5z5w75gpgyeqd
+      - BOOTSTRAP_NODE_ADDRESS_1=a7oxxul76cei44utvngfg2tnhqmedkjlwiiudbaqzer5z5w75gpgyeqd
+      - BOOTSTRAP_NODE_PORT_1=3000
+      - BOOTSTRAP_NODE_ADDRESS_2=eww4sjfxwj6vgucebupol2nk7yhbvhjzxo2v4t46f42gukn3btknzvid
+      - BOOTSTRAP_NODE_PORT_2=3000
+      # and so on and so forth for multiple bootstrap nodes
     ports:
       - "3001:3000"
       - "9051:9050"
@@ -49,9 +39,9 @@ services:
 
 volumes:
   tor1-data:
-    name: tor1-data # Persistent volume for node1
+    name: tor1-data # Persistent volume for node1, so that in case of tor the onion address remains the same
   tor2-data:
-    name: tor2-data # Persistent volume for node2
+    name: tor2-data # Persistent volume for node2, so that in case of tor the onion address remains the same
 
 networks:
   test-network:

@@ -12,6 +12,6 @@ done
 echo "Tor is running. Hidden Service Address:"
 cat /var/lib/tor/hidden_service/hostname
 
-sleep 20
+sleep 120
 # Start the Node.js application
 npm run dev
