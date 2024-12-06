@@ -2,22 +2,27 @@ import {createServer, Server, Socket} from "net";
 import {Socks5Config} from "./Socks5Config.js";
 import {SocksClient} from "socks";
 import {Transport} from "../Transport.js";
+import {DomainEvent} from "../../../domain/events/DomainEvent.js";
+
 
 export class Socks5Transport implements Transport {
     private readonly config: Socks5Config;
     private readonly DEFAULT_SOCKS_HOST: string = '127.0.0.1';
     private readonly DEFAULT_SOCKS_PORT: number = 9050;
-    private readonly handler: (message: string) => void;
+    private readonly handler: (message: DomainEvent) => void;
 
-    constructor(config: Partial<Socks5Config> = {}, onMessage: (message: string) => void) {
+    constructor(config: Partial<Socks5Config> = {}, onMessage: (message: DomainEvent) => void) {
         this.config = {
-            sleepOnError: 100,
+            sleepOnError: 5000,
             socksHost: this.DEFAULT_SOCKS_HOST,
             socksPort: this.DEFAULT_SOCKS_PORT,
-            onionMap: new Map(),
+            addressMap: new Map(),
             ...config,
         };
         this.handler = onMessage;
+        this.getAddresses().forEach((address: string): void => {
+            this.listen(address).catch(console.error);
+        });
     }
 
     /**
@@ -25,16 +30,17 @@ export class Socks5Transport implements Transport {
      * @returns the onion addresses
      */
     getAddresses(): string[] {
-        return Array.from(this.config.onionMap.keys());
+        return Array.from(this.config.addressMap.keys());
     }
 
     /**
      * Add a mapping from an onion address to a port.
-     * @param onion the onion address
+     * @param address the onion address
      * @param port the port to map to
      */
-    addAddressMapping(onion: string, port: number): void {
-        this.config.onionMap.set(onion, port);
+    addAddressMapping(address: string, port: number): void {
+        this.config.addressMap.set(address, port);
+        this.listen(address);
     }
 
     /**
@@ -42,7 +48,7 @@ export class Socks5Transport implements Transport {
      * @param onion the onion address
      */
     removeAddressMapping(onion: string): void {
-        this.config.onionMap.delete(onion);
+        this.config.addressMap.delete(onion);
     }
 
     /**
@@ -52,7 +58,7 @@ export class Socks5Transport implements Transport {
      */
     async listen(address: string): Promise<void> {
         console.log("Trying to listen: ", address)
-        const port = this.config.onionMap.get(address);
+        const port = this.config.addressMap.get(address);
         if (!port) {
             throw new Error(`Address ${address} not mapped to a port.`);
         }
@@ -64,12 +70,14 @@ export class Socks5Transport implements Transport {
             });
 
             socket.on('data', (data: Buffer): void => {
-                console.log('Received:', data.toString(), 'from', socket.remoteAddress);
-                this.handler(data.toString());
+                //parse the data and cast to a domain event depending on the topic
+                console.log('Received:', JSON.parse(data.toString()), 'from', socket.remoteAddress);
+                this.handler(JSON.parse(data.toString()) as unknown as DomainEvent);
+                //this.handler(presentationLayer.parseEvent(data));
             });
 
             socket.on('end', (): void => {
-                console.log('Connection ended.');
+                console.log('Connection ended with ', socket.remoteAddress);
             });
         });
 
@@ -79,24 +87,44 @@ export class Socks5Transport implements Transport {
     }
 
     /**
-     * Dial the given address.
-     * @param address the address to dial
+     * Dial the given address with retries.
+     * @param address The address to dial.
+     * @param maxRetries Maximum number of retry attempts.
      */
-    async dial(address: string): Promise<Socket> {
-        console.log("Trying to dial:", address, "via SOCKS5 proxy...")
-        const socket: Socket  = (await SocksClient.createConnection({
-            proxy: {
-                host: this.config.socksHost,
-                port: this.config.socksPort,
-                type: 5,
-            },
-            command: 'connect',
-            destination: {
-                host: address + '.onion',
-                port: this.config.onionMap.get(address) || 80,
-            },
-        })).socket;
-        console.log('Connected to target via SOCKS5 proxy.');
-        return socket;
+    // @ts-ignore TODO fix this
+    async dial(address: string, maxRetries: number = 5): Promise<Socket> {
+        let attempt: number = 0;
+
+        while (attempt < maxRetries) {
+            attempt++;
+            console.log(`Attempt ${attempt}: Trying to dial ${address} via SOCKS5 proxy...`);
+
+            try {
+                const socket: Socket = (await SocksClient.createConnection({
+                    proxy: {
+                        host: this.config.socksHost,
+                        port: this.config.socksPort,
+                        type: 5,
+                    },
+                    command: 'connect',
+                    destination: {
+                        host: `${address}.onion`,
+                        port: this.config.addressMap.get(address) || 80,
+                    },
+                })).socket;
+
+                console.log('Connected to target via SOCKS5 proxy.');
+                return socket;
+            } catch (err) {
+                console.error(`Attempt ${attempt} failed`);//: , err
+                if (attempt < maxRetries) {
+                    console.log(`Retrying in ${this.config.sleepOnError / 1000} seconds...`);
+                    await new Promise((resolve): NodeJS.Timeout => setTimeout(resolve, this.config.sleepOnError));
+                } else {
+                    console.error('Max retries reached. Unable to connect.');
+                }
+            }
+        }
     }
+
 }

@@ -1,80 +1,56 @@
 import {config} from 'dotenv'
-import {generateKeyPairFromSeed} from '@libp2p/crypto/keys'
 import {Node} from "../Node.js";
-import {bootstrapNodeSeedFromEnv} from "../../../../utils/BootstrapNode.js";
-import {ProviderEventsHub} from "../../../../infrastructure/events/ProviderEventsHub.js";
-import {GossipProviderEventsHub} from "../../../../infrastructure/events/impl/GossipProviderEventsHub.js";
-import {Metric} from "../../metric/Metric.js";
-import {createNode} from "./LibP2PImpl.js";
+import {EventsHub} from "../../../../infrastructure/events/EventsHub.js";
+import {ProviderEventsHub} from "../../../../infrastructure/events/impl/ProviderEventsHub.js";
 import {MetricEvent} from "../../../events/metric/MetricEvent.js";
-import {Libp2p} from "libp2p/libp2p";
+import {TransportManager} from "../../../../infrastructure/transport/TransportManager.js";
+import {Socks5TransportManager} from "../../../../infrastructure/transport/socks5/Socks5TransportManager.js";
+import {Socks5Transport} from "../../../../infrastructure/transport/socks5/Socks5Transport.js";
 
 config({path: process.cwd() + '/../.env'})
 
 export class NodeImpl implements Node {
-    private node: any;
-    private providerEventsHub: ProviderEventsHub;
+    private readonly bootstrapNodes: Map<string, number>;
     private readonly address: string;
-    private readonly bootstrapNodes: string[];
+    private readonly port: number;
+    private providerEventsHub: EventsHub;
+    private readonly transportManager: TransportManager;
 
-    constructor(address: string, bootstrapNodes: string[]) {
-        this.providerEventsHub = new GossipProviderEventsHub();
-        this.address = address;
+    constructor(address: string, port: number, bootstrapNodes: Map<string, number>) {
         this.bootstrapNodes = bootstrapNodes;
-    }
-
-    async init(): Promise<void> {
-        let peerSeed;
-        if (process.env.BOOTSTRAP_NODE) {
-            peerSeed = bootstrapNodeSeedFromEnv(parseInt(process.env.BOOTSTRAP_NODE!))
-            peerSeed = await generateKeyPairFromSeed('Ed25519', Buffer.from(peerSeed!, 'utf8'))
-        }
-        this.node = await createNode(peerSeed, this.address, this.bootstrapNodes)
-        await this.start()
-    }
-
-    async start(): Promise<void> {
-        await this.node.start();
-
-        console.log('Node started with multi-addresses:', this.node.getMultiaddrs().map((addr: any) => addr.toString()));
-        this.node.addEventListener('peer:discovery', (event: any): void => {
-            console.log(`Discovered peer: ${event.detail.id.toString()} at ${event.timeStamp}`);
-        });
-
-        this.node.addEventListener('peer:disconnect', (event: any): void => {
-            console.log(`Disconnected peer at ${event.timeStamp}`);
-            // Implement reconnection or attempt DHT discovery here if needed
-            //connectionFault();
-        });
-
-        await this.providerEventsHub.init(this.node);
-    }
-
-    async stop(): Promise<void> {
-        await this.node.stop();
+        this.providerEventsHub = new ProviderEventsHub();
+        this.address = address;
+        this.port = port
+        this.transportManager = new Socks5TransportManager(
+            new Socks5Transport({
+                    addressMap: this.bootstrapNodes,
+                },
+                this.providerEventsHub.routeEvent)
+        );
+        this.providerEventsHub.useTransport(this.transportManager)
     }
 
     async propagateMetric(metricEvent: MetricEvent): Promise<void> {
         try {
-            this.providerEventsHub.publishMetric(metricEvent);
+            this.providerEventsHub.publishMetricEvent(metricEvent);
         } catch (e) {
             console.error("Error publishing metrics", e);
         }
     }
 
-    async registerMetricsHandler(handler: (metric: MetricEvent) => Promise<void>): Promise<void> {
+    async registerMetricEventsHandler(handler: (metric: MetricEvent) => Promise<void>): Promise<void> {
         try {
-            this.providerEventsHub.registerMetricsEvent(handler);
+            this.providerEventsHub.registerMetricEventsHandler(handler);
         } catch (e) {
             console.error("Error registering handler for provider-metrics topic", e);
         }
     }
 
-    async isRunning(): Promise<boolean> {
-        return this.node.isStarted();
-    }
-
+    /**
+     * Return the peer id of the node
+     * @return the peer id of the node composed by address:port
+     */
     peerId(): string {
-        return this.node.peerId.toString()
+        return this.address + ":" + this.port;
     }
 }

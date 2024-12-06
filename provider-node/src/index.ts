@@ -1,15 +1,15 @@
 import {config} from 'dotenv'
-import {Socks5Transport} from "./infrastructure/transport/socks5/Socks5Transport.js";
-import {TransportManager} from "./infrastructure/transport/TransportManager.js";
-import {Socks5TransportManager} from "./infrastructure/transport/socks5/Socks5TransportManager.js";
 import {mapBootstrapAddresses} from "./utils/BootstrapNode.js";
+import {NodeService} from "./application/services/NodeService.js";
+import {NodeServiceImpl} from "./application/services/impl/NodeServiceImpl.js";
+import {MetricServiceImpl} from "./application/services/impl/MetricServiceImpl.js";
 
 config({path: process.cwd() + '/../.env'})
 
 console.log(mapBootstrapAddresses())
 
-//const nodeService: NodeService = new NodeServiceImpl("127.0.0.1", new MetricServiceImpl());
-await (async (): Promise<void> => {
+const nodeService: NodeService = new NodeServiceImpl(new MetricServiceImpl());
+/*await (async (): Promise<void> => {
     const transportManager: TransportManager = new Socks5TransportManager(
         new Socks5Transport({
                 onionMap: mapBootstrapAddresses(),
@@ -34,4 +34,4 @@ await (async (): Promise<void> => {
     } catch (err) {
         console.error('Failed to contact peer:', addressToContact, " with error:", err);
     }
-})();
+})();*/

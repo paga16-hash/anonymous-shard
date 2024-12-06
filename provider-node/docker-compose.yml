@@ -5,6 +5,8 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
+      - HOST=a7oxxul76cei44utvngfg2tnhqmedkjlwiiudbaqzer5z5w75gpgyeqd
+      - PORT=3000
       - BOOTSTRAP_NODE_ADDRESS_1=a7oxxul76cei44utvngfg2tnhqmedkjlwiiudbaqzer5z5w75gpgyeqd
       - BOOTSTRAP_NODE_PORT_1=3000
       - BOOTSTRAP_NODE_ADDRESS_2=eww4sjfxwj6vgucebupol2nk7yhbvhjzxo2v4t46f42gukn3btknzvid
@@ -24,6 +26,8 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
+      - HOST=eww4sjfxwj6vgucebupol2nk7yhbvhjzxo2v4t46f42gukn3btknzvid
+      - PORT=3000
       - BOOTSTRAP_NODE_ADDRESS_1=a7oxxul76cei44utvngfg2tnhqmedkjlwiiudbaqzer5z5w75gpgyeqd
       - BOOTSTRAP_NODE_PORT_1=3000
       - BOOTSTRAP_NODE_ADDRESS_2=eww4sjfxwj6vgucebupol2nk7yhbvhjzxo2v4t46f42gukn3btknzvid

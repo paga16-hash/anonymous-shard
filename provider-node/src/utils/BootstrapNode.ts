@@ -19,5 +19,9 @@ export const mapBootstrapAddresses = (): Map<string, number> => {
                 bootstrapMap.set(address, port);
             }
         });
+    bootstrapMap.delete(
+        // Remove the current node from the bootstrap map
+        process.env.HOST!
+    )
     return bootstrapMap;
 };
