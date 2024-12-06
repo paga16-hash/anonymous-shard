@@ -25,10 +25,11 @@ export class ProviderEventsHub implements EventsHub {
      * @param event the event to route
      */
     async routeEvent(event: DomainEvent): Promise<void> {
-        console.log("Handler routeEvent: " + event.toString())
-        const listener = this.topicEventListeners.get(event.topic);
+        console.log("Handler routeEvent: " + event)
+        //TODO introduce presentation layer to handle the event safely
+        const listener = this.topicEventListeners.get(JSON.parse(event.toString()).topic);
         if (listener) {
-            listener(event);
+            listener(JSON.parse(event.toString()));
         } else {
             console.error("No registered handler for topic: " + event.topic);
         }

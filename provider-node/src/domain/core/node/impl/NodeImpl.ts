@@ -13,7 +13,7 @@ export class NodeImpl implements Node {
     private readonly bootstrapNodes: Map<string, number>;
     private readonly address: string;
     private readonly port: number;
-    private providerEventsHub: EventsHub;
+    private readonly providerEventsHub: EventsHub;
     private readonly transportManager: TransportManager;
 
     constructor(address: string, port: number, bootstrapNodes: Map<string, number>) {
@@ -25,7 +25,7 @@ export class NodeImpl implements Node {
             new Socks5Transport({
                     addressMap: this.bootstrapNodes,
                 },
-                this.providerEventsHub.routeEvent)
+                this.providerEventsHub.routeEvent.bind(this.providerEventsHub))
         );
         this.providerEventsHub.useTransport(this.transportManager)
     }
