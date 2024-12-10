@@ -13,7 +13,7 @@ export class FileServiceImpl implements FileService {
         return this.fileRepository.getById(id)
     }
 
-    async save(file: File): Promise<void> {
+    async upload(file: File): Promise<void> {
         return this.fileRepository.save(file)
     }
 

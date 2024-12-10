@@ -1,9 +1,9 @@
 import {FileId} from "../../domain/core/file/FileId.js";
 
 export interface FileService {
-    getById(id: FileId): Promise<File>
+    getById(cid: FileId): Promise<File>
 
-    save(file: File): void
+    upload(file: File): void
 
     delete(id: FileId): void
 }
