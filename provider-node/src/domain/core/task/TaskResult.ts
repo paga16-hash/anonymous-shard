@@ -1,4 +1,6 @@
+import {TaskId} from "./TaskId.js";
+
 export interface TaskResult {
-    readonly taskId: string
-    readonly result: string
+    readonly taskId: TaskId
+    readonly result: any
 }

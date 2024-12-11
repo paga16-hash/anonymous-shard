@@ -1,3 +1,3 @@
 export interface TaskDetails {
-    readonly details: string
+    readonly details: any
 }
