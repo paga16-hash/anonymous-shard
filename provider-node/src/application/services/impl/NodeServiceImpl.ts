@@ -7,16 +7,17 @@ import {mapBootstrapAddresses} from "../../../utils/BootstrapNode.js";
 import {MetricEvent} from "../../../domain/events/metric/MetricEvent.js";
 import {MetricEventFactory} from "../../../domain/factories/events/MetricEventFactory.js";
 import {MetricAvailableEvent} from "../../../domain/events/metric/MetricAvailableEvent.js";
+import {TaskService} from "../TaskService.js";
 
 export class NodeServiceImpl implements NodeService {
     private readonly node: Node;
     private readonly metricService: MetricService;
-    //private readonly taskService: TaskService
-    //private readonly fileService: FileService;
+    private readonly taskService: TaskService
 
-    constructor(metricService: MetricService) {
+    constructor(metricService: MetricService, taskService: TaskService) {
         this.node = new NodeImpl(process.env.HOST!, parseInt(process.env.PORT!), mapBootstrapAddresses());
         this.metricService = metricService;
+        this.taskService = taskService;
         this.init().then((): void => {
             console.log("Provider service node initialized");
         })

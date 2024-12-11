@@ -1,21 +1,30 @@
 import {config} from 'dotenv'
+import {mapBootstrapAddresses} from "./utils/BootstrapNode.js";
+import {NodeService} from "./application/services/NodeService.js";
+import {NodeServiceImpl} from "./application/services/impl/NodeServiceImpl.js";
+import {MetricServiceImpl} from "./application/services/impl/MetricServiceImpl.js";
+import {TaskServiceImpl} from "./application/services/impl/TaskServiceImpl";
+import {IPFSTaskRepository} from "./infrastructure/storage/IPFSTaskRepository";
+import {RSAEncryptor} from "./infrastructure/encryption/impl/RSAEncryptor";
+
+config({path: process.cwd() + '/../.env'});
+
+console.log(mapBootstrapAddresses())
+const nodeService: NodeService = new NodeServiceImpl(new MetricServiceImpl(), new TaskServiceImpl(new IPFSTaskRepository(new RSAEncryptor())));
+
+/*
+import {config} from 'dotenv'
 import {SumTaskFactory} from "./domain/factories/task/SumTaskFactory.js";
 import {ClientIdFactory} from "./domain/factories/task/ClientIdFactory.js";
 import {TaskIdFactory} from "./domain/factories/task/TaskIdFactory.js";
 import {TaskType} from "./domain/core/task/enum/TaskType.js";
 import {SumTaskExecutor} from "./application/executors/impl/SumTaskExecutor.js";
 import {IPFSTaskRepository} from "./infrastructure/storage/IPFSTaskRepository.js";
-/*import {mapBootstrapAddresses} from "./utils/BootstrapNode.js";
-import {NodeService} from "./application/services/NodeService.js";
-import {NodeServiceImpl} from "./application/services/impl/NodeServiceImpl.js";
-import {MetricServiceImpl} from "./application/services/impl/MetricServiceImpl.js";
-
-console.log(mapBootstrapAddresses())
-const nodeService: NodeService = new NodeServiceImpl(new MetricServiceImpl());*/
-config({path: process.cwd() + '/../.env'});
 import * as crypto from 'crypto';
 import {Encryptor} from "./infrastructure/encryption/Encryptor.js";
 import {RSAEncryptor} from "./infrastructure/encryption/impl/RSAEncryptor.js";
+
+config({path: process.cwd() + '/../.env'});
 
 function generateRSAKeyPair() {
     const { publicKey, privateKey } = crypto.generateKeyPairSync('rsa', {
@@ -54,8 +63,8 @@ console.log(privateKey);
     console.log("Task Result:");
     console.log(taskResult)
 
-    const eccEncryptor: Encryptor = new RSAEncryptor();
-    const taskRepository: IPFSTaskRepository = new IPFSTaskRepository(eccEncryptor);
+    const encryptor: Encryptor = new RSAEncryptor();
+    const taskRepository: IPFSTaskRepository = new IPFSTaskRepository(encryptor);
     const cid = await taskRepository.upload(publicKey, taskResult);
     console.log('CID:', cid);
 
@@ -63,4 +72,4 @@ console.log(privateKey);
     const retrievedTaskResult = await taskRepository.retrieve(privateKey, cid);
 
     console.log('Retrieved Task Result:', retrievedTaskResult);
-})();
+})();*/

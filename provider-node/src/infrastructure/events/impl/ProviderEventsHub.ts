@@ -3,6 +3,7 @@ import {MetricEvent} from "../../../domain/events/metric/MetricEvent.js";
 import {DomainEvent} from "../../../domain/events/DomainEvent.js";
 import {TransportManager} from "../../transport/TransportManager.js";
 import {Topic} from "../../../utils/Topic.js";
+import {TaskEvent} from "../../../domain/events/task/TaskEvent";
 
 export class ProviderEventsHub implements EventsHub {
     private transportManager: TransportManager | undefined
@@ -53,7 +54,29 @@ export class ProviderEventsHub implements EventsHub {
      */
     publishMetricEvent(metricEvent: MetricEvent): void {
         this.publish(metricEvent).catch((err: any): void => {
-            console.error("Error publishing metric", err);
+            console.error("Error publishing metric event", err);
+        })
+    }
+
+    /**
+     * Register a handler for the task topic
+     * @param handler the handler to register
+     */
+    registerTaskEventsHandler(handler: (metricEvent: TaskEvent) => Promise<void>): void {
+        this.subscribe(Topic.TASK, handler).then((): void => {
+            console.log("Registered handler for topic: " + Topic.TASK);
+        }).catch((err: any):void => {
+            console.error("Error registering handler for topic: " + Topic.TASK, err);
+        })
+    }
+
+    /**
+     * Publish a task event
+     * @param taskEvent the task event to publish
+     */
+    publishTaskEvent(taskEvent: TaskEvent): void {
+        this.publish(taskEvent).catch((err: any): void => {
+            console.error("Error publishing task event", err);
         })
     }
 

@@ -4,15 +4,23 @@ import {Task} from "../../../domain/core/task/Task.js";
 import {TaskRepository} from "../../repositories/TaskRepository.js";
 import {TaskExecutor} from "../../executors/TaskExecutor.js";
 import {TaskType} from "../../../domain/core/task/enum/TaskType.js";
-import {TaskId} from "../../../domain/core/task/TaskId";
+import {TaskId} from "../../../domain/core/task/TaskId.js";
 
 export class TaskServiceImpl implements TaskService {
     private readonly taskRepository: TaskRepository
     private readonly taskExecutors: Map<TaskType, TaskExecutor>;
 
-    constructor(taskExecutors: Map<TaskType, TaskExecutor> = new Map(), taskRepository: TaskRepository) {
+    constructor(taskRepository: TaskRepository, taskExecutors: Map<TaskType, TaskExecutor> = new Map()) {
         this.taskExecutors = taskExecutors
         this.taskRepository = taskRepository
+    }
+
+    async addTaskExecutor(taskType: TaskType, taskExecutor: TaskExecutor): Promise<void> {
+        this.taskExecutors.set(taskType, taskExecutor)
+    }
+
+    async removeTaskExecutor(taskType: TaskType): Promise<void> {
+        this.taskExecutors.delete(taskType)
     }
 
     async execute(task: Task): Promise<TaskResult> {
