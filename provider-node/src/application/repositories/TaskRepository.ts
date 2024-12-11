@@ -4,7 +4,7 @@ import {TaskResult} from "../../domain/core/task/TaskResult.js";
 export interface TaskRepository {
     upload(taskResult: TaskResult): void
 
-    retrieve(cid: TaskId): TaskResult
+    retrieve(cid: string): Promise<TaskResult>
 
-    delete(fileId: TaskId): void
+    //delete(fileId: TaskId): void
 }
