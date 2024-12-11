@@ -1,4 +1,10 @@
 import {config} from 'dotenv'
+import {SumTaskFactory} from "./domain/factories/task/SumTaskFactory.js";
+import {ClientIdFactory} from "./domain/factories/task/ClientIdFactory.js";
+import {TaskIdFactory} from "./domain/factories/task/TaskIdFactory.js";
+import {TaskType} from "./domain/core/task/enum/TaskType.js";
+import {SumTaskExecutor} from "./application/executors/impl/SumTaskExecutor.js";
+import {IPFSTaskRepository} from "./infrastructure/storage/IPFSTaskRepository.js";
 /*import {mapBootstrapAddresses} from "./utils/BootstrapNode.js";
 import {NodeService} from "./application/services/NodeService.js";
 import {NodeServiceImpl} from "./application/services/impl/NodeServiceImpl.js";
@@ -6,56 +12,55 @@ import {MetricServiceImpl} from "./application/services/impl/MetricServiceImpl.j
 
 console.log(mapBootstrapAddresses())
 const nodeService: NodeService = new NodeServiceImpl(new MetricServiceImpl());*/
-config({path: process.cwd() + '/../.env'})
-import axios from 'axios';
+config({path: process.cwd() + '/../.env'});
+import * as crypto from 'crypto';
+import {Encryptor} from "./infrastructure/encryption/Encryptor.js";
+import {RSAEncryptor} from "./infrastructure/encryption/impl/RSAEncryptor.js";
 
-const apiKey = process.env.PINATA_API_KEY
-const apiSecret = process.env.PINATA_API_SECRET
-
-// Function to upload JSON data to Pinata
-async function uploadJSONToPinata(jsonData: any) {
-    const url = 'https://api.pinata.cloud/pinning/pinJSONToIPFS';
-
-    console.log('Uploading JSON to Pinata...');
-    const response = await axios.post(url, jsonData, {
-        headers: {
-            'Content-Type': 'application/json',
-            pinata_api_key: apiKey,
-            pinata_secret_api_key: apiSecret,
+function generateRSAKeyPair() {
+    const { publicKey, privateKey } = crypto.generateKeyPairSync('rsa', {
+        modulusLength: 2048, // Key size for strong encryption
+        publicKeyEncoding: {
+            type: 'spki',
+            format: 'pem',
+        },
+        privateKeyEncoding: {
+            type: 'pkcs8',
+            format: 'pem',
         },
     });
 
-    const cid = response.data.IpfsHash;
-    console.log(`JSON uploaded successfully! CID: ${cid}`);
-    return cid;
+    return { publicKey, privateKey };
 }
 
-// Function to retrieve JSON data from IPFS
-async function retrieveJSONFromIPFS(cid: string) {
-    const gatewayUrl = `https://gateway.pinata.cloud/ipfs/${cid}`;
-    console.log(`Retrieving JSON from IPFS: ${gatewayUrl}`);
+const { publicKey, privateKey } = generateRSAKeyPair();
 
-    const response = await axios.get(gatewayUrl);
-    console.log('Retrieved JSON:', response.data);
-    return response.data;
-}
+console.log("Generated Public Key:");
+console.log(publicKey);
 
-// Example usage
+console.log("Generated Private Key:");
+console.log(privateKey);
+
+
 (async () => {
-    const jsonData = {
-        taskId: '12345',
-        result: {
-            success: true,
-            output: 'This is the result of the task.',
-        },
-        timestamp: new Date().toISOString(),
-    };
+    const task = SumTaskFactory.taskFrom(TaskIdFactory.newId(TaskType.SUM), ClientIdFactory.idFrom("value", "publicKey"), [1, 2, 3, 4, 5]);
 
-    try {
-        const cid = await uploadJSONToPinata(jsonData);
-        const retrievedData = await retrieveJSONFromIPFS(cid);
-        console.log('Retrieved Data:', retrievedData);
-    } catch (error) {
-        console.error('Error:', error);
-    }
+    console.log("Current Sum Task:");
+    console.log(task);
+
+    const sumTaskExecutor: SumTaskExecutor = new SumTaskExecutor();
+    const taskResult = sumTaskExecutor.execute(task)
+
+    console.log("Task Result:");
+    console.log(taskResult)
+
+    const eccEncryptor: Encryptor = new RSAEncryptor();
+    const taskRepository: IPFSTaskRepository = new IPFSTaskRepository(eccEncryptor);
+    const cid = await taskRepository.upload(publicKey, taskResult);
+    console.log('CID:', cid);
+
+    // Retrieve and decrypt the TaskResult
+    const retrievedTaskResult = await taskRepository.retrieve(privateKey, cid);
+
+    console.log('Retrieved Task Result:', retrievedTaskResult);
 })();

@@ -1,17 +1,28 @@
 import axios, {AxiosResponse} from 'axios';
 import {TaskRepository} from "../../application/repositories/TaskRepository.js";
 import {TaskResult} from "../../domain/core/task/TaskResult.js";
+import {Encryptor} from "../encryption/Encryptor.js";
 
 export class IPFSTaskRepository implements TaskRepository {
     private readonly apiKey: string = process.env.PINATA_API_KEY!;
     private readonly apiSecret: string = process.env.PINATA_API_SECRET!;
     private readonly pinataUrl: string = 'https://api.pinata.cloud/pinning/pinJSONToIPFS';
-    private readonly gatewayUrl: string = 'https://gateway.pinata.cloud/ipfs';
+    private readonly gatewayUrl: string;
+    private readonly encryptor: Encryptor;
 
-    async upload(taskResult: TaskResult): Promise<string> {
+    constructor(encryptor: Encryptor, gatewayUrl: string = 'https://gateway.pinata.cloud/ipfs') {
+        if (!this.apiKey || !this.apiSecret) {
+            throw new Error('Pinata API Key and Secret are required!');
+        }
+        this.encryptor = encryptor;
+        this.gatewayUrl = gatewayUrl;
+    }
+
+    async upload(publicKey: string, taskResult: TaskResult): Promise<string> {
         try {
-            console.log('Uploading TaskResult of #' + taskResult.taskId.value + ' to IPFS via Pinata...');
-            const res = await axios.post(this.pinataUrl, taskResult, {
+            const encryptedTaskResult: string = await this.encryptor.encrypt(publicKey, taskResult);
+            console.log(`Uploading TaskResult of #${taskResult.taskId.value} to IPFS via Pinata...`);
+            const res: AxiosResponse<any, any> = await axios.post(this.pinataUrl, {enc: encryptedTaskResult}, {
                 headers: {
                     'Content-Type': 'application/json',
                     pinata_api_key: this.apiKey,
@@ -20,7 +31,7 @@ export class IPFSTaskRepository implements TaskRepository {
             });
 
             const cid = res.data.IpfsHash;
-            console.log(`TaskResult uploaded successfully! CID: ${cid}`);
+            console.log(`TaskResult of #${taskResult.taskId.value} uploaded successfully! CID: ${cid}`);
             return cid;
         } catch (error) {
             console.error('Error uploading TaskResult to IPFS:', error);
@@ -28,25 +39,19 @@ export class IPFSTaskRepository implements TaskRepository {
         }
     }
 
-    // Method to retrieve a TaskResult from IPFS by CID
-    async retrieve(cId: string): Promise<TaskResult> {
+    async retrieve(privateKey: string, cId: string): Promise<TaskResult> {
         try {
             const url: string = `${this.gatewayUrl}/${cId}`;
-
             console.log(`Retrieving TaskResult from IPFS: ${url}`);
             const response: AxiosResponse<any, any> = await axios.get(url);
 
             console.log('Retrieved TaskResult:', response.data);
-            return response.data as TaskResult;
+            //TODO VALIDATION LAYER
+            const decryptedTaskResult: string = await this.encryptor.decrypt(privateKey, response.data.enc);
+            return decryptedTaskResult as unknown as TaskResult;
         } catch (error) {
             console.error('Error retrieving TaskResult from IPFS:', error);
             throw error;
         }
     }
-
-    // TODO Implement delete (unpin in this case) method
-    // Method to delete a TaskResult (not supported in IPFS, so no-op or placeholder)
-    /*    delete(taskId: TaskId): void {
-            console.warn('Delete operation is not supported in IPFS. TaskId:', taskId.value);
-        }*/
 }

@@ -10,7 +10,7 @@ export class SumTaskExecutor {
             const sum: number = sumTask.details.addends.reduce((acc: number, val: number) => acc + val, 0);
             return {
                 taskId: sumTask.id,
-                result: sum.toString()
+                result: sum
             };
         }
         catch (e) {
@@ -24,7 +24,7 @@ export class SumTaskExecutor {
         }
     }
 
-    parseSumTask(task: Task): SumTask {
+    private parseSumTask(task: Task): SumTask {
         if (task.details.addends === undefined) {
             throw new Error("Invalid task details");
         }
