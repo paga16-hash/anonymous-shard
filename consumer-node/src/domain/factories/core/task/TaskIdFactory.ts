@@ -1,6 +1,6 @@
 import {v4 as uuidv4} from "uuid";
-import {TaskId} from "../../core/task/TaskId.js";
-import {TaskType} from "../../core/task/enum/TaskType.js";
+import {TaskId} from "../../../core/task/TaskId.js";
+import {TaskType} from "../../../core/task/enum/TaskType.js";
 
 export class TaskIdFactory {
 

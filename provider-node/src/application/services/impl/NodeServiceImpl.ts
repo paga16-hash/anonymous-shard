@@ -5,7 +5,7 @@ import {Node} from "../../../domain/core/node/Node.js";
 import {NodeImpl} from "../../../domain/core/node/impl/NodeImpl.js";
 import {mapBootstrapAddresses} from "../../../utils/BootstrapNode.js";
 import {MetricEvent} from "../../../domain/events/metric/MetricEvent.js";
-import {MetricEventFactory} from "../../../domain/factories/events/MetricEventFactory.js";
+import {MetricEventFactory} from "../../../domain/factories/events/metric/MetricEventFactory.js";
 import {TaskService} from "../TaskService.js";
 import {TaskEvent} from "../../../domain/events/task/TaskEvent.js";
 import {Task} from "../../../domain/core/task/Task.js";

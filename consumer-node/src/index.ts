@@ -1,11 +1,12 @@
-import { createLibp2p } from 'libp2p'
-import { webSockets } from '@libp2p/websockets'
-import { tcp } from '@libp2p/tcp'
-import { noise } from '@chainsafe/libp2p-noise'
-import { yamux } from '@chainsafe/libp2p-yamux'
-import { kadDHT } from '@libp2p/kad-dht'
-import { identify } from '@libp2p/identify'
-import { config } from 'dotenv'
-import { SocksProxyAgent } from 'socks-proxy-agent';
+import {config} from 'dotenv'
+import {mapBootstrapAddresses} from "./utils/BootstrapNode.js";
+import {NodeService} from "./application/services/NodeService.js";
+import {NodeServiceImpl} from "./application/services/impl/NodeServiceImpl.js";
+import {TaskServiceImpl} from "./application/services/impl/TaskServiceImpl.js";
+import {IPFSTaskRepository} from "./infrastructure/storage/IPFSTaskRepository.js";
+import {RSAEncryptor} from "./infrastructure/encryption/impl/RSAEncryptor.js";
 
-config({ path: process.cwd() + '/../.env' })
+config({path: process.cwd() + '/../.env'});
+
+console.log(mapBootstrapAddresses())
+const consumerNodeService: NodeService = new NodeServiceImpl(new TaskServiceImpl(new IPFSTaskRepository(new RSAEncryptor())));

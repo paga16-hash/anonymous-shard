@@ -3,14 +3,14 @@ import {mapBootstrapAddresses} from "./utils/BootstrapNode.js";
 import {NodeService} from "./application/services/NodeService.js";
 import {NodeServiceImpl} from "./application/services/impl/NodeServiceImpl.js";
 import {MetricServiceImpl} from "./application/services/impl/MetricServiceImpl.js";
-import {TaskServiceImpl} from "./application/services/impl/TaskServiceImpl";
-import {IPFSTaskRepository} from "./infrastructure/storage/IPFSTaskRepository";
-import {RSAEncryptor} from "./infrastructure/encryption/impl/RSAEncryptor";
+import {TaskServiceImpl} from "./application/services/impl/TaskServiceImpl.js";
+import {IPFSTaskRepository} from "./infrastructure/storage/IPFSTaskRepository.js";
+import {RSAEncryptor} from "./infrastructure/encryption/impl/RSAEncryptor.js";
 
 config({path: process.cwd() + '/../.env'});
 
 console.log(mapBootstrapAddresses())
-const nodeService: NodeService = new NodeServiceImpl(new MetricServiceImpl(), new TaskServiceImpl(new IPFSTaskRepository(new RSAEncryptor())));
+const providerNodeService: NodeService = new NodeServiceImpl(new MetricServiceImpl(), new TaskServiceImpl(new IPFSTaskRepository(new RSAEncryptor())));
 
 /*
 import {config} from 'dotenv'

@@ -1,57 +1,52 @@
 import {NodeService} from "../NodeService.js";
-import {MetricService} from "../MetricService.js";
-import {Metric} from "../../../domain/core/metric/Metric.js";
 import {Node} from "../../../domain/core/node/Node.js";
 import {NodeImpl} from "../../../domain/core/node/impl/NodeImpl.js";
-import {mapBootstrapAddresses} from "../../../utils/BootstrapNode.js";
-import {MetricEvent} from "../../../domain/events/metric/MetricEvent.js";
-import {MetricEventFactory} from "../../../domain/factories/events/MetricEventFactory.js";
 import {TaskService} from "../TaskService.js";
 import {TaskEvent} from "../../../domain/events/task/TaskEvent.js";
-import {Task} from "../../../domain/core/task/Task.js";
+import {TaskSubmissionEvent} from "../../../domain/events/task/TaskSubmissionEvent.js";
+import {mapBootstrapAddresses} from "../../../utils/BootstrapNode.js";
+import {TaskEventFactory} from "../../../domain/factories/events/task/TaskEventFactory.js";
+import {SumTaskFactory} from "../../../domain/factories/core/task/SumTaskFactory.js";
+import {ClientIdFactory} from "../../../domain/factories/core/task/ClientIdFactory.js";
+import {KeyPairFactory} from "../../../utils/KeyPairFactory.js";
 
 export class NodeServiceImpl implements NodeService {
-    private readonly GOSSIP_INTERVAL: number = 30 * 1000;
+    private readonly SUBMIT_INTERVAL: number = 40000;
     private readonly node: Node;
-    private readonly metricService: MetricService;
     private readonly taskService: TaskService
 
-    constructor(metricService: MetricService, taskService: TaskService) {
+    constructor(taskService: TaskService) {
         this.node = new NodeImpl(process.env.HOST!, parseInt(process.env.PORT!), mapBootstrapAddresses());
-        this.metricService = metricService;
         this.taskService = taskService;
         this.init().then((): void => {
-            console.log("Provider service node initialized");
+            console.log("Consumer service node initialized");
         })
     }
 
     private async init(): Promise<void> {
-        this.node.registerMetricEventsHandler(async (metricEvent: MetricEvent): Promise<void> => {
-            console.log("Received metric event", metricEvent);
-            this.metricService.routeEvent(metricEvent);
-        })
         this.node.registerTaskEventsHandler(async (taskEvent: TaskEvent): Promise<void> => {
             console.log("Received task event", taskEvent);
             this.taskService.routeEvent(taskEvent);
         })
-        this.startGossiping();
     }
 
-    async getCurrentMetrics(): Promise<Metric> {
-        return this.metricService.getCurrentMetric();
-    }
-
-    async getPendingTask(): Promise<Task[]> {
-        return this.taskService.getPendingTasks()
-    }
-
-    private startGossiping(): void {
+    private startSubmitting(): void {
         setInterval(async (): Promise<void> => {
-            this.node.propagateMetric(
-                MetricEventFactory.createMetricAvailableEvent(this.node.peerId(), await this.getCurrentMetrics())
+            const rndAddends: number[] = Array.from({length: 5}, (): number => Math.floor(Math.random() * 100));
+            const {publicKey, privateKey} = KeyPairFactory.newPair()
+            const taskEvent: TaskSubmissionEvent = TaskEventFactory.taskSubmissionEventFrom(
+                SumTaskFactory.createTask(
+                    ClientIdFactory.idFrom(process.env.HOST!,
+                        publicKey),
+                    rndAddends
+                )
+            )
+            this.taskService.addTask(privateKey, taskEvent.task)
+            this.node.submitTask(
+                taskEvent
             ).catch((e: any): void => {
                 console.error("Error propagating metric", e);
             })
-        }, this.GOSSIP_INTERVAL);
+        }, this.SUBMIT_INTERVAL);
     }
 }

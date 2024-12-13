@@ -9,9 +9,4 @@ export class RSAEncryptor implements Encryptor {
         ).toString('base64');
     }
 
-    async decrypt(privateKey: string, encryptedData: string): Promise<string> {
-        return JSON.parse(crypto.privateDecrypt(privateKey,
-            Buffer.from(encryptedData, 'base64')
-        ).toString('utf-8'));
-    }
 }

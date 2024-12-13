@@ -7,7 +7,7 @@ import {TaskType} from "../../../domain/core/task/enum/TaskType.js";
 import {TaskId} from "../../../domain/core/task/TaskId.js";
 import {TaskEvent} from "../../../domain/events/task/TaskEvent.js";
 import {EventType} from "../../../utils/EventType.js";
-import {TaskSubmittedEvent} from "../../../domain/events/task/TaskSubmittedEvent.js";
+import {TaskSubmissionEvent} from "../../../domain/events/task/TaskSubmissionEvent.js";
 
 export class TaskServiceImpl implements TaskService {
     private readonly taskRepository: TaskRepository
@@ -21,7 +21,7 @@ export class TaskServiceImpl implements TaskService {
     async routeEvent(event: TaskEvent): Promise<void> {
         switch (event.type) {
             case EventType.TASK_SUBMITTED:
-                const taskSubmittedEvent: TaskSubmittedEvent = event as TaskSubmittedEvent
+                const taskSubmittedEvent: TaskSubmissionEvent = event as TaskSubmissionEvent
                 const result: TaskResult = await this.execute(taskSubmittedEvent.task)
                 //this.sendResult(result)
                 break

@@ -1,9 +1,8 @@
 import {EventsHub} from "../EventsHub.js";
-import {MetricEvent} from "../../../domain/events/metric/MetricEvent.js";
 import {DomainEvent} from "../../../domain/events/DomainEvent.js";
 import {TransportManager} from "../../transport/TransportManager.js";
 import {Topic} from "../../../utils/Topic.js";
-import {TaskEvent} from "../../../domain/events/task/TaskEvent";
+import {TaskEvent} from "../../../domain/events/task/TaskEvent.js";
 
 export class ProviderEventsHub implements EventsHub {
     private transportManager: TransportManager | undefined
@@ -37,24 +36,12 @@ export class ProviderEventsHub implements EventsHub {
     }
 
     /**
-     * Register a handler for the metric topic
-     * @param handler the handler to register
+     * Publish a task event
+     * @param taskEvent the task event to publish
      */
-    registerMetricEventsHandler(handler: (metricEvent: MetricEvent) => Promise<void>): void {
-        this.subscribe(Topic.METRIC, handler).then((): void => {
-            console.log("Registered handler for topic: " + Topic.METRIC);
-        }).catch((err: any):void => {
-            console.error("Error registering handler for topic: " + Topic.METRIC, err);
-        })
-    }
-
-    /**
-     * Publish a metric event
-     * @param metricEvent the metric event to publish
-     */
-    publishMetricEvent(metricEvent: MetricEvent): void {
-        this.publish(metricEvent).catch((err: any): void => {
-            console.error("Error publishing metric event", err);
+    publishTaskEvent(taskEvent: TaskEvent): void {
+        this.publish(taskEvent).catch((err: any): void => {
+            console.error("Error publishing task event", err);
         })
     }
 
@@ -67,16 +54,6 @@ export class ProviderEventsHub implements EventsHub {
             console.log("Registered handler for topic: " + Topic.TASK);
         }).catch((err: any):void => {
             console.error("Error registering handler for topic: " + Topic.TASK, err);
-        })
-    }
-
-    /**
-     * Publish a task event
-     * @param taskEvent the task event to publish
-     */
-    publishTaskEvent(taskEvent: TaskEvent): void {
-        this.publish(taskEvent).catch((err: any): void => {
-            console.error("Error publishing task event", err);
         })
     }
 
