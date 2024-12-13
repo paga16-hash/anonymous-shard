@@ -1,0 +1,9 @@
+export enum TaskFailure {
+    ERROR = 'ERROR',
+    TIMEOUT = 'TIMEOUT',
+    INTERNAL = 'INTERNAL',
+    INVALID = 'INVALID',
+    REJECTED = 'REJECTED',
+    CANCELLED = 'CANCELLED',
+    BAD_REQUEST = 'BAD_REQUEST'
+}

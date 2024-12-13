@@ -6,6 +6,7 @@ import {MetricEvent} from "../../../events/metric/MetricEvent.js";
 import {TransportManager} from "../../../../infrastructure/transport/TransportManager.js";
 import {Socks5TransportManager} from "../../../../infrastructure/transport/socks5/Socks5TransportManager.js";
 import {Socks5Transport} from "../../../../infrastructure/transport/socks5/Socks5Transport.js";
+import {TaskEvent} from "../../../events/task/TaskEvent";
 
 config({path: process.cwd() + '/../.env'})
 
@@ -43,6 +44,14 @@ export class NodeImpl implements Node {
             this.providerEventsHub.registerMetricEventsHandler(handler);
         } catch (e) {
             console.error("Error registering handler for provider-metrics topic", e);
+        }
+    }
+
+    async registerTaskEventsHandler(handler: (metric: TaskEvent) => Promise<void>): Promise<void> {
+        try {
+            this.providerEventsHub.registerTaskEventsHandler(handler);
+        } catch (e) {
+            console.error("Error registering handler for task topic", e);
         }
     }
 

@@ -1,4 +1,5 @@
 import {MetricEvent} from "../../events/metric/MetricEvent.js";
+import {TaskEvent} from "../../events/task/TaskEvent";
 
 export interface Node {
 
@@ -7,4 +8,7 @@ export interface Node {
     registerMetricEventsHandler(handler: (metricEvent: MetricEvent) => Promise<void>): void;
 
     propagateMetric(metric: MetricEvent): Promise<void>;
+
+    registerTaskEventsHandler(handler: (taskEvent: TaskEvent) => Promise<void>): void;
+
 }
