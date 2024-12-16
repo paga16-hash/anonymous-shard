@@ -6,7 +6,9 @@ import {MetricEvent} from "../../../events/metric/MetricEvent.js";
 import {TransportManager} from "../../../../infrastructure/transport/TransportManager.js";
 import {Socks5TransportManager} from "../../../../infrastructure/transport/socks5/Socks5TransportManager.js";
 import {Socks5Transport} from "../../../../infrastructure/transport/socks5/Socks5Transport.js";
-import {TaskEvent} from "../../../events/task/TaskEvent";
+import {TaskEvent} from "../../../events/task/TaskEvent.js";
+import {SocketTransportManager} from "../../../../infrastructure/transport/socket/SocketTransportManager.js";
+import {SocketTransport} from "../../../../infrastructure/transport/socket/SocketTransport.js";
 
 config({path: process.cwd() + '/../.env'})
 
@@ -16,19 +18,39 @@ export class NodeImpl implements Node {
     private readonly port: number;
     private readonly providerEventsHub: EventsHub;
     private readonly transportManager: TransportManager;
+    private readonly anonymousMode: boolean = process.env.ANONYMOUS_MODE === "true";
 
     constructor(address: string, port: number, bootstrapNodes: Map<string, number>) {
         this.bootstrapNodes = bootstrapNodes;
         this.providerEventsHub = new ProviderEventsHub();
         this.address = address;
         this.port = port
-        this.transportManager = new Socks5TransportManager(
+        /*this.transportManager = new Socks5TransportManager(
             new Socks5Transport({
                     addressMap: this.bootstrapNodes,
                 },
                 this.providerEventsHub.routeEvent.bind(this.providerEventsHub))
-        );
+        );*/
+        this.transportManager = this.initTransport()
         this.providerEventsHub.useTransport(this.transportManager)
+    }
+
+    private initTransport(): TransportManager {
+        if(this.anonymousMode) {
+            return new Socks5TransportManager(
+                new Socks5Transport({
+                        addressMap: this.bootstrapNodes,
+                    },
+                    this.providerEventsHub.routeEvent.bind(this.providerEventsHub))
+            );
+        } else {
+            return new SocketTransportManager(
+                new SocketTransport({
+                        addressMap: this.bootstrapNodes,
+                    },
+                    this.providerEventsHub.routeEvent.bind(this.providerEventsHub))
+            );
+        }
     }
 
     async propagateMetric(metricEvent: MetricEvent): Promise<void> {

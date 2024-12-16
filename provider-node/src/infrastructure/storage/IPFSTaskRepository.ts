@@ -47,8 +47,8 @@ export class IPFSTaskRepository implements TaskRepository {
 
             console.log('Retrieved TaskResult:', response.data);
             //TODO VALIDATION LAYER
-            const decryptedTaskResult: string = await this.encryptor.decrypt(privateKey, response.data.enc);
-            return decryptedTaskResult as unknown as TaskResult;
+            //const decryptedTaskResult: string = await this.encryptor.decrypt(privateKey, response.data.enc);
+            return response.data.enc as unknown as TaskResult;
         } catch (error) {
             console.error('Error retrieving TaskResult from IPFS:', error);
             throw error;

@@ -44,5 +44,6 @@ echo "Tor bootstrap completed. Waiting 5 seconds before starting the app..."
 sleep 5
 
 # Start the Node.js application
+# TODO: to change and to use npm start, without setting some ENV variable to development
 npm run dev
 

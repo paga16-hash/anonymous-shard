@@ -1,6 +1,6 @@
 import {MetricService} from "../MetricService.js";
 import {Metric} from "../../../domain/core/metric/Metric.js";
-import {MetricFactory} from "../../../domain/factories/metric/MetricFactory.js";
+import {MetricFactory} from "../../../domain/factories/core/metric/MetricFactory.js";
 import {EventType} from "../../../utils/EventType.js";
 import {MetricEvent} from "../../../domain/events/metric/MetricEvent.js";
 import {MetricAvailableEvent} from "../../../domain/events/metric/MetricAvailableEvent.js";
