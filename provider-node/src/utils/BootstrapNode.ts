@@ -25,7 +25,7 @@ export const mapBootstrapAddresses = (): Map<string, number> => {
                 bootstrapMap.set(address, port);
             }
         });
-    if(process.env.NODE_ENV !== 'develop'){
+    if(process.env.NODE_ENV !== 'develop') {
         bootstrapMap.delete(
             process.env.HOST!
         )
