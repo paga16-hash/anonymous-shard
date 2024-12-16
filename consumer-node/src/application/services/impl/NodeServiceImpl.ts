@@ -45,7 +45,7 @@ export class NodeServiceImpl implements NodeService {
             this.node.submitTask(
                 taskEvent
             ).catch((e: any): void => {
-                console.error("Error propagating metric", e);
+                console.error("Error submitting task", e);
             })
         }, this.SUBMIT_INTERVAL);
     }
