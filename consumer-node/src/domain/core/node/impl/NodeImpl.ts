@@ -8,6 +8,7 @@ import {Socks5Transport} from "../../../../infrastructure/transport/socks5/Socks
 import {TaskEvent} from "../../../events/task/TaskEvent.js";
 import {SocketTransportManager} from "../../../../infrastructure/transport/socket/SocketTransportManager.js";
 import {SocketTransport} from "../../../../infrastructure/transport/socket/SocketTransport.js";
+import {TaskSubmissionEvent} from "../../../events/task/TaskSubmissionEvent.js";
 
 config({path: process.cwd() + '/../.env'})
 
@@ -46,9 +47,9 @@ export class NodeImpl implements Node {
         }
     }
 
-    async submitTask(taskEvent: TaskEvent): Promise<void> {
+    async submitTask(taskEvent: TaskSubmissionEvent): Promise<void> {
         try {
-            this.providerEventsHub.publishTaskEvent(taskEvent);
+            this.providerEventsHub.publishTask(taskEvent)
         } catch (e) {
             console.error("Error publishing task", e);
         }

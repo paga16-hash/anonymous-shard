@@ -20,6 +20,7 @@ export class NodeServiceImpl implements NodeService {
         this.taskService = taskService;
         this.init().then((): void => {
             console.log("Consumer service node initialized");
+            this.startSubmitting();
         })
     }
 

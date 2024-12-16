@@ -31,7 +31,7 @@ WORKDIR /home/anonymous-shard
 
 COPY --from=build /home/anonymous-shard/.env .env
 COPY --from=build /home/anonymous-shard/tsconfig.shared.json tsconfig.shared.json
-COPY --from=build /home/anonymous-shard/provider-node provider-node
+COPY --from=build /home/anonymous-shard/consumer-node consumer-node
 
 RUN apk add dumb-init && apk add --update npm
 

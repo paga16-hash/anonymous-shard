@@ -31,7 +31,7 @@ export class SocketTransportManager implements TransportManager {
     }
 
     async sendToRandomPeers(message: string, gossipFactor: number): Promise<void> {
-        const addresses = this.transport.getAddresses();
+        const addresses: string[] = this.transport.getAddresses();
         if (!addresses.length) {
             console.warn("No addresses available to send messages to.");
             return;

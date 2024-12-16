@@ -23,16 +23,16 @@ export class SocketTransport implements Transport {
     }
 
     /**
-     * Get the onion addresses.
-     * @returns the onion addresses
+     * Get the addresses.
+     * @returns the addresses
      */
     getAddresses(): string[] {
         return Array.from(this.config.addressMap.keys());
     }
 
     /**
-     * Add a mapping from an onion address to a port.
-     * @param address the onion address
+     * Add a mapping from an address to a port.
+     * @param address the address
      * @param port the port to map to
      */
     addAddressMapping(address: string, port: number): void {
@@ -41,16 +41,16 @@ export class SocketTransport implements Transport {
     }
 
     /**
-     * Remove a mapping from an onion address.
-     * @param onion the onion address
+     * Remove a mapping from an address.
+     * @param address the address
      */
-    removeAddressMapping(onion: string): void {
-        this.config.addressMap.delete(onion);
+    removeAddressMapping(address: string): void {
+        this.config.addressMap.delete(address);
     }
 
     /**
      * Listen on the given address.
-     * @example await transport.listen(multiaddr('your-onion-address'))
+     * @example await transport.listen(multiaddr('your-address'))
      * @param address
      */
     async listen(address: string): Promise<void> {

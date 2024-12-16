@@ -3,6 +3,7 @@ import {DomainEvent} from "../../../domain/events/DomainEvent.js";
 import {TransportManager} from "../../transport/TransportManager.js";
 import {Topic} from "../../../utils/Topic.js";
 import {TaskEvent} from "../../../domain/events/task/TaskEvent.js";
+import {TaskSubmissionEvent} from "../../../domain/events/task/TaskSubmissionEvent.js";
 
 export class ProviderEventsHub implements EventsHub {
     private transportManager: TransportManager | undefined
@@ -46,6 +47,16 @@ export class ProviderEventsHub implements EventsHub {
     }
 
     /**
+     * Publish a task submission event
+     * @param taskSubmissionEvent the task submission event
+     */
+    publishTask(taskSubmissionEvent: TaskSubmissionEvent): void {
+        this.publishToRandomPeer(taskSubmissionEvent).catch((err: any): void => {
+            console.error("Error publishing task submission event", err);
+        })
+    }
+
+    /**
      * Register a handler for the task topic
      * @param handler the handler to register
      */
@@ -65,6 +76,19 @@ export class ProviderEventsHub implements EventsHub {
     private async publish(domainEvent: DomainEvent): Promise<void> {
         if(this.transportManager) {
             await this.transportManager.sendToBroadcast(JSON.stringify(domainEvent));
+        } else {
+            console.error("No transport manager available to publish event");
+        }
+    }
+
+    /**
+     * Publish to a random peer
+     * @param domainEvent the domain event to publish
+     * @private
+     */
+    private async publishToRandomPeer(domainEvent: DomainEvent): Promise<void> {
+        if(this.transportManager) {
+            await this.transportManager.sendToRandomPeers(JSON.stringify(domainEvent), 1);
         } else {
             console.error("No transport manager available to publish event");
         }
