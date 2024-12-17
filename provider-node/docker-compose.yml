@@ -1,16 +1,23 @@
 services:
-  node-1:
+  provider-1:
     #image: pagahubbing/anonymous-shard-provider-node:latest
     build:
       context: .
       dockerfile: Dockerfile
     environment:
+      - ANONYMOUS_MODE=${ANONYMOUS_MODE}
+      - PINATA_API_KEY=1fd0fe489d865a398820
+      - PINATA_API_SECRET=cac1872634ecbf108f0a00cdff9be7ecf04e0a2ad13a8211be5b80bb974e8974
       - HOST=a7oxxul76cei44utvngfg2tnhqmedkjlwiiudbaqzer5z5w75gpgyeqd
       - PORT=3000
       - BOOTSTRAP_NODE_ADDRESS_1=a7oxxul76cei44utvngfg2tnhqmedkjlwiiudbaqzer5z5w75gpgyeqd
       - BOOTSTRAP_NODE_PORT_1=3000
+      - LOCAL_BOOTSTRAP_NODE_ADDRESS_1=127.0.0.1
+      - LOCAL_BOOTSTRAP_NODE_PORT_1=3000
       - BOOTSTRAP_NODE_ADDRESS_2=eww4sjfxwj6vgucebupol2nk7yhbvhjzxo2v4t46f42gukn3btknzvid
       - BOOTSTRAP_NODE_PORT_2=3000
+      - LOCAL_BOOTSTRAP_NODE_ADDRESS_2=127.0.0.1
+      - LOCAL_BOOTSTRAP_NODE_PORT_2=3001
       # and so on and so forth for multiple bootstrap nodes
     ports:
       - "3000:3000"
@@ -20,19 +27,25 @@ services:
     networks:
       - test-network
 
-  node-2:
+  provider-2:
     #image: pagahubbing/anonymous-shard-provider-node:latest
     build:
       context: .
       dockerfile: Dockerfile
     environment:
+      - ANONYMOUS_MODE=${ANONYMOUS_MODE}
+      - PINATA_API_KEY=1fd0fe489d865a398820
+      - PINATA_API_SECRET=cac1872634ecbf108f0a00cdff9be7ecf04e0a2ad13a8211be5b80bb974e8974
       - HOST=eww4sjfxwj6vgucebupol2nk7yhbvhjzxo2v4t46f42gukn3btknzvid
-      - PORT=3000
+      - PORT=3001
       - BOOTSTRAP_NODE_ADDRESS_1=a7oxxul76cei44utvngfg2tnhqmedkjlwiiudbaqzer5z5w75gpgyeqd
       - BOOTSTRAP_NODE_PORT_1=3000
+      - LOCAL_BOOTSTRAP_NODE_ADDRESS_1=127.0.0.1
+      - LOCAL_BOOTSTRAP_NODE_PORT_1=3000
       - BOOTSTRAP_NODE_ADDRESS_2=eww4sjfxwj6vgucebupol2nk7yhbvhjzxo2v4t46f42gukn3btknzvid
       - BOOTSTRAP_NODE_PORT_2=3000
-      # and so on and so forth for multiple bootstrap nodes
+      - LOCAL_BOOTSTRAP_NODE_ADDRESS_2=127.0.0.1
+      - LOCAL_BOOTSTRAP_NODE_PORT_2=3001
     ports:
       - "3001:3000"
       - "9051:9050"

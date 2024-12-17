@@ -4,15 +4,10 @@ import {TaskResult} from "../../domain/core/task/TaskResult.js";
 import {Encryptor} from "../encryption/Encryptor.js";
 
 export class IPFSTaskRepository implements TaskRepository {
-    private readonly apiKey: string = process.env.PINATA_API_KEY!;
-    private readonly apiSecret: string = process.env.PINATA_API_SECRET!;
     private readonly gatewayUrl: string;
     private readonly encryptor: Encryptor;
 
     constructor(encryptor: Encryptor, gatewayUrl: string = 'https://gateway.pinata.cloud/ipfs') {
-        if (!this.apiKey || !this.apiSecret) {
-            throw new Error('Pinata API Key and Secret are required!');
-        }
         this.encryptor = encryptor;
         this.gatewayUrl = gatewayUrl;
     }

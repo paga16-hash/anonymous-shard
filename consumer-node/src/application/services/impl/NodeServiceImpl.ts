@@ -11,7 +11,7 @@ import {ClientIdFactory} from "../../../domain/factories/core/task/ClientIdFacto
 import {KeyPairFactory} from "../../../utils/KeyPairFactory.js";
 
 export class NodeServiceImpl implements NodeService {
-    private readonly SUBMIT_INTERVAL: number = 40000;
+    private readonly SUBMIT_INTERVAL: number = 10000;
     private readonly node: Node;
     private readonly taskService: TaskService
 

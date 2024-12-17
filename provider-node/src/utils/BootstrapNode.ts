@@ -10,9 +10,9 @@ export const bootstrapAddresses = (): string[] => {
 
 export const mapBootstrapAddresses = (): Map<string, number> => {
     const bootstrapMap: Map<string, number> = new Map<string, number>();
-    const keyPrefix = process.env.NODE_ENV === 'develop'
-        ? 'LOCAL_BOOTSTRAP_NODE_ADDRESS_'
-        : 'BOOTSTRAP_NODE_ADDRESS_';
+    const keyPrefix = process.env.ANONYMOUS_MODE === 'true'
+        ? 'BOOTSTRAP_NODE_ADDRESS_'
+        : 'LOCAL_BOOTSTRAP_NODE_ADDRESS_';
 
     Object.keys(process.env)
         .filter((key) => key.startsWith(keyPrefix))
@@ -25,10 +25,10 @@ export const mapBootstrapAddresses = (): Map<string, number> => {
                 bootstrapMap.set(address, port);
             }
         });
-    if(process.env.NODE_ENV !== 'develop') {
+    /*if(process.env.NODE_ENV !== 'develop') {
         bootstrapMap.delete(
             process.env.HOST!
         )
-    }
+    }*/
     return bootstrapMap;
 };

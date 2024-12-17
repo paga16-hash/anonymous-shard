@@ -1,11 +1,43 @@
-services:
+#services:
 
-  anonymous-shard-provider-node:
-    image: pagahubbing/anonymous-shard-provider-node:latest
-    container_name: ${PROVIDER_NODE_CONTAINER_NAME}
+#  anonymous-shard-provider-node:
+#    image: pagahubbing/anonymous-shard-provider-node:latest
+#    container_name: ${PROVIDER_NODE_CONTAINER_NAME}
+#    build:
+#      context: .
+#      dockerfile: ./provider-node/Dockerfile
+#    restart: on-failure
+#    ports:
+#      - ${TOR_PORT}:${TOR_PORT}
+
+services:
+  consumer:
     build:
       context: .
-      dockerfile: ./provider-node/Dockerfile
-    restart: on-failure
+      dockerfile: Dockerfile
+    environment:
+      - ANONYMOUS_MODE=${ANONYMOUS_MODE}
+      - HOST=eww4sjfxwj6vgucebupol2nk7yhbvhjzxo2v4t46f42gukn3btknzvid
+      - PORT=3000
+      - BOOTSTRAP_NODE_ADDRESS_1=a7oxxul76cei44utvngfg2tnhqmedkjlwiiudbaqzer5z5w75gpgyeqd
+      - BOOTSTRAP_NODE_PORT_1=3000
+      - LOCAL_BOOTSTRAP_NODE_ADDRESS_1=127.0.0.1
+      - LOCAL_BOOTSTRAP_NODE_PORT_1=3000
+      - BOOTSTRAP_NODE_ADDRESS_2=eww4sjfxwj6vgucebupol2nk7yhbvhjzxo2v4t46f42gukn3btknzvid
+      - BOOTSTRAP_NODE_PORT_2=3000
+      - LOCAL_BOOTSTRAP_NODE_ADDRESS_2=127.0.0.1
+      - LOCAL_BOOTSTRAP_NODE_PORT_2=3001
     ports:
-      - ${TOR_PORT}:${TOR_PORT}
+      - "3002:3000"
+    volumes:
+      - tor1-data-consumer:/var/lib/tor/hidden_service
+    networks:
+      - test-network
+
+volumes:
+  tor1-data-consumer:
+    name: tor1-data-consumer # Persistent to keep the same onion address
+
+networks:
+  test-network:
+    driver: bridge

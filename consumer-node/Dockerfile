@@ -1,43 +1,34 @@
-# syntax = docker/dockerfile:1.10
+FROM node:23-slim AS app-base
 
-FROM gradle AS build
-LABEL maintainer="albi1600@gmail.com"
+WORKDIR /app
 
-# Move to the directory where the application will be built
-WORKDIR /home/anonymous-shard
+COPY package*.json ./
+RUN npm install
 
-# removes the configurations to delete cached files after a successful install
-RUN rm -f /etc/apt/apt.conf.d/docker-clean; echo 'Binary::apt::APT::Keep-Downloaded-Packages "true";' > /etc/apt/apt.conf.d/keep-cache
-
-# Install curl and nodejs 20 (LTS)
-RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
-    --mount=type=cache,target=/var/lib/apt,sharing=locked \
-    apt update && apt-get install -y --no-install-recommends curl \
-    && curl -sL https://deb.nodesource.com/setup_20.x | bash - \
-    && apt-get install --no-install-recommends -y nodejs
-
-# Add source code
 COPY . .
 
-ENV DOCKER_BUILD=true
-#TODO TO CHECK WHEN DOKERFILE IS READY
-#RUN gradle monitoring:npmBuild --no-daemon --info --parallel --stacktrace
+# Compile TypeScript code
+#RUN npm run build
+
+# Install Tor on top of the Node.js image
+FROM app-base AS final
+RUN apt-get update && apt-get install -y tor && \
+    mkdir -p /var/lib/tor/hidden_service && \
+    chmod 700 /var/lib/tor/hidden_service && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Add a custom Tor configuration
+COPY torrc /etc/tor/torrc
+
+# Combine the startup commands for both services
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
+
+# Expose the necessary ports, in this case 9050 for the SOCKS proxy
+EXPOSE 9050
+#EXPOSE 3000
+
+# Default command to start both Tor and the app
+CMD ["/start.sh"]
 
 
-FROM node:20-alpine AS production
-LABEL maintainer="albi1600@gmail.com"
-
-WORKDIR /home/anonymous-shard
-
-COPY --from=build /home/anonymous-shard/.env .env
-COPY --from=build /home/anonymous-shard/tsconfig.shared.json tsconfig.shared.json
-COPY --from=build /home/anonymous-shard/consumer-node consumer-node
-
-RUN apk add dumb-init && apk add --update npm
-
-WORKDIR /home/anonymous-shard/provider-node
-
-EXPOSE $TOR_PORT
-
-# Run dumb-init as first process, which will have PID 1, then run node command to start the application
-CMD ["dumb-init", "npm", "run", "serve" ]

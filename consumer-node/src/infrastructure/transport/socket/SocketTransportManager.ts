@@ -42,7 +42,10 @@ export class SocketTransportManager implements TransportManager {
             uniqueRandomAddresses.add(addresses[randomIndex]);
         }
         await Promise.all(
-            Array.from(uniqueRandomAddresses).map((address: string) => this.sendToPeer(address, message))
+            Array.from(uniqueRandomAddresses).map((address: string) => {
+                console.log("Sending message to peer provider-1-1", address);
+                this.sendToPeer("provider-node-provider-1", message)
+            })
         );
     }
 
