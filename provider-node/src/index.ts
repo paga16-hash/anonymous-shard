@@ -6,11 +6,20 @@ import {MetricServiceImpl} from "./application/services/impl/MetricServiceImpl.j
 import {TaskServiceImpl} from "./application/services/impl/TaskServiceImpl.js";
 import {IPFSTaskRepository} from "./infrastructure/storage/IPFSTaskRepository.js";
 import {RSAEncryptor} from "./infrastructure/encryption/impl/RSAEncryptor.js";
+import {SumTaskExecutor} from "./application/executors/impl/SumTaskExecutor.js";
+import {TaskType} from "./domain/core/task/enum/TaskType.js";
 
 config({path: process.cwd() + '/../.env'});
 
 console.log(mapBootstrapAddresses())
-const providerNodeService: NodeService = new NodeServiceImpl(new MetricServiceImpl(), new TaskServiceImpl(new IPFSTaskRepository(new RSAEncryptor())));
+const providerNodeService: NodeService =
+    new NodeServiceImpl(
+        new MetricServiceImpl(), new TaskServiceImpl(
+            new IPFSTaskRepository(new RSAEncryptor()), new Map([[TaskType.SUM, new SumTaskExecutor()]]
+            )
+        )
+    )
+
 
 /*
 import {config} from 'dotenv'

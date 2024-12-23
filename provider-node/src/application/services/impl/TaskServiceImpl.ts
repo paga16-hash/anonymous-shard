@@ -20,9 +20,10 @@ export class TaskServiceImpl implements TaskService {
 
     async routeEvent(event: TaskEvent): Promise<void> {
         switch (event.type) {
-            case EventType.TASK_SUBMITTED:
+            case EventType.TASK_SUBMISSION:
                 const taskSubmittedEvent: TaskSubmissionEvent = event as TaskSubmissionEvent
                 const result: TaskResult = await this.execute(taskSubmittedEvent.task)
+                console.log(result)
                 //this.sendResult(result)
                 break
             default:
