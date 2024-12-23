@@ -39,6 +39,8 @@ export class TaskServiceImpl implements TaskService {
     }
 
     addTask(pk: string, task: Task): void {
+        //TODO TO IMPLEMENT A STORAGE ON FILE FOR THE PK AND THE TASK ID
+        //TODO IN ORDER TO RETRIEVE THE TASK LATER AFTER RESTARTS
         this.tasks.set(pk, task)
     }
 

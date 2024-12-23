@@ -17,9 +17,7 @@ export class SocketTransport implements Transport {
             ...config,
         };
         this.handler = onMessage;
-        this.getAddresses().forEach((address: string): void => {
-            this.listen(process.env.HOST!, parseInt(process.env.PORT!)).catch(console.error);
-        });
+        this.listen(process.env.HOST!, parseInt(process.env.PORT!)).catch(console.error);
     }
 
     /**
@@ -63,10 +61,8 @@ export class SocketTransport implements Transport {
             });
 
             socket.on('data', (data: Buffer): void => {
-                //parse the data and cast to a domain event depending on the topic
-                console.log('Received:', JSON.parse(data.toString()), 'from', socket.remoteAddress);
+                //TODO presentation layer this.handler(presentationLayer.parseEvent(data));
                 this.handler(JSON.parse(data.toString()) as unknown as DomainEvent);
-                //this.handler(presentationLayer.parseEvent(data));
             });
 
             socket.on('end', (): void => {

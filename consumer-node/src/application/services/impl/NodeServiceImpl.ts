@@ -26,7 +26,7 @@ export class NodeServiceImpl implements NodeService {
 
     private async init(): Promise<void> {
         this.node.registerTaskEventsHandler(async (taskEvent: TaskEvent): Promise<void> => {
-            console.log("Received task event", taskEvent);
+            console.log("Received task event");
             this.taskService.routeEvent(taskEvent);
         })
     }
@@ -37,8 +37,8 @@ export class NodeServiceImpl implements NodeService {
             const {publicKey, privateKey} = KeyPairFactory.newPair()
             const taskEvent: TaskSubmissionEvent = TaskEventFactory.taskSubmissionEventFrom(
                 SumTaskFactory.createTask(
-                    ClientIdFactory.idFrom(process.env.HOST!,
-                        publicKey),
+                    publicKey,
+                    ClientIdFactory.idFrom(process.env.HOST! + ":" + process.env.PORT!),
                     rndAddends
                 )
             )

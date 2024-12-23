@@ -7,11 +7,13 @@ export interface EventsHub {
 
     useTransport(transportManager: TransportManager): void
 
-    routeEvent(event: DomainEvent): void
+    routeEvent(domainEvent: DomainEvent): void
 
-    publishMetricEvent(metric: MetricEvent): void
+    publishMetricEvent(metricEvent: MetricEvent): void
 
     registerMetricEventsHandler(handler: (metricEvent: MetricEvent) => Promise<void>): void
+
+    publishTaskOutcome(taskEvent: TaskEvent): void
 
     registerTaskEventsHandler(handler: (taskEvent: TaskEvent) => Promise<void>): void
 }

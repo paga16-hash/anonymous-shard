@@ -27,13 +27,16 @@ export class NodeServiceImpl implements NodeService {
 
     private async init(): Promise<void> {
         this.node.registerMetricEventsHandler(async (metricEvent: MetricEvent): Promise<void> => {
-            console.log("Received metric event", metricEvent);
+            console.log("Received metric event");
             this.metricService.routeEvent(metricEvent);
         })
         this.node.registerTaskEventsHandler(async (taskEvent: TaskEvent): Promise<void> => {
-            console.log("Received task event", taskEvent);
+            console.log("Received task event");
             this.taskService.routeEvent(taskEvent);
         })
+        this.taskService.registerTaskOutcomeHandler(async (taskEvent: TaskEvent): Promise<void> => {
+            await this.node.routeTaskOutcome(taskEvent);
+        });
         this.startGossiping();
     }
 

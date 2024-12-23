@@ -1,5 +1,5 @@
 import {TaskId} from "./TaskId.js";
-import {ClientId} from "./ClientId";
+import {ClientId} from "./ClientId.js";
 
 export interface Task {
     readonly id: TaskId

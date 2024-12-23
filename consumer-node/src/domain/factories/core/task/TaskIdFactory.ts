@@ -4,17 +4,27 @@ import {TaskType} from "../../../core/task/enum/TaskType.js";
 
 export class TaskIdFactory {
 
-    static newId(taskType: TaskType): TaskId {
+    static newId(taskType: TaskType, publicKey: string): TaskId {
         return {
             value: uuidv4(),
-            type: taskType
+            type: taskType,
+            publicKey: publicKey
         }
     }
 
-    static idOf(value: string, taskType: TaskType): TaskId {
+    static newSumTaskId(publicKey: string): TaskId {
+        return {
+            value: uuidv4(),
+            type: TaskType.SUM,
+            publicKey: publicKey
+        }
+    }
+
+    static idOf(value: string, taskType: TaskType, publicKey: string): TaskId {
         return {
             value: value,
-            type: taskType
+            type: taskType,
+            publicKey: publicKey
         }
     }
 }

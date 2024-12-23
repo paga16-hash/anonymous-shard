@@ -61,10 +61,8 @@ export class SocketTransport implements Transport {
             });
 
             socket.on('data', (data: Buffer): void => {
-                //parse the data and cast to a domain event depending on the topic
-                console.log('Received:', JSON.parse(data.toString()), 'from', socket.remoteAddress);
                 this.handler(JSON.parse(data.toString()) as unknown as DomainEvent);
-                //this.handler(presentationLayer.parseEvent(data));
+                //TODO this.handler(presentationLayer.parseEvent(data));
             });
 
             socket.on('end', (): void => {
@@ -84,6 +82,14 @@ export class SocketTransport implements Transport {
      */
     // @ts-ignore TODO fix this
     async dial(address: string, maxRetries: number = 5): Promise<Socket> {
+        let port: number;
+        const [addressPart, portPart] = address.split(':');
+        if (portPart) {
+            address = addressPart;
+            port = parseInt(portPart);
+        } else {
+            port = this.config.addressMap.get(address) || 80;
+        }
         let attempt: number = 0;
 
         while (attempt < maxRetries) {
@@ -91,7 +97,6 @@ export class SocketTransport implements Transport {
             console.log(`Attempt ${attempt}: Trying to dial ${address} directly...`);
 
             try {
-                const port: number = this.config.addressMap.get(address) || 80;
                 console.log(`Dialing ${address}:${port}...`);
                 const socket: Socket = new Socket();
                 socket.connect(port, address);
@@ -101,7 +106,7 @@ export class SocketTransport implements Transport {
                         resolve(socket);
                     });
 
-                    socket.once('error', (err:  Error): void => {
+                    socket.once('error', (err: Error): void => {
                         socket.destroy();
                         reject(err);
                     });

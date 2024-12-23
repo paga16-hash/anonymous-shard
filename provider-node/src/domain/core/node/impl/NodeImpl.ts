@@ -30,7 +30,7 @@ export class NodeImpl implements Node {
     }
 
     private initTransport(): TransportManager {
-        if(this.anonymousMode) {
+        if (this.anonymousMode) {
             return new Socks5TransportManager(
                 new Socks5Transport({
                         addressMap: this.bootstrapNodes,
@@ -60,6 +60,14 @@ export class NodeImpl implements Node {
             this.providerEventsHub.registerMetricEventsHandler(handler);
         } catch (e) {
             console.error("Error registering handler for provider-metrics topic", e);
+        }
+    }
+
+    async routeTaskOutcome(taskEvent: TaskEvent): Promise<void> {
+        try {
+            this.providerEventsHub.publishTaskOutcome(taskEvent)
+        } catch (e) {
+            console.error("Error publishing task event", e);
         }
     }
 

@@ -4,27 +4,31 @@ import {Task} from "../../../domain/core/task/Task.js";
 import {TaskRepository} from "../../repositories/TaskRepository.js";
 import {TaskExecutor} from "../../executors/TaskExecutor.js";
 import {TaskType} from "../../../domain/core/task/enum/TaskType.js";
-import {TaskId} from "../../../domain/core/task/TaskId.js";
 import {TaskEvent} from "../../../domain/events/task/TaskEvent.js";
 import {EventType} from "../../../utils/EventType.js";
 import {TaskSubmissionEvent} from "../../../domain/events/task/TaskSubmissionEvent.js";
+import {TaskResultEvent} from "../../../domain/events/task/TaskResultEvent.js";
+import {TaskEventFactory} from "../../../domain/factories/events/task/TaskEventFactory.js";
+import {TaskFailureEvent} from "../../../domain/events/task/TaskFailureEvent.js";
 
 export class TaskServiceImpl implements TaskService {
     private readonly taskRepository: TaskRepository
     private readonly taskExecutors: Map<TaskType, TaskExecutor>;
+    private taskOutcomeHandler: ((taskEvent: TaskEvent) => Promise<void>);
 
     constructor(taskRepository: TaskRepository, taskExecutors: Map<TaskType, TaskExecutor> = new Map()) {
         this.taskExecutors = taskExecutors
         this.taskRepository = taskRepository
+        this.taskOutcomeHandler = async (taskEvent: TaskEvent): Promise<void> => {
+            console.log("Task outcome handler not implemented", taskEvent)
+        }
     }
 
     async routeEvent(event: TaskEvent): Promise<void> {
         switch (event.type) {
             case EventType.TASK_SUBMISSION:
                 const taskSubmittedEvent: TaskSubmissionEvent = event as TaskSubmissionEvent
-                const result: TaskResult = await this.execute(taskSubmittedEvent.task)
-                console.log(result)
-                //this.sendResult(result)
+                await this.execute(taskSubmittedEvent.task)
                 break
             default:
                 console.error("Unrecognized or not supported event type: " + event.type)
@@ -39,23 +43,28 @@ export class TaskServiceImpl implements TaskService {
         this.taskExecutors.delete(taskType)
     }
 
-    async execute(task: Task): Promise<TaskResult> {
-        const executor = this.taskExecutors.get(task.id.type)
-        if (!executor) {
-            throw new Error(`Task executor not found for task type: ${task.id.type}`)
+    async execute(task: Task): Promise<void> {
+        try {
+            const publicKey: string = task.id.publicKey
+            const executor = this.taskExecutors.get(task.id.type)
+            const result: TaskResult = executor!.execute(task)
+            // clean public-key for security reasons
+            result.taskId.publicKey = ""
+            result.cId = await this.taskRepository.upload(publicKey, result)
+            const taskResultEvent: TaskResultEvent = TaskEventFactory.taskResultEventFrom(task.clientId, result)
+            await this.taskOutcomeHandler(taskResultEvent)
+        } catch (e: any) {
+            const taskResultEvent: TaskFailureEvent = TaskEventFactory.taskFailureEventFrom(task.clientId, e.toString())
+            await this.taskOutcomeHandler(taskResultEvent)
+            console.error("Error executing task", e)
         }
-        const result: TaskResult = executor.execute(task)
-        this.taskRepository.upload(task.clientId.publicKey!, result)
-        //this.sendEvent(new TaskExecutedEvent(task.id, result))
-        return result
-    }
-
-    retrieveResult(taskId: TaskId): Promise<TaskResult> {
-        //TO BIND IN SOME WAY THE CID TO THE TASK ID
-        return this.taskRepository.retrieve("privateKey", "cid")
     }
 
     getPendingTasks(): Promise<Task[]> {
         return Promise.resolve([]);
+    }
+
+    registerTaskOutcomeHandler(handler: (taskEvent: TaskEvent) => Promise<void>): void {
+        this.taskOutcomeHandler = handler
     }
 }

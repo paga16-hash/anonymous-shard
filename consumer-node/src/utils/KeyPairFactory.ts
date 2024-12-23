@@ -3,7 +3,7 @@ import * as crypto from 'crypto';
 export class KeyPairFactory {
     static newPair(): { publicKey: string, privateKey: string } {
         const {publicKey, privateKey} = crypto.generateKeyPairSync('rsa', {
-            modulusLength: 2048, // Key size for strong encryption
+            modulusLength: 2048,
             publicKeyEncoding: {
                 type: 'spki',
                 format: 'pem',
