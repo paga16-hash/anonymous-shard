@@ -23,6 +23,7 @@ export interface TransportManager {
     /**
      * Listen on the given address.
      * @param address the address to listen on
+     * @param port the port to listen on
      */
-    listen(address: string): Promise<void>
+    listen(address: string, port: number): Promise<void>
 }
