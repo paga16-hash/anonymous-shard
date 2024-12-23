@@ -17,7 +17,6 @@ export class IPFSTaskRepository implements TaskRepository {
             const url: string = `${this.gatewayUrl}/${cId}`;
             console.log(`Retrieving TaskResult from IPFS: ${url}`);
             const response: AxiosResponse<any, any> = await axios.get(url);
-            console.log('Retrieved TaskResult:', response.data);
             //TODO VALIDATION LAYER
             const decryptedTaskResult: string = await this.encryptor.decrypt(privateKey, response.data.enc);
             return decryptedTaskResult as unknown as TaskResult;

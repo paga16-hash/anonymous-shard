@@ -2,6 +2,8 @@ import axios, {AxiosResponse} from 'axios';
 import {TaskRepository} from "../../application/repositories/TaskRepository.js";
 import {TaskResult} from "../../domain/core/task/TaskResult.js";
 import {Encryptor} from "../encryption/Encryptor.js";
+import {TaskResultIdentifier} from "../../domain/core/task/TaskResultIdentifier.js";
+import {TaskResultIdentifierFactory} from "../../domain/factories/events/task/TaskResultIdentifierFactory.js";
 
 export class IPFSTaskRepository implements TaskRepository {
     private readonly apiKey: string = process.env.PINATA_API_KEY!;
@@ -18,7 +20,7 @@ export class IPFSTaskRepository implements TaskRepository {
         this.gatewayUrl = gatewayUrl;
     }
 
-    async upload(publicKey: string, taskResult: TaskResult): Promise<string> {
+    async upload(publicKey: string, taskResult: TaskResult): Promise<TaskResultIdentifier> {
         try {
             const encryptedTaskResult: string = await this.encryptor.encrypt(publicKey, taskResult);
             console.log(`Uploading TaskResult of #${taskResult.taskId.value} to IPFS via Pinata...`);
@@ -32,7 +34,7 @@ export class IPFSTaskRepository implements TaskRepository {
 
             const cid = res.data.IpfsHash;
             console.log(`TaskResult of #${taskResult.taskId.value} uploaded successfully! CID: ${cid}`);
-            return cid;
+            return TaskResultIdentifierFactory.taskResultIdentifierFrom(cid);
         } catch (error) {
             console.error('Error uploading TaskResult to IPFS:', error);
             throw error;

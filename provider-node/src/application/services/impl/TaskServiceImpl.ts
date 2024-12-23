@@ -51,10 +51,10 @@ export class TaskServiceImpl implements TaskService {
             // clean public-key for security reasons
             result.taskId.publicKey = ""
             result.cId = await this.taskRepository.upload(publicKey, result)
-            const taskResultEvent: TaskResultEvent = TaskEventFactory.taskResultEventFrom(task.clientId, result)
+            const taskResultEvent: TaskResultEvent = TaskEventFactory.taskResultEventFrom(task.id, task.clientId, result.cId!)
             await this.taskOutcomeHandler(taskResultEvent)
         } catch (e: any) {
-            const taskResultEvent: TaskFailureEvent = TaskEventFactory.taskFailureEventFrom(task.clientId, e.toString())
+            const taskResultEvent: TaskFailureEvent = TaskEventFactory.taskFailureEventFrom(task.id, task.clientId, e.toString())
             await this.taskOutcomeHandler(taskResultEvent)
             console.error("Error executing task", e)
         }

@@ -1,6 +1,6 @@
 import {TaskEvent} from "./TaskEvent.js";
-import {TaskResult} from "../../core/task/TaskResult.js";
+import {TaskResultIdentifier} from "../../core/task/TaskResultIdentifier.js";
 
 export interface TaskResultEvent extends TaskEvent {
-    result: TaskResult
+    contentIdentifier: TaskResultIdentifier
 }
