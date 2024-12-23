@@ -5,7 +5,7 @@ import {Topic} from "../../../utils/Topic.js";
 import {TaskEvent} from "../../../domain/events/task/TaskEvent.js";
 import {TaskSubmissionEvent} from "../../../domain/events/task/TaskSubmissionEvent.js";
 
-export class ProviderEventsHub implements EventsHub {
+export class ConsumerEventsHub implements EventsHub {
     private transportManager: TransportManager | undefined
     private topicEventListeners: Map<string, ((data: any) => void)>
 

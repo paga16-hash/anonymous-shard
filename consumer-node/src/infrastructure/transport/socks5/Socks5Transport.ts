@@ -20,9 +20,7 @@ export class Socks5Transport implements Transport {
             ...config,
         };
         this.handler = onMessage;
-        this.getAddresses().forEach((address: string): void => {
-            this.listen(address).catch(console.error);
-        });
+        this.listen(process.env.HOST!, parseInt(process.env.PORT!)).catch(console.error);
     }
 
     /**
@@ -40,7 +38,6 @@ export class Socks5Transport implements Transport {
      */
     addAddressMapping(address: string, port: number): void {
         this.config.addressMap.set(address, port);
-        this.listen(address);
     }
 
     /**
@@ -54,14 +51,11 @@ export class Socks5Transport implements Transport {
     /**
      * Listen on the given address.
      * @example await transport.listen(multiaddr('your-onion-address'))
-     * @param address
+     * @param address the address to listen on
+     * @param port the port to listen on
      */
-    async listen(address: string): Promise<void> {
-        console.log("Trying to listen: ", address)
-        const port = this.config.addressMap.get(address);
-        if (!port) {
-            throw new Error(`Address ${address} not mapped to a port.`);
-        }
+    async listen(address: string, port: number): Promise<void> {
+        console.log("Trying to listen: ", address, "on port", port);
 
         const server: Server = createServer((socket: Socket): void => {
             console.log(`Connection from ${socket.remoteAddress}:${socket.remotePort}`);

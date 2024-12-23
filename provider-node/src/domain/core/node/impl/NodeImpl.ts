@@ -25,12 +25,6 @@ export class NodeImpl implements Node {
         this.providerEventsHub = new ProviderEventsHub();
         this.address = address;
         this.port = port
-        /*this.transportManager = new Socks5TransportManager(
-            new Socks5Transport({
-                    addressMap: this.bootstrapNodes,
-                },
-                this.providerEventsHub.routeEvent.bind(this.providerEventsHub))
-        );*/
         this.transportManager = this.initTransport()
         this.providerEventsHub.useTransport(this.transportManager)
     }
@@ -44,8 +38,6 @@ export class NodeImpl implements Node {
                     this.providerEventsHub.routeEvent.bind(this.providerEventsHub))
             );
         } else {
-            console.log("not anonymous mode")
-            console.log(this.bootstrapNodes)
             return new SocketTransportManager(
                 new SocketTransport({
                         addressMap: this.bootstrapNodes,

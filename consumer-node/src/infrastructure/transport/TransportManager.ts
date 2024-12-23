@@ -15,14 +15,15 @@ export interface TransportManager {
     /**
      * Send a message to a random subset of known peers.
      * @param message the message to send
-     * @param gossipFactor the number of peers to send the message to
+     * @param gossipingFactor the number of peers to send the message to
      * @returns a promise that resolves when the message has been sent to the peers
      */
-    sendToRandomPeers(message: string, gossipFactor: number): Promise<void>
+    sendToRandomPeers(message: string, gossipingFactor: number): Promise<void>
 
     /**
      * Listen on the given address.
      * @param address the address to listen on
+     * @param port the port to listen on
      */
-    listen(address: string): Promise<void>
+    listen(address: string, port: number): Promise<void>
 }

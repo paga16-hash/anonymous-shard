@@ -44,7 +44,7 @@ export class SocketTransportManager implements TransportManager {
         await Promise.all(
             Array.from(uniqueRandomAddresses).map((address: string) => {
                 console.log("Sending message to peer provider-1-1", address);
-                this.sendToPeer("provider-node-provider-1", message)
+                this.sendToPeer(address, message)
             })
         );
     }
@@ -53,8 +53,9 @@ export class SocketTransportManager implements TransportManager {
     /**
      * Listen on the given address.
      * @param address the address to listen on
+     * @param port the port to listen on
      */
-    async listen(address: string): Promise<void> {
-        await this.transport.listen(address);
+    async listen(address: string, port: number): Promise<void> {
+        await this.transport.listen(address, port);
     }
 }

@@ -1,7 +1,7 @@
 import {config} from 'dotenv'
 import {Node} from "../Node.js";
 import {EventsHub} from "../../../../infrastructure/events/EventsHub.js";
-import {ProviderEventsHub} from "../../../../infrastructure/events/impl/ProviderEventsHub.js";
+import {ConsumerEventsHub} from "../../../../infrastructure/events/impl/ConsumerEventsHub.js";
 import {TransportManager} from "../../../../infrastructure/transport/TransportManager.js";
 import {Socks5TransportManager} from "../../../../infrastructure/transport/socks5/Socks5TransportManager.js";
 import {Socks5Transport} from "../../../../infrastructure/transport/socks5/Socks5Transport.js";
@@ -22,7 +22,7 @@ export class NodeImpl implements Node {
 
     constructor(address: string, port: number, bootstrapNodes: Map<string, number>) {
         this.bootstrapNodes = bootstrapNodes;
-        this.providerEventsHub = new ProviderEventsHub();
+        this.providerEventsHub = new ConsumerEventsHub();
         this.address = address;
         this.port = port
         this.transportManager = this.initTransport()
