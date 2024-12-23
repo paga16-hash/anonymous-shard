@@ -50,8 +50,9 @@ export class SocketTransportManager implements TransportManager {
     /**
      * Listen on the given address.
      * @param address the address to listen on
+     * @param port the port to listen on
      */
-    async listen(address: string): Promise<void> {
-        await this.transport.listen(address);
+    async listen(address: string, port: number): Promise<void> {
+        await this.transport.listen(address, port);
     }
 }

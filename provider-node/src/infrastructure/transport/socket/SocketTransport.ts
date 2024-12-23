@@ -2,7 +2,6 @@ import {createServer, Server, Socket} from "net";
 import {SocketConfig} from "./SocketConfig.js";
 import {Transport} from "../Transport.js";
 import {DomainEvent} from "../../../domain/events/DomainEvent.js";
-import * as process from "node:process";
 
 /**
  * Socket transport, without any proxy.
@@ -18,10 +17,7 @@ export class SocketTransport implements Transport {
             ...config,
         };
         this.handler = onMessage;
-        this.listen("127.0.0.1").catch(console.error);
-        /*this.getAddresses().forEach((address: string): void => {
-            this.listen(address).catch(console.error);
-        });*/
+        this.listen(process.env.HOST!, parseInt(process.env.PORT!)).catch(console.error);
     }
 
     /**
@@ -39,7 +35,6 @@ export class SocketTransport implements Transport {
      */
     addAddressMapping(address: string, port: number): void {
         this.config.addressMap.set(address, port);
-        this.listen(address);
     }
 
     /**
@@ -53,17 +48,11 @@ export class SocketTransport implements Transport {
     /**
      * Listen on the given address.
      * @example await transport.listen(multiaddr('your-address'))
-     * @param address
+     * @param address the address to listen on
+     * @param port the port to listen on
      */
-    //TODO To modify to adhere to the correct listener
-    async listen(address: string): Promise<void> {
-        /*console.log("Trying to listen: ", address)
-        const port = this.config.addressMap.get(address);
-        if (!port) {
-            throw new Error(`Address ${address} not mapped to a port.`);
-        }*/
-        console.log("Trying to listen: ", address, "on port", process.env.PORT)
-        const port = process.env.PORT!
+    async listen(address: string, port: number): Promise<void> {
+        console.log("Trying to listen: ", address, "on port", port);
 
         const server: Server = createServer((socket: Socket): void => {
             console.log(`Connection from ${socket.remoteAddress}:${socket.remotePort}`);

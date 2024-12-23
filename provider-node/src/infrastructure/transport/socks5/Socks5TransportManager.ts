@@ -53,6 +53,6 @@ export class Socks5TransportManager implements TransportManager {
      * @param port the port to listen on
      */
     async listen(address: string, port: number): Promise<void> {
-        await this.transport.listen(address);
+        await this.transport.listen(address, port);
     }
 }
