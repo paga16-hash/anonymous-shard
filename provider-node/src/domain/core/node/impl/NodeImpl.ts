@@ -44,6 +44,8 @@ export class NodeImpl implements Node {
                     this.providerEventsHub.routeEvent.bind(this.providerEventsHub))
             );
         } else {
+            console.log("not anonymous mode")
+            console.log(this.bootstrapNodes)
             return new SocketTransportManager(
                 new SocketTransport({
                         addressMap: this.bootstrapNodes,

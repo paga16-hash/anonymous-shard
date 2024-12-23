@@ -2,6 +2,7 @@ import {createServer, Server, Socket} from "net";
 import {SocketConfig} from "./SocketConfig.js";
 import {Transport} from "../Transport.js";
 import {DomainEvent} from "../../../domain/events/DomainEvent.js";
+import * as process from "node:process";
 
 /**
  * Socket transport, without any proxy.
@@ -17,9 +18,10 @@ export class SocketTransport implements Transport {
             ...config,
         };
         this.handler = onMessage;
-        this.getAddresses().forEach((address: string): void => {
+        this.listen("127.0.0.1").catch(console.error);
+        /*this.getAddresses().forEach((address: string): void => {
             this.listen(address).catch(console.error);
-        });
+        });*/
     }
 
     /**
@@ -50,15 +52,18 @@ export class SocketTransport implements Transport {
 
     /**
      * Listen on the given address.
-     * @example await transport.listen(multiaddr('your-onion-address'))
+     * @example await transport.listen(multiaddr('your-address'))
      * @param address
      */
+    //TODO To modify to adhere to the correct listener
     async listen(address: string): Promise<void> {
-        console.log("Trying to listen: ", address)
+        /*console.log("Trying to listen: ", address)
         const port = this.config.addressMap.get(address);
         if (!port) {
             throw new Error(`Address ${address} not mapped to a port.`);
-        }
+        }*/
+        console.log("Trying to listen: ", address, "on port", process.env.PORT)
+        const port = process.env.PORT!
 
         const server: Server = createServer((socket: Socket): void => {
             console.log(`Connection from ${socket.remoteAddress}:${socket.remotePort}`);
@@ -98,6 +103,7 @@ export class SocketTransport implements Transport {
 
             try {
                 const port: number = this.config.addressMap.get(address) || 80;
+                console.log(`Dialing ${address}:${port}...`);
                 const socket: Socket = new Socket();
                 socket.connect(port, address);
                 return new Promise((resolve, reject): void => {
