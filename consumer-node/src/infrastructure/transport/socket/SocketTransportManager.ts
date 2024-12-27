@@ -10,8 +10,8 @@ export class SocketTransportManager implements TransportManager {
     }
 
     /**
-     * Send a message to a peer, identified by its onion address.
-     * @param address the onion address of the peer
+     * Send a message to a peer, identified by its address.
+     * @param address the address of the peer
      * @param message the message to send
      */
     async sendToPeer(address: string, message: string): Promise<void> {
