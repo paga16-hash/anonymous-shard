@@ -22,7 +22,7 @@ export const mapBootstrapAddresses = (): Map<string, number> => {
             const port = parseInt(process.env[`${keyPrefix.replace('ADDRESS', 'PORT')}${index}`] || '0', 10);
 
             if (address && port && (port.toString() !== process.env.PORT)) {
-                bootstrapMap.set(address, port);
+                bootstrapMap.set(address + ":" + port, port);
             }
         });
     /*if(process.env.NODE_ENV !== 'develop') {

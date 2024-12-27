@@ -9,6 +9,10 @@ import {Socks5Transport} from "../../../../infrastructure/transport/socks5/Socks
 import {TaskEvent} from "../../../events/task/TaskEvent.js";
 import {SocketTransportManager} from "../../../../infrastructure/transport/socket/SocketTransportManager.js";
 import {SocketTransport} from "../../../../infrastructure/transport/socket/SocketTransport.js";
+import {DHTDiscoveryComponent} from "../../../../infrastructure/network/dht/DHTDiscoveryComponent.js";
+import {DiscoveryComponent} from "../../../../infrastructure/network/DiscoveryComponent.js";
+import {DiscoveryEvent} from "../../../events/discovery/DiscoveryEvent";
+
 
 config({path: process.cwd() + '/../.env'})
 
@@ -18,6 +22,7 @@ export class NodeImpl implements Node {
     private readonly port: number;
     private readonly providerEventsHub: EventsHub;
     private readonly transportManager: TransportManager;
+    private readonly dhtComponent: DiscoveryComponent;
     private readonly anonymousMode: boolean = process.env.ANONYMOUS_MODE === "true";
 
     constructor(address: string, port: number, bootstrapNodes: Map<string, number>) {
@@ -26,23 +31,23 @@ export class NodeImpl implements Node {
         this.address = address;
         this.port = port
         this.transportManager = this.initTransport()
+        this.dhtComponent = new DHTDiscoveryComponent(this.peerId(), this.bootstrapNodes, this.transportManager.sendToPeer.bind(this.transportManager))
+        this.transportManager.addDiscoveryComponent(this.dhtComponent)
         this.providerEventsHub.useTransport(this.transportManager)
+    }
+
+    async joinNetwork(): Promise<void> {
+        await this.dhtComponent.joinNetwork()
     }
 
     private initTransport(): TransportManager {
         if (this.anonymousMode) {
             return new Socks5TransportManager(
-                new Socks5Transport({
-                        addressMap: this.bootstrapNodes,
-                    },
-                    this.providerEventsHub.routeEvent.bind(this.providerEventsHub))
+                new Socks5Transport({}, this.providerEventsHub.routeEvent.bind(this.providerEventsHub))
             );
         } else {
             return new SocketTransportManager(
-                new SocketTransport({
-                        addressMap: this.bootstrapNodes,
-                    },
-                    this.providerEventsHub.routeEvent.bind(this.providerEventsHub))
+                new SocketTransport({}, this.providerEventsHub.routeEvent.bind(this.providerEventsHub))
             );
         }
     }
@@ -55,7 +60,7 @@ export class NodeImpl implements Node {
         }
     }
 
-    async registerMetricEventsHandler(handler: (metric: MetricEvent) => Promise<void>): Promise<void> {
+    async registerMetricEventsHandler(handler: (metricEvent: MetricEvent) => Promise<void>): Promise<void> {
         try {
             this.providerEventsHub.registerMetricEventsHandler(handler);
         } catch (e) {
@@ -71,11 +76,27 @@ export class NodeImpl implements Node {
         }
     }
 
-    async registerTaskEventsHandler(handler: (metric: TaskEvent) => Promise<void>): Promise<void> {
+    async registerTaskEventsHandler(handler: (taskEvent: TaskEvent) => Promise<void>): Promise<void> {
         try {
             this.providerEventsHub.registerTaskEventsHandler(handler);
         } catch (e) {
             console.error("Error registering handler for task topic", e);
+        }
+    }
+
+    async registerDiscoveryEventsHandler(handler: (discoveryEvent: DiscoveryEvent) => Promise<void>): Promise<void> {
+        try {
+            this.providerEventsHub.registerDiscoveryEventsHandler(handler);
+        } catch (e) {
+            console.error("Error registering handler for peers topic", e);
+        }
+    }
+
+    async routeDiscoveryEvent(discoveryEvent: DiscoveryEvent): Promise<void> {
+        try {
+            this.dhtComponent.handleDiscoveryEvent(discoveryEvent)
+        } catch (e) {
+            console.error("Error routing discovery event", e);
         }
     }
 

@@ -36,5 +36,4 @@ export class MetricServiceImpl implements MetricService {
         this.knownMetrics.set(peerId, metric);
     }
 
-
 }

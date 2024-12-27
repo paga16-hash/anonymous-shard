@@ -9,6 +9,7 @@ import {MetricEventFactory} from "../../../domain/factories/events/metric/Metric
 import {TaskService} from "../TaskService.js";
 import {TaskEvent} from "../../../domain/events/task/TaskEvent.js";
 import {Task} from "../../../domain/core/task/Task.js";
+import {DiscoveryEvent} from "../../../domain/events/discovery/DiscoveryEvent";
 
 export class NodeServiceImpl implements NodeService {
     private readonly GOSSIP_INTERVAL: number = 30 * 1000;
@@ -34,10 +35,18 @@ export class NodeServiceImpl implements NodeService {
             console.log("Received task event");
             this.taskService.routeEvent(taskEvent);
         })
+
+        this.node.registerDiscoveryEventsHandler(async (discoveryEvent: DiscoveryEvent): Promise<void> => {
+            console.log("Received discovery event");
+            this.node.routeDiscoveryEvent(discoveryEvent);
+        })
+
         this.taskService.registerTaskOutcomeHandler(async (taskEvent: TaskEvent): Promise<void> => {
             await this.node.routeTaskOutcome(taskEvent);
         });
-        this.startGossiping();
+
+
+        this.waitAndJoinNetwork();
     }
 
     async getCurrentMetrics(): Promise<Metric> {
@@ -48,13 +57,20 @@ export class NodeServiceImpl implements NodeService {
         return this.taskService.getPendingTasks()
     }
 
-    private startGossiping(): void {
-        setInterval(async (): Promise<void> => {
-            this.node.propagateMetric(
-                MetricEventFactory.createMetricAvailableEvent(this.node.peerId(), await this.getCurrentMetrics())
-            ).catch((e: any): void => {
-                console.error("Error propagating metric", e);
+    private waitAndJoinNetwork(): void {
+        setTimeout(async (): Promise<void> => {
+            this.node.joinNetwork().then((): void => {
+                console.log("Joined network, start gossiping metrics");
+                /*setInterval(async (): Promise<void> => {
+                    this.node.propagateMetric(
+                        MetricEventFactory.createMetricAvailableEvent(this.node.peerId(), await this.getCurrentMetrics())
+                    ).catch((e: any): void => {
+                        console.error("Error propagating metric", e);
+                    })
+                }, this.GOSSIP_INTERVAL);*/
+            }).catch((e: any): void => {
+                console.error("Error joining network", e);
             })
-        }, this.GOSSIP_INTERVAL);
+        }, 5000);
     }
 }

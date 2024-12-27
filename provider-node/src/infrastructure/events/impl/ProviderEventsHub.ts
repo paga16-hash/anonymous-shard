@@ -7,6 +7,7 @@ import {TaskEvent} from "../../../domain/events/task/TaskEvent.js";
 import {EventType} from "../../../utils/EventType.js";
 import {TaskResultEvent} from "../../../domain/events/task/TaskResultEvent.js";
 import {TaskFailureEvent} from "../../../domain/events/task/TaskFailureEvent.js";
+import {DiscoveryEvent} from "../../../domain/events/discovery/DiscoveryEvent";
 
 export class ProviderEventsHub implements EventsHub {
     private transportManager: TransportManager | undefined
@@ -35,7 +36,8 @@ export class ProviderEventsHub implements EventsHub {
         if (listener) {
             listener(JSON.parse(event.toString()));
         } else {
-            console.error("No registered handler for topic: " + event.topic);
+            console.log(JSON.parse(event.toString()))
+            console.error("No registered handler for topic: " + JSON.parse(event.toString()).topic);
         }
     }
 
@@ -93,6 +95,18 @@ export class ProviderEventsHub implements EventsHub {
             console.log("Registered handler for topic: " + Topic.TASK);
         }).catch((err: any): void => {
             console.error("Error registering handler for topic: " + Topic.TASK, err);
+        })
+    }
+
+    /**
+     * Register a handler for the peers topic
+     * @param handler the handler to register
+     */
+    registerDiscoveryEventsHandler(handler: (discoveryEvent: DiscoveryEvent) => Promise<void>): void {
+        this.subscribe(Topic.PEERS, handler).then((): void => {
+            console.log("Registered handler for topic: " + Topic.PEERS);
+        }).catch((err: any): void => {
+            console.error("Error registering handler for topic: " + Topic.PEERS, err);
         })
     }
 

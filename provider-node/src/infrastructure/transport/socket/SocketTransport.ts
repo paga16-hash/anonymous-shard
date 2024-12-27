@@ -13,36 +13,10 @@ export class SocketTransport implements Transport {
     constructor(config: Partial<SocketConfig> = {}, onMessage: (message: DomainEvent) => void) {
         this.config = {
             sleepOnError: 5000,
-            addressMap: new Map(),
             ...config,
         };
         this.handler = onMessage;
         this.listen(process.env.HOST!, parseInt(process.env.PORT!)).catch(console.error);
-    }
-
-    /**
-     * Get the onion addresses.
-     * @returns the onion addresses
-     */
-    getAddresses(): string[] {
-        return Array.from(this.config.addressMap.keys());
-    }
-
-    /**
-     * Add a mapping from an onion address to a port.
-     * @param address the onion address
-     * @param port the port to map to
-     */
-    addAddressMapping(address: string, port: number): void {
-        this.config.addressMap.set(address, port);
-    }
-
-    /**
-     * Remove a mapping from an onion address.
-     * @param onion the onion address
-     */
-    removeAddressMapping(onion: string): void {
-        this.config.addressMap.delete(onion);
     }
 
     /**
@@ -88,7 +62,7 @@ export class SocketTransport implements Transport {
             address = addressPart;
             port = parseInt(portPart);
         } else {
-            port = this.config.addressMap.get(address) || 80;
+            port = 80;
         }
         let attempt: number = 0;
 

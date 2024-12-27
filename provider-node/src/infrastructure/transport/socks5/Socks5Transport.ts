@@ -16,36 +16,10 @@ export class Socks5Transport implements Transport {
             sleepOnError: 5000,
             socksHost: this.DEFAULT_SOCKS_HOST,
             socksPort: this.DEFAULT_SOCKS_PORT,
-            addressMap: new Map(),
             ...config,
         };
         this.handler = onMessage;
         this.listen(process.env.HOST!, parseInt(process.env.PORT!)).catch(console.error);
-    }
-
-    /**
-     * Get the onion addresses.
-     * @returns the onion addresses
-     */
-    getAddresses(): string[] {
-        return Array.from(this.config.addressMap.keys());
-    }
-
-    /**
-     * Add a mapping from an onion address to a port.
-     * @param address the onion address
-     * @param port the port to map to
-     */
-    addAddressMapping(address: string, port: number): void {
-        this.config.addressMap.set(address, port);
-    }
-
-    /**
-     * Remove a mapping from an onion address.
-     * @param onion the onion address
-     */
-    removeAddressMapping(onion: string): void {
-        this.config.addressMap.delete(onion);
     }
 
     /**
@@ -92,6 +66,7 @@ export class Socks5Transport implements Transport {
         while (attempt < maxRetries) {
             attempt++;
             console.log(`Attempt ${attempt}: Trying to dial ${address} via SOCKS5 proxy...`);
+            // TODO QUESTION ABOUT PORT PART AND HOST PART
 
             try {
                 const socket: Socket = (await SocksClient.createConnection({
@@ -103,7 +78,7 @@ export class Socks5Transport implements Transport {
                     command: 'connect',
                     destination: {
                         host: `${address}.onion`,
-                        port: this.config.addressMap.get(address) || 80,
+                        port: 80, //this.config.addressMap.get(address) ||
                     },
                 })).socket;
 
