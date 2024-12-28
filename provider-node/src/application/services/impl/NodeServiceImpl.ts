@@ -61,13 +61,13 @@ export class NodeServiceImpl implements NodeService {
         setTimeout(async (): Promise<void> => {
             this.node.joinNetwork().then((): void => {
                 console.log("Joined network, start gossiping metrics");
-                /*setInterval(async (): Promise<void> => {
+                setInterval(async (): Promise<void> => {
                     this.node.propagateMetric(
                         MetricEventFactory.createMetricAvailableEvent(this.node.peerId(), await this.getCurrentMetrics())
                     ).catch((e: any): void => {
                         console.error("Error propagating metric", e);
                     })
-                }, this.GOSSIP_INTERVAL);*/
+                }, this.GOSSIP_INTERVAL);
             }).catch((e: any): void => {
                 console.error("Error joining network", e);
             })
