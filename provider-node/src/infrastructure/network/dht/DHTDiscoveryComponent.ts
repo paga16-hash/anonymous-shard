@@ -5,27 +5,39 @@ import {DiscoveryEventFactory} from "../../../domain/factories/events/discovery/
 import {EventType} from "../../../utils/EventType.js";
 import {PeerDiscoveryEvent} from "../../../domain/events/discovery/PeerDiscoveryEvent.js";
 import {DiscoveryResponseEvent} from "../../../domain/events/discovery/DiscoveryResponseEvent.js";
+import {PingEvent} from "../../../domain/events/discovery/PingEvent.js";
 
 export class DHTDiscoveryComponent implements DiscoveryComponent {
     private readonly id: string;
     private readonly bucketSize: number;
-    // the key, so the address, is in address:port format
-    private knownPeers: Map<string, number>;
-    private readonly sender: ((address: string, message: string) => void);
+    private readonly buckets: Map<number, Map<string, number>>;
+    private readonly gossipInterval: number;
+    private readonly pingInterval: number;
+    private readonly sender: (address: string, message: string) => Promise<void>;
+    private readonly COLD_START_INTERVAL: number = 5000;
 
-    constructor(id: string, knownPeers: Map<string, number> = new Map(), sender: (address: string, message: string) => void, bucketSize: number = 20) {
+    constructor(id: string, bootstrapNodes: Map<string, number>, sender: (address: string, message: string) => Promise<void>, bucketSize: number = 20, gossipInterval: number = 5000, pingInterval: number = 30000) {
         this.id = id;
         this.bucketSize = bucketSize;
-        this.knownPeers = knownPeers;
+        this.buckets = new Map();
         this.sender = sender;
+        this.gossipInterval = gossipInterval;
+        this.pingInterval = pingInterval;
+
+        for (const [address, port] of bootstrapNodes) {
+            this.addAddressMapping(address, port);
+        }
+
+        this.startGossip();
+        this.startPing();
     }
 
     /**
-     * Get the onion addresses.
-     * @returns the onion addresses
+     * Get the addresses from all buckets.
+     * @returns the addresses
      */
     getAddresses(): string[] {
-        return Array.from(this.knownPeers.keys());
+        return Array.from(this.buckets.values()).flatMap((bucket) => Array.from(bucket.keys()));
     }
 
     /**
@@ -34,7 +46,26 @@ export class DHTDiscoveryComponent implements DiscoveryComponent {
      * @param port the port to map to
      */
     addAddressMapping(address: string, port: number): void {
-        this.knownPeers.set(address + ':' + port, port);
+        console.log(`Adding peer: ${address}:${port} to routing table`);
+        if (address === this.id) {
+            return;
+        }
+        const distance = this.xorDistance(this.id, address);
+        const bucketIndex = Math.floor(Math.log2(distance)) || 0;
+
+        if (!this.buckets.has(bucketIndex)) {
+            this.buckets.set(bucketIndex, new Map());
+        }
+
+        const bucket = this.buckets.get(bucketIndex)!;
+        if (bucket.size >= this.bucketSize) {
+            console.warn(`Bucket ${bucketIndex} is full. Address ${address} not added.`);
+            return;
+        }
+
+        bucket.set(address, port);
+        console.log(`Added peer: ${address} to bucket ${bucketIndex}`);
+        console.log("KNOWN PEERS:", this.getAddresses())
     }
 
     /**
@@ -42,12 +73,24 @@ export class DHTDiscoveryComponent implements DiscoveryComponent {
      * @param address the address
      */
     removeAddressMapping(address: string): void {
-        this.knownPeers.delete(address);
+        const distance = this.xorDistance(this.id, address);
+        const bucketIndex = Math.floor(Math.log2(distance)) || 0;
+
+        if (this.buckets.has(bucketIndex)) {
+            const bucket = this.buckets.get(bucketIndex)!;
+            if (bucket.delete(address)) {
+                console.log(`Removed peer: ${address} from bucket ${bucketIndex}`);
+                console.log("KNOWN PEERS:", this.getAddresses())
+            } else {
+                console.warn(`Address ${address} not found in bucket ${bucketIndex}`);
+            }
+        } else {
+            console.warn(`No bucket found for address ${address}`);
+        }
     }
 
     /**
      * Join the network.
-     * @returns a promise that resolves when the node has joined the network
      */
     async joinNetwork(): Promise<void> {
         const bootstrapAddresses: string[] = Array.from(mapBootstrapAddresses().keys());
@@ -56,17 +99,17 @@ export class DHTDiscoveryComponent implements DiscoveryComponent {
             return;
         }
 
-        // Pick a random bootstrap address
-        const bootstrapAddress: string = bootstrapAddresses[Math.floor(Math.random() * bootstrapAddresses.length)];
+        const bootstrapAddress = bootstrapAddresses[Math.floor(Math.random() * bootstrapAddresses.length)];
         console.log(`Joining network via ${bootstrapAddress}`);
 
         const message: DiscoveryEvent = DiscoveryEventFactory.discoveryEventFrom(this.id);
 
-        try {
-            this.sender(bootstrapAddress, JSON.stringify(message));
-        } catch (err) {
-            throw new Error(`Failed to send DISCOVER message to ${bootstrapAddress}: ${err}`);
-        }
+        this.sender(bootstrapAddress, JSON.stringify(message)).catch((): void => {
+            console.error(`Failed to send DISCOVER message to ${bootstrapAddress}`);
+            setTimeout((): void => {
+                this.joinNetwork();
+            }, this.COLD_START_INTERVAL);
+        })
     }
 
     async handleDiscoveryEvent(discoveryEvent: PeerDiscoveryEvent): Promise<void> {
@@ -75,9 +118,10 @@ export class DHTDiscoveryComponent implements DiscoveryComponent {
                 await this.respondToDiscover(discoveryEvent.senderId);
                 break;
             case EventType.DISCOVER_RESPONSE:
-                console.log("peeeeeer",(discoveryEvent as DiscoveryResponseEvent).peers);
                 this.updateRoutingTable((discoveryEvent as DiscoveryResponseEvent).peers);
-                this.optimizeRoutingTable();
+                break;
+            case EventType.PING:
+                console.log("Ping discarded from", discoveryEvent.senderId);
                 break;
             default:
                 console.log(`Unknown message type: ${discoveryEvent.type}`);
@@ -85,38 +129,67 @@ export class DHTDiscoveryComponent implements DiscoveryComponent {
     }
 
     private async respondToDiscover(senderAddress: string): Promise<void> {
-        const peers: string[] = Array.from(this.knownPeers.keys());
+        this.updateRoutingTable([senderAddress]);
+        const peers: string[] = this.getAddresses().concat(this.id);
         const discoverResponse: DiscoveryResponseEvent = DiscoveryEventFactory.discoveryResponseEventFrom(this.id, peers);
 
         try {
-            this.sender(senderAddress, JSON.stringify(discoverResponse));
-            console.log(`Responded to DISCOVER from ${senderAddress}`);
+            this.sender(senderAddress, JSON.stringify(discoverResponse)).catch((): void => {
+                console.error(`Failed to respond to DISCOVER from ${senderAddress}:`);
+            })
         } catch (err) {
-            console.error(`Failed to respond to DISCOVER from ${senderAddress}:`, err);
+
         }
     }
 
-
     private updateRoutingTable(peerAddresses: string[]): void {
-        peerAddresses.forEach((peerAddress: string): void => {
-            if (!this.knownPeers.has(peerAddress) && peerAddress !== this.id) {
-                this.knownPeers.set(peerAddress, parseInt(peerAddress.split(':')[1]));
-                console.log(`Discovered new peer: ${peerAddress}`);
+        peerAddresses.forEach((address: string): void => {
+            if (address !== this.id) {
+                this.sender(address, JSON.stringify(DiscoveryEventFactory.pingEventFrom(this.id)))
+                    .then((): void => {
+                        this.addAddressMapping(address, parseInt(address.split(":")[1]));
+                    })
+                    .catch((): void => {
+                        this.removeAddressMapping(address);
+                    })
             }
         });
     }
 
-    private optimizeRoutingTable(): void {
-        if (this.knownPeers.size > this.bucketSize) {
-            const sortedPeers: string[] = Array.from(this.knownPeers.keys()).sort((a, b) =>
-                this.xorDistance(this.id, a) - this.xorDistance(this.id, b)
-            );
-            this.knownPeers = new Map(sortedPeers.slice(0, this.bucketSize).map((peer) => [peer, this.knownPeers.get(peer)!]));
-        }
+    /**
+     * Start periodic gossiping.
+     */
+    private startGossip(): void {
+        setInterval((): void => {
+            const peers: string[] = this.getAddresses();
+            const gossipEvent: DiscoveryResponseEvent = DiscoveryEventFactory.gossipEventFrom(this.id, peers);
+
+            peers.forEach((address: string): void => {
+                this.sender(address, JSON.stringify(gossipEvent)).catch(() => {
+                    console.error(`Failed to send GOSSIP message to ${address}:`);
+                })
+            });
+        }, this.gossipInterval);
+    }
+
+    /**
+     * Start periodic pings to verify peer availability.
+     */
+    private startPing(): void {
+        setInterval((): void => {
+            const peers: string[] = this.getAddresses();
+
+            peers.forEach((peer: string): void => {
+                const pingMessage: PingEvent = DiscoveryEventFactory.pingEventFrom(this.id);
+                this.sender(peer, JSON.stringify(pingMessage)).catch(() => {
+                    console.error(`Failed to send PING to ${peer}, removing from routing table.`);
+                    this.removeAddressMapping(peer);
+                })
+            });
+        }, this.pingInterval);
     }
 
     private xorDistance(a: string, b: string): number {
         return parseInt(a, 16) ^ parseInt(b, 16);
     }
-
 }

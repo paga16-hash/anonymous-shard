@@ -7,7 +7,7 @@ import {TaskEvent} from "../../../domain/events/task/TaskEvent.js";
 import {EventType} from "../../../utils/EventType.js";
 import {TaskResultEvent} from "../../../domain/events/task/TaskResultEvent.js";
 import {TaskFailureEvent} from "../../../domain/events/task/TaskFailureEvent.js";
-import {DiscoveryEvent} from "../../../domain/events/discovery/DiscoveryEvent";
+import {DiscoveryEvent} from "../../../domain/events/discovery/DiscoveryEvent.js";
 
 export class ProviderEventsHub implements EventsHub {
     private transportManager: TransportManager | undefined
@@ -141,7 +141,11 @@ export class ProviderEventsHub implements EventsHub {
      */
     private async directPublish(address: string, domainEvent: DomainEvent): Promise<void> {
         if (this.transportManager) {
-            await this.transportManager.sendToPeer(address, JSON.stringify(domainEvent));
+            await this.transportManager.sendToPeer(address, JSON.stringify(domainEvent)).then((): void => {
+                console.log("Message sent to " + address);
+            }).catch((err: any): void => {
+                console.error("Error sending message to " + address, err);
+            });
         } else {
             console.error("No transport manager available to directly publish message");
         }

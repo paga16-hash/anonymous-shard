@@ -68,7 +68,7 @@ export class SocketTransportManager implements TransportManager {
     private readonly transport: SocketTransport;
     private discoveryComponent: DiscoveryComponent;
 
-    constructor(transport: SocketTransport, discoveryComponent: DiscoveryComponent= new DHTDiscoveryComponent("", new Map(), (address: string, message: string) => {})) {
+    constructor(transport: SocketTransport, discoveryComponent: DiscoveryComponent= new DHTDiscoveryComponent("", new Map(), (address: string, message: string) => {return Promise.resolve()})) {
         this.transport = transport;
         this.discoveryComponent = discoveryComponent
     }
@@ -89,6 +89,7 @@ export class SocketTransportManager implements TransportManager {
             console.log(`[SocketTransportManager] Message sent to ${address}`);
         } catch (error) {
             console.error(`[SocketTransportManager] Failed to send message to ${address}:`, error);
+            throw error;
         }
     }
 

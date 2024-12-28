@@ -9,7 +9,7 @@ export class Socks5TransportManager implements TransportManager {
     private discoveryComponent: DiscoveryComponent;
 
     constructor(transport: Socks5Transport, discoveryComponent: DiscoveryComponent = new DHTDiscoveryComponent("", new Map(), (address: string, message: string) => {
-    })) {
+        return Promise.resolve()})) {
         this.transport = transport;
         this.discoveryComponent = discoveryComponent;
     }
