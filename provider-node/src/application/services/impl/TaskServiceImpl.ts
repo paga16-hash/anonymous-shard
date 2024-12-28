@@ -7,18 +7,19 @@ import {TaskType} from "../../../domain/core/task/enum/TaskType.js";
 import {TaskEvent} from "../../../domain/events/task/TaskEvent.js";
 import {EventType} from "../../../utils/EventType.js";
 import {TaskSubmissionEvent} from "../../../domain/events/task/TaskSubmissionEvent.js";
-import {TaskResultEvent} from "../../../domain/events/task/TaskResultEvent.js";
 import {TaskEventFactory} from "../../../domain/factories/events/task/TaskEventFactory.js";
-import {TaskFailureEvent} from "../../../domain/events/task/TaskFailureEvent.js";
+import {TaskEvaluator} from "../../evaluator/TaskEvaluator.js";
 
 export class TaskServiceImpl implements TaskService {
-    private readonly taskRepository: TaskRepository
-    private readonly taskExecutors: Map<TaskType, TaskExecutor>;
+    private readonly evaluator: TaskEvaluator
+    private readonly repository: TaskRepository
+    private readonly executors: Map<TaskType, TaskExecutor>;
     private taskOutcomeHandler: ((taskEvent: TaskEvent) => Promise<void>);
 
-    constructor(taskRepository: TaskRepository, taskExecutors: Map<TaskType, TaskExecutor> = new Map()) {
-        this.taskExecutors = taskExecutors
-        this.taskRepository = taskRepository
+    constructor(taskRepository: TaskRepository, taskEvaluator: TaskEvaluator, taskExecutors: Map<TaskType, TaskExecutor> = new Map()) {
+        this.evaluator = taskEvaluator
+        this.executors = taskExecutors
+        this.repository = taskRepository
         this.taskOutcomeHandler = async (taskEvent: TaskEvent): Promise<void> => {
             console.log("Task outcome handler not implemented", taskEvent)
         }
@@ -28,7 +29,7 @@ export class TaskServiceImpl implements TaskService {
         switch (event.type) {
             case EventType.TASK_SUBMISSION:
                 const taskSubmittedEvent: TaskSubmissionEvent = event as TaskSubmissionEvent
-                await this.execute(taskSubmittedEvent.task)
+                await this.evaluateTask(taskSubmittedEvent)
                 break
             default:
                 console.error("Unrecognized or not supported event type: " + event.type)
@@ -36,27 +37,36 @@ export class TaskServiceImpl implements TaskService {
     }
 
     async addTaskExecutor(taskType: TaskType, taskExecutor: TaskExecutor): Promise<void> {
-        this.taskExecutors.set(taskType, taskExecutor)
+        this.executors.set(taskType, taskExecutor)
     }
 
     async removeTaskExecutor(taskType: TaskType): Promise<void> {
-        this.taskExecutors.delete(taskType)
+        this.executors.delete(taskType)
     }
 
     async execute(task: Task): Promise<void> {
+        let taskResultEvent;
         try {
             const publicKey: string = task.id.publicKey
-            const executor = this.taskExecutors.get(task.id.type)
+            const executor: TaskExecutor = this.executors.get(task.id.type)!
             const result: TaskResult = executor!.execute(task)
             // clean public-key for security reasons
             result.taskId.publicKey = ""
-            result.cId = await this.taskRepository.upload(publicKey, result)
-            const taskResultEvent: TaskResultEvent = TaskEventFactory.taskResultEventFrom(task.id, task.clientId, result.cId!)
-            await this.taskOutcomeHandler(taskResultEvent)
+            result.cId = await this.repository.upload(publicKey, result)
+            taskResultEvent = TaskEventFactory.taskResultEventFrom(task.id, task.clientId, result.cId!)
         } catch (e: any) {
-            const taskResultEvent: TaskFailureEvent = TaskEventFactory.taskFailureEventFrom(task.id, task.clientId, e.toString())
-            await this.taskOutcomeHandler(taskResultEvent)
+            taskResultEvent = TaskEventFactory.taskFailureEventFrom(task.id, task.clientId, e.toString())
             console.error("Error executing task", e)
+        }
+        await this.taskOutcomeHandler(taskResultEvent)
+    }
+
+    async evaluateTask(taskSubmissionEvent: TaskSubmissionEvent): Promise<void> {
+        const task: Task = taskSubmissionEvent.task
+        if (await this.evaluator.evaluate(task)) {
+            await this.execute(task)
+        } else {
+            //TODO TO implement task redirection
         }
     }
 

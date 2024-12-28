@@ -2,7 +2,7 @@ import {Socket} from "net";
 import {TransportManager} from "../TransportManager.js";
 import {DiscoveryComponent} from "../../network/DiscoveryComponent.js";
 import {DHTDiscoveryComponent} from "../../network/dht/DHTDiscoveryComponent.js";
-import {Transport} from "../Transport";
+import {Transport} from "../Transport.js";
 
 export class TransportManagerImpl implements TransportManager {
     private readonly transport: Transport;

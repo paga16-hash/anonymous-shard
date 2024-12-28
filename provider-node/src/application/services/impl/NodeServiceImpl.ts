@@ -9,7 +9,7 @@ import {MetricEventFactory} from "../../../domain/factories/events/metric/Metric
 import {TaskService} from "../TaskService.js";
 import {TaskEvent} from "../../../domain/events/task/TaskEvent.js";
 import {Task} from "../../../domain/core/task/Task.js";
-import {DiscoveryEvent} from "../../../domain/events/discovery/DiscoveryEvent";
+import {DiscoveryEvent} from "../../../domain/events/discovery/DiscoveryEvent.js";
 
 export class NodeServiceImpl implements NodeService {
     private readonly GOSSIP_INTERVAL: number = 30 * 1000;
