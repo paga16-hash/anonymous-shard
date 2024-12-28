@@ -1,14 +1,14 @@
 import {Socket} from "net";
-import {SocketTransport} from "./SocketTransport.js";
 import {TransportManager} from "../TransportManager.js";
 import {DiscoveryComponent} from "../../network/DiscoveryComponent.js";
 import {DHTDiscoveryComponent} from "../../network/dht/DHTDiscoveryComponent.js";
+import {Transport} from "../Transport";
 
-export class SocketTransportManager implements TransportManager {
-    private readonly transport: SocketTransport;
+export class TransportManagerImpl implements TransportManager {
+    private readonly transport: Transport;
     private discoveryComponent: DiscoveryComponent;
 
-    constructor(transport: SocketTransport,
+    constructor(transport: Transport,
                 discoveryComponent: DiscoveryComponent =
                     new DHTDiscoveryComponent("", new Map(), (address: string, message: string) => {return Promise.resolve()})) {
         this.transport = transport;
@@ -29,12 +29,12 @@ export class SocketTransportManager implements TransportManager {
      */
     async sendToPeer(address: string, message: string): Promise<void> {
         try {
-            const socket: Socket = await this.transport.dial(address);
+            const socket: Socket = (await this.transport.dial(address))!;
             socket.write(JSON.stringify(message));
             socket.end();
-            console.log(`[SocketTransportManager] Message sent to ${address}`);
+            //console.log(`[TransportManager] Message sent to ${address}`);
         } catch (error) {
-            console.error(`[SocketTransportManager] Failed to send message to ${address}:`, error);
+            console.error(`[TransportManager] Failed to send message to ${address}:`, error);
             throw error;
         }
     }
@@ -45,9 +45,9 @@ export class SocketTransportManager implements TransportManager {
      */
     async sendToBroadcast(message: string): Promise<void> {
         const addresses: string[] = this.discoveryComponent.getAddresses();
-        console.log(`[SocketTransportManager] Broadcasting message to ${addresses.length} peers.`, addresses);
+        //console.log(`[TransportManager] Broadcasting message to ${addresses.length} peers.`, addresses);
         if (!addresses.length) {
-            console.warn("[SocketTransportManager] No peers available to broadcast the message.");
+            console.warn("[TransportManager] No peers available to broadcast the message.");
             return;
         }
 
@@ -66,7 +66,7 @@ export class SocketTransportManager implements TransportManager {
     async sendToRandomPeers(message: string, gossipFactor: number): Promise<void> {
         const addresses: string[] = this.discoveryComponent.getAddresses();
         if (!addresses.length) {
-            console.warn("[SocketTransportManager] No peers available for gossip messaging.");
+            console.warn("[TransportManager] No peers available for gossip messaging.");
             return;
         }
 
@@ -88,9 +88,9 @@ export class SocketTransportManager implements TransportManager {
     async listen(address: string, port: number): Promise<void> {
         try {
             await this.transport.listen(address, port);
-            console.log(`[SocketTransportManager] Listening on ${address}:${port}`);
+            console.log(`[TransportManager] Listening on ${address}:${port}`);
         } catch (error) {
-            console.error(`[SocketTransportManager] Failed to start listening on ${address}:${port}:`, error);
+            console.error(`[TransportManager] Failed to start listening on ${address}:${port}:`, error);
         }
     }
 

@@ -26,22 +26,21 @@ export class SocketTransport implements Transport {
      * @param port the port to listen on
      */
     async listen(address: string, port: number): Promise<void> {
-        console.log("Trying to listen: ", address, "on port", port);
 
         const server: Server = createServer((socket: Socket): void => {
-            console.log(`Connection from ${socket.remoteAddress}:${socket.remotePort}`);
-            socket.on('connect', (): void => {
+            //console.log(`Connection from ${socket.remoteAddress}:${socket.remotePort}`);
+            /*socket.on('connect', (): void => {
                 console.log('Connection established with', socket.remoteAddress);
-            });
+            });*/
 
             socket.on('data', (data: Buffer): void => {
                 this.handler(JSON.parse(data.toString()) as unknown as DomainEvent);
                 //TODO this.handler(presentationLayer.parseEvent(data));
             });
 
-            socket.on('end', (): void => {
+            /*socket.on('end', (): void => {
                 console.log('Connection ended with ', socket.remoteAddress);
-            });
+            });*/
         });
 
         server.listen(port, (): void => {
@@ -68,15 +67,15 @@ export class SocketTransport implements Transport {
 
         while (attempt < maxRetries) {
             attempt++;
-            console.log(`Attempt ${attempt}: Trying to dial ${address} directly...`);
+            //console.log(`Attempt ${attempt}: Trying to dial ${address} directly...`);
 
             try {
-                console.log(`Dialing ${address}:${port}...`);
+                //console.log(`Dialing ${address}:${port}...`);
                 const socket: Socket = new Socket();
                 socket.connect(port, address);
                 return new Promise((resolve, reject): void => {
                     socket.once('connect', (): void => {
-                        console.log('Connected to target.');
+                        //console.log('Connected to target.');
                         resolve(socket);
                     });
 
@@ -86,9 +85,9 @@ export class SocketTransport implements Transport {
                     });
                 });
             } catch (err) {
-                console.error(`Attempt ${attempt} failed`);//: , err
+                //console.error(`Attempt ${attempt} failed`);//: , err
                 if (attempt < maxRetries) {
-                    console.log(`Retrying in ${this.config.sleepOnError / 1000} seconds...`);
+                    //console.log(`Retrying in ${this.config.sleepOnError / 1000} seconds...`);
                     await new Promise((resolve): NodeJS.Timeout => setTimeout(resolve, this.config.sleepOnError));
                 } else {
                     console.error('Max retries reached. Unable to connect.');

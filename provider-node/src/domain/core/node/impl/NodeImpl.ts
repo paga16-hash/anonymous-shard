@@ -4,14 +4,13 @@ import {EventsHub} from "../../../../infrastructure/events/EventsHub.js";
 import {ProviderEventsHub} from "../../../../infrastructure/events/impl/ProviderEventsHub.js";
 import {MetricEvent} from "../../../events/metric/MetricEvent.js";
 import {TransportManager} from "../../../../infrastructure/transport/TransportManager.js";
-import {Socks5TransportManager} from "../../../../infrastructure/transport/socks5/Socks5TransportManager.js";
 import {Socks5Transport} from "../../../../infrastructure/transport/socks5/Socks5Transport.js";
 import {TaskEvent} from "../../../events/task/TaskEvent.js";
-import {SocketTransportManager} from "../../../../infrastructure/transport/socket/SocketTransportManager.js";
 import {SocketTransport} from "../../../../infrastructure/transport/socket/SocketTransport.js";
 import {DHTDiscoveryComponent} from "../../../../infrastructure/network/dht/DHTDiscoveryComponent.js";
 import {DiscoveryComponent} from "../../../../infrastructure/network/DiscoveryComponent.js";
-import {DiscoveryEvent} from "../../../events/discovery/DiscoveryEvent";
+import {DiscoveryEvent} from "../../../events/discovery/DiscoveryEvent.js";
+import {TransportManagerImpl} from "../../../../infrastructure/transport/impl/TransportManagerImpl.js";
 
 
 config({path: process.cwd() + '/../.env'})
@@ -42,11 +41,11 @@ export class NodeImpl implements Node {
 
     private initTransport(): TransportManager {
         if (this.anonymousMode) {
-            return new Socks5TransportManager(
+            return new TransportManagerImpl(
                 new Socks5Transport({}, this.providerEventsHub.routeEvent.bind(this.providerEventsHub))
             );
         } else {
-            return new SocketTransportManager(
+            return new TransportManagerImpl(
                 new SocketTransport({}, this.providerEventsHub.routeEvent.bind(this.providerEventsHub))
             );
         }
