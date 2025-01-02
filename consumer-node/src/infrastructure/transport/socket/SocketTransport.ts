@@ -28,22 +28,22 @@ export class SocketTransport implements Transport {
         return Array.from(this.config.addressMap.keys());
     }
 
-    /**
+/*    /!**
      * Add a mapping from an address to a port.
      * @param address the address
      * @param port the port to map to
-     */
+     *!/
     addAddressMapping(address: string, port: number): void {
         this.config.addressMap.set(address, port);
     }
 
-    /**
+    /!**
      * Remove a mapping from an address.
      * @param address the address
-     */
+     *!/
     removeAddressMapping(address: string): void {
         this.config.addressMap.delete(address);
-    }
+    }*/
 
     /**
      * Listen on the given address.
@@ -52,22 +52,22 @@ export class SocketTransport implements Transport {
      * @param port the port to listen on
      */
     async listen(address: string, port: number): Promise<void> {
-        console.log("Trying to listen: ", address, "on port", port);
+        //console.log("Trying to listen: ", address, "on port", port);
 
         const server: Server = createServer((socket: Socket): void => {
-            console.log(`Connection from ${socket.remoteAddress}:${socket.remotePort}`);
+            /*console.log(`Connection from ${socket.remoteAddress}:${socket.remotePort}`);
             socket.on('connect', (): void => {
                 console.log('Connection established with', socket.remoteAddress);
             });
-
+*/
             socket.on('data', (data: Buffer): void => {
                 //TODO presentation layer this.handler(presentationLayer.parseEvent(data));
                 this.handler(JSON.parse(data.toString()) as unknown as DomainEvent);
             });
 
-            socket.on('end', (): void => {
+            /*socket.on('end', (): void => {
                 console.log('Connection ended with ', socket.remoteAddress);
-            });
+            });*/
         });
 
         server.listen(port, (): void => {
@@ -94,7 +94,7 @@ export class SocketTransport implements Transport {
 
         while (attempt < maxRetries) {
             attempt++;
-            console.log(`Attempt ${attempt}: Trying to dial ${address} directly...`);
+            //console.log(`Attempt ${attempt}: Trying to dial ${address} directly...`);
 
             try {
                 //const port: number = this.config.addressMap.get(address) || 80;
@@ -102,7 +102,7 @@ export class SocketTransport implements Transport {
                 socket.connect(port, address);
                 return new Promise((resolve, reject): void => {
                     socket.once('connect', (): void => {
-                        console.log('Connected to target.');
+                        //console.log('Connected to target.');
                         resolve(socket);
                     });
 
@@ -112,9 +112,9 @@ export class SocketTransport implements Transport {
                     });
                 });
             } catch (err) {
-                console.error(`Attempt ${attempt} failed`);//: , err
+                //console.error(`Attempt ${attempt} failed`);//: , err
                 if (attempt < maxRetries) {
-                    console.log(`Retrying in ${this.config.sleepOnError / 1000} seconds...`);
+                    //console.log(`Retrying in ${this.config.sleepOnError / 1000} seconds...`);
                     await new Promise((resolve): NodeJS.Timeout => setTimeout(resolve, this.config.sleepOnError));
                 } else {
                     console.error('Max retries reached. Unable to connect.');

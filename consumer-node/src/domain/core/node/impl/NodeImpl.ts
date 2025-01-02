@@ -48,6 +48,7 @@ export class NodeImpl implements Node {
 
     async submitTask(taskEvent: TaskSubmissionEvent): Promise<void> {
         try {
+            console.log("Submitting new task")
             this.providerEventsHub.publishTask(taskEvent)
         } catch (e) {
             console.error("Error publishing task", e);

@@ -20,22 +20,26 @@ export class TaskServiceImpl implements TaskService {
     async routeEvent(event: TaskEvent): Promise<void> {
         switch (event.type) {
             case EventType.TASK_COMPLETED:
+                // Here a better management of the result can be easily implemented
                 const taskResultEvent: TaskResultEvent = event as TaskResultEvent
-                console.log("Returned event", taskResultEvent)
-                // get the cId and call the retrieve method, retrieving the task from tasks and the pk to decript the result.
-                const result: TaskResult = await this.retrieveResult(taskResultEvent.id, taskResultEvent.contentIdentifier)
-                console.log("Decrypted result", result)
-                //this.persistResult() ...
+                await this.retrieveResult(taskResultEvent.id, taskResultEvent.contentIdentifier)
                 break
             default:
                 console.error("Unrecognized or not supported event type: " + event.type)
         }
     }
 
-    retrieveResult(domainEventId: DomainEventId, cId: TaskResultIdentifier): Promise<TaskResult> {
+    persistResult(cId: TaskResultIdentifier, result: TaskResult, privateKey: string): void {
+        (result as any).privateKey = privateKey
+        this.taskRepository.save(cId.value, result)
+    }
+
+    async retrieveResult(domainEventId: DomainEventId, cId: TaskResultIdentifier): Promise<TaskResult> {
         const pk = Array.from(this.tasks.entries())
             .find(([key, task]) => task.id.value === domainEventId.value)?.[0];
-        return this.taskRepository.retrieve(pk!, cId.value)
+        const result: Promise<TaskResult> = this.taskRepository.retrieve(pk!, cId.value)
+        this.persistResult(cId, await result, pk!)
+        return result
     }
 
     getTasks(): Map<string, Task> {

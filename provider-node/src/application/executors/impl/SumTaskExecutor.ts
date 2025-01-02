@@ -13,12 +13,12 @@ export class SumTaskExecutor {
                 result: sum
             };
         }
-        catch (e) {
+        catch (e: any) {
             return {
                 taskId: task.id,
                 result: {
                     failure: TaskFailure.ERROR,
-                    msg: e
+                    msg: e.toString()
                 }
             }
         }
