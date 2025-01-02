@@ -6,14 +6,14 @@ export const taskController = {
     getTasks: (): Map<string, Task> => {
         return consumerNodeService.getTasks()
     },
-    getCompletedTasks: (): Map<string, Task> => {
+    getTasksByStatus: (status: TaskState): Map<string, Task> => {
         const completedTasks: Map<string, Task>  = new Map<string, Task>();
-
-        consumerNodeService.getTasks().forEach((task: Task, key: string) => {
-            if (task.status === TaskState.COMPLETED) {
+        consumerNodeService.getTasks().forEach((task: Task, key: string): void => {
+            if (task.status === status) {
                 completedTasks.set(key, task);
             }
         });
         return completedTasks;
     }
 }
+
