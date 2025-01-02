@@ -11,13 +11,12 @@ import {NodeServiceImpl} from "./application/services/impl/NodeServiceImpl.js";
 import {TaskServiceImpl} from "./application/services/impl/TaskServiceImpl.js";
 import {IPFSTaskRepository} from "./infrastructure/storage/IPFSTaskRepository.js";
 import {RSAEncryptor} from "./infrastructure/encryption/impl/RSAEncryptor.js";
+import HttpStatusCode from "./utils/HttpStatusCode.js";
 
 config({path: process.cwd() + '/../.env'});
 
 console.log(mapBootstrapAddresses())
-export const taskService: TaskService = new TaskServiceImpl(new IPFSTaskRepository(new RSAEncryptor()));
-export const consumerNodeService: NodeService = new NodeServiceImpl(taskService);
-
+export const consumerNodeService: NodeService = new NodeServiceImpl(new TaskServiceImpl(new IPFSTaskRepository(new RSAEncryptor())));
 
 export const app: Express = express()
 app.use(express.json())
@@ -32,6 +31,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     const token = (authHeader && authHeader.split(' ')[1]) || ''
 
     if (token === process.env.DEV_API_KEY) return next()
+    else {res.status(HttpStatusCode.FORBIDDEN).send({ error: 'No authentication token' })}
 })
 app.use('/tasks', tasksRouter)
 

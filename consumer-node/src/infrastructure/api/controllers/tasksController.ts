@@ -1,8 +1,8 @@
 import {Task} from "../../../domain/core/task/Task.js";
-import {taskService} from "../../../index.js";
+import {consumerNodeService} from "../../../index.js";
 
 export const taskController = {
-    getTasks: async (): Promise<Map<string, Task>> => {
-        return taskService.getTasks()
+    getTasks: (): Map<string, Task> => {
+        return consumerNodeService.getTasks()
     },
 }

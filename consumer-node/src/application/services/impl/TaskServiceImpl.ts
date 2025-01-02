@@ -43,12 +43,10 @@ export class TaskServiceImpl implements TaskService {
     }
 
     getTasks(): Map<string, Task> {
-        return this.tasks
+        return this.tasks;
     }
 
     addTask(pk: string, task: Task): void {
-        //TODO TO IMPLEMENT A STORAGE ON FILE FOR THE PK AND THE TASK ID
-        //TODO IN ORDER TO RETRIEVE THE TASK LATER AFTER RESTARTS
         this.tasks.set(pk, task)
     }
 

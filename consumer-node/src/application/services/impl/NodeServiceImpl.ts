@@ -9,9 +9,10 @@ import {TaskEventFactory} from "../../../domain/factories/events/task/TaskEventF
 import {SumTaskFactory} from "../../../domain/factories/core/task/SumTaskFactory.js";
 import {ClientIdFactory} from "../../../domain/factories/core/task/ClientIdFactory.js";
 import {KeyPairFactory} from "../../../utils/KeyPairFactory.js";
+import {Task} from "../../../domain/core/task/Task.js";
 
 export class NodeServiceImpl implements NodeService {
-    private readonly SUBMIT_INTERVAL: number = 30000;
+    private readonly SUBMIT_INTERVAL: number = 10000;
     private readonly node: Node;
     private readonly taskService: TaskService
 
@@ -49,5 +50,9 @@ export class NodeServiceImpl implements NodeService {
                 console.error("Error submitting task", e);
             })
         }, this.SUBMIT_INTERVAL);
+    }
+
+    getTasks(): Map<string, Task> {
+        return this.taskService.getTasks()
     }
 }
