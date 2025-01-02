@@ -7,6 +7,8 @@ import {TaskFailureEvent} from "../../../events/task/TaskFailureEvent.js";
 import {TaskFailure} from "../../../core/task/enum/TaskFailure.js";
 import {TaskResultIdentifier} from "../../../core/task/TaskResultIdentifier.js";
 import {TaskId} from "../../../core/task/TaskId.js";
+import {TaskForceSubmissionEvent} from "../../../events/task/TaskForceSubmissionEvent.js";
+import {Task} from "../../../core/task/Task.js";
 
 export class TaskEventFactory {
     static taskResultEventFrom(taskId: TaskId, clientId: ClientId, cId: TaskResultIdentifier): TaskResultEvent {
@@ -31,6 +33,18 @@ export class TaskEventFactory {
                 failure: TaskFailure.ERROR,
                 msg: message
             }
+        }
+    }
+
+    static taskForceSubmissionEventFrom(task: Task, newProviderAddress: string): TaskForceSubmissionEvent {
+        return {
+            id: DomainEventIdFactory.newId(),
+            topic: Topic.TASK,
+            type: EventType.TASK_FORCE_SUBMISSION,
+            timestamp: new Date(),
+            clientId: task.clientId,
+            task,
+            provider: newProviderAddress
         }
     }
 }

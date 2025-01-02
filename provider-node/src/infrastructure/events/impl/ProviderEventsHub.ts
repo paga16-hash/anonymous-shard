@@ -8,6 +8,7 @@ import {EventType} from "../../../utils/EventType.js";
 import {TaskResultEvent} from "../../../domain/events/task/TaskResultEvent.js";
 import {TaskFailureEvent} from "../../../domain/events/task/TaskFailureEvent.js";
 import {DiscoveryEvent} from "../../../domain/events/discovery/DiscoveryEvent.js";
+import {TaskForceSubmissionEvent} from "../../../domain/events/task/TaskForceSubmissionEvent";
 
 export class ProviderEventsHub implements EventsHub {
     private transportManager: TransportManager | undefined
@@ -79,6 +80,14 @@ export class ProviderEventsHub implements EventsHub {
                 const taskFailedEvent: TaskFailureEvent = taskEvent as TaskFailureEvent
                 this.directPublish(taskFailedEvent.clientId.value, taskFailedEvent).catch((err: any): void => {
                     console.error("Error publishing task event", err);
+                })
+                break;
+            case EventType.TASK_FORCE_SUBMISSION:
+                // in this case the provider node is redirecting the task to another provider
+                const taskForceSubmissionEvent: TaskForceSubmissionEvent = taskEvent as TaskForceSubmissionEvent
+                this.directPublish(taskForceSubmissionEvent.provider, taskForceSubmissionEvent).catch((err: any): void => {
+                    console.error("Error redirecting task event", err);
+                    // TODO to handle this error and to inform the client
                 })
                 break;
             default:

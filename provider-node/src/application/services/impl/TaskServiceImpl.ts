@@ -9,6 +9,7 @@ import {EventType} from "../../../utils/EventType.js";
 import {TaskSubmissionEvent} from "../../../domain/events/task/TaskSubmissionEvent.js";
 import {TaskEventFactory} from "../../../domain/factories/events/task/TaskEventFactory.js";
 import {TaskEvaluator} from "../../evaluator/TaskEvaluator.js";
+import {TaskForceSubmissionEvent} from "../../../domain/events/task/TaskForceSubmissionEvent.js";
 
 export class TaskServiceImpl implements TaskService {
     private readonly evaluator: TaskEvaluator
@@ -30,6 +31,10 @@ export class TaskServiceImpl implements TaskService {
             case EventType.TASK_SUBMISSION:
                 const taskSubmittedEvent: TaskSubmissionEvent = event as TaskSubmissionEvent
                 await this.evaluateTask(taskSubmittedEvent)
+                break
+            case EventType.TASK_FORCE_SUBMISSION:
+                const taskForceSubmittedEvent: TaskForceSubmissionEvent = event as TaskForceSubmissionEvent
+                await this.execute(taskForceSubmittedEvent.task)
                 break
             default:
                 console.error("Unrecognized or not supported event type: " + event.type)
@@ -66,8 +71,18 @@ export class TaskServiceImpl implements TaskService {
         if (await this.evaluator.evaluate(task)) {
             await this.execute(task)
         } else {
+            console.log("Task not accepted, redirecting task...")
+            await this.redirectTask(task, await this.evaluator.getCandidates(task, 10))
             //TODO TO implement task redirection
         }
+    }
+
+    async redirectTask(task: Task, candidateAddresses: string[]): Promise<void> {
+        console.log("Redirecting task to one of:", candidateAddresses)
+        const newProviderAddress: string = candidateAddresses[Math.floor(Math.random() * candidateAddresses.length)]
+        console.log("Redirecting task to:", newProviderAddress)
+        const taskEvent: TaskForceSubmissionEvent = TaskEventFactory.taskForceSubmissionEventFrom(task, newProviderAddress)
+        await this.taskOutcomeHandler(taskEvent)
     }
 
     getPendingTasks(): Promise<Task[]> {

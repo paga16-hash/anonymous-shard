@@ -7,4 +7,5 @@ export enum EventType {
     TASK_COMPLETED = "task-completed",
     TASK_FAILED = "task-failed",
     TASK_SUBMISSION = "task-submission",
+    TASK_FORCE_SUBMISSION = "task-force-submission",
 }

@@ -1,29 +1,27 @@
-import {describe, expect, it} from 'vitest'
-import {Task} from "../../src/domain/core/task/Task.js";
-import {MetricBasedTaskEvaluator} from "../../src/application/evaluator/impl/MetricBasedTaskEvaluator.js";
-import {Metric} from "../../src/domain/core/metric/Metric.js";
+import { describe, expect, it } from "vitest";
+import { Task } from "../../src/domain/core/task/Task.js";
+import { MetricBasedTaskEvaluator } from "../../src/application/evaluator/impl/MetricBasedTaskEvaluator.js";
+import { Metric } from "../../src/domain/core/metric/Metric.js";
 
 describe("Metric task evaluator", (): void => {
-    const myMetric: () => Promise<Metric> = async (): Promise<Metric> => {
-        return {
-            memory: {
-                total: 1000,
-                free: 500,
-                used: 500,
-            },
-            cpu: {
-                model: "Intel i7",
-                load: 50,
-                cores: 8,
-                threads: 20,
-                speed: 3.5,
-            },
-            gpu: [],
-        }
-    }
+    const myMetric: () => Promise<Metric> = async (): Promise<Metric> => ({
+        memory: {
+            total: 1000,
+            free: 500,
+            used: 500,
+        },
+        cpu: {
+            model: "Intel i7",
+            load: 50,
+            cores: 8,
+            threads: 20,
+            speed: 3.5,
+        },
+        gpu: [],
+    });
 
-    const otherMetrics: () => Map<string, Metric> = (): Map<string, Metric> => {
-        return new Map([
+    const otherMetrics: () => Map<string, Metric> = (): Map<string, Metric> =>
+        new Map([
             ["node1", {
                 memory: {
                     total: 900,
@@ -69,33 +67,65 @@ describe("Metric task evaluator", (): void => {
                 },
                 gpu: [],
             }],
-        ])
-    }
+        ]);
 
-    const taskEvaluator: MetricBasedTaskEvaluator = new MetricBasedTaskEvaluator(myMetric, otherMetrics)
-    describe('When I have more free resources than anyone else', (): void => {
-        it('returns a true value indicating that I should execute the task', async (): Promise<void> => {
-            //const task: SumTask = SumTaskFactory.taskFrom({}, 1, 2)
-            expect(await taskEvaluator.evaluate(undefined as unknown as Task)).toBe(true)
-        })
+    const taskEvaluator: MetricBasedTaskEvaluator = new MetricBasedTaskEvaluator(myMetric, otherMetrics);
 
-    /*    it('responds with the exceeding security rules otherwise', async (): Promise<void> => {
+    describe("When I have more free resources than anyone else", (): void => {
+        it("returns true indicating that I should execute the task", async (): Promise<void> => {
+            const result = await taskEvaluator.evaluate(undefined as unknown as Task);
+            expect(result).toBe(true);
+        });
 
-            expect(securityRules.status).toBe(HttpStatusCode.OK)
-            expect(securityRules.type).toBe('application/json')
-        })*/
-    })
+        it("returns a list of other possible candidates", async (): Promise<void> => {
+            const candidates = await taskEvaluator.getCandidates(undefined as unknown as Task, 2);
+            expect(candidates).toEqual(["node3", "node1"]);
+        });
+    });
 
-/*    describe('GET /rules/intrusions', (): void => {
-        it('responds with a forbidden status if no auth token is provided', async (): Promise<void> => {
+    describe("When other nodes have better resources", (): void => {
+        it("returns false indicating that I should not execute the task", async (): Promise<void> => {
+            const myMetricUpdated = async (): Promise<Metric> => ({
+                memory: {
+                    total: 500,
+                    free: 200,
+                    used: 300,
+                },
+                cpu: {
+                    model: "Intel i7",
+                    load: 90,
+                    cores: 8,
+                    threads: 20,
+                    speed: 3.0,
+                },
+                gpu: [],
+            });
 
-            expect(securityRules.status).toBe(HttpStatusCode.FORBIDDEN)
-        })
+            const taskEvaluatorUpdated = new MetricBasedTaskEvaluator(myMetricUpdated, otherMetrics);
+            const result = await taskEvaluatorUpdated.evaluate(undefined as unknown as Task);
+            expect(result).toBe(false);
+        });
 
-        it('responds with the intrusion security rules otherwise', async (): Promise<void> => {
+        it("returns the best candidates from other nodes", async (): Promise<void> => {
+            const myMetricUpdated = async (): Promise<Metric> => ({
+                memory: {
+                    total: 500,
+                    free: 200,
+                    used: 300,
+                },
+                cpu: {
+                    model: "Intel i7",
+                    load: 90,
+                    cores: 8,
+                    threads: 20,
+                    speed: 3.0,
+                },
+                gpu: [],
+            });
 
-            expect(securityRules.status).toBe(HttpStatusCode.OK)
-            expect(securityRules.type).toBe('application/json')
-        })
-    })*/
-})
+            const taskEvaluatorUpdated = new MetricBasedTaskEvaluator(myMetricUpdated, otherMetrics);
+            const candidates = await taskEvaluatorUpdated.getCandidates(undefined as unknown as Task, 2);
+            expect(candidates).toEqual(["node3", "node1"]);
+        });
+    });
+});
