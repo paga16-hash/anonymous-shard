@@ -12,3 +12,20 @@ tasksRouter.route('/').get((_: Request, res: Response): void => {
         res.send({error: 'No tasks found'})
     }
 })
+
+tasksRouter.route('/').post((req: Request, res: Response): void => {
+    try {
+        console.log("BODY: " , req.body)
+        res.status(HttpStatusCode.OK).send(Array.from(controller.getTasks()))
+    } catch (e) {
+        res.send({error: 'No tasks found'})
+    }
+})
+
+tasksRouter.route('/completed').get((_: Request, res: Response): void => {
+    try {
+        res.status(HttpStatusCode.OK).send(Array.from(controller.getCompletedTasks()))
+    } catch (e) {
+        res.send({error: 'No tasks found'})
+    }
+})

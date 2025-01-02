@@ -7,6 +7,7 @@ import {EventType} from "../../../utils/EventType.js";
 import {TaskResultEvent} from "../../../domain/events/task/TaskResultEvent.js";
 import {TaskResultIdentifier} from "../../../domain/core/task/TaskResultIdentifier.js";
 import {DomainEventId} from "../../../domain/events/DomainEventId.js";
+import {TaskState} from "../../../domain/core/task/enum/TaskState.js";
 
 export class TaskServiceImpl implements TaskService {
     private readonly taskRepository: TaskRepository
@@ -32,6 +33,13 @@ export class TaskServiceImpl implements TaskService {
     persistResult(cId: TaskResultIdentifier, result: TaskResult, privateKey: string): void {
         (result as any).privateKey = privateKey
         this.taskRepository.save(cId.value, result)
+
+        this.setState(privateKey, result.result.failure ? TaskState.FAILED : TaskState.COMPLETED)
+
+    }
+
+    setState(pk: string, taskState: TaskState): void {
+        this.tasks.get(pk)!.status = taskState
     }
 
     async retrieveResult(domainEventId: DomainEventId, cId: TaskResultIdentifier): Promise<TaskResult> {
