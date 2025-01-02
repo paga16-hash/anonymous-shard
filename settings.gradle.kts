@@ -7,6 +7,7 @@ rootProject.name = "anonymous-shard"
 val subprojects = listOf(
     "provider-node",
     "consumer-node",
+    "consumer-node-frontend",
 )
 subprojects.forEach { include(":$it") }
 

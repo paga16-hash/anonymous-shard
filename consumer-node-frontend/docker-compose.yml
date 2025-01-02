@@ -1,0 +1,17 @@
+services:
+
+
+  consumer-node-frontend:
+    image: pagahubbing/consumer-node-frontend
+    container_name: ${FRONTEND_HOST}
+    build:
+      context: .
+      dockerfile: ./frontend/Dockerfile
+    restart: on-failure
+    ports:
+      - ${FRONTEND_PORT}:${FRONTEND_PORT}
+    networks:
+      - NETWORK SAME AS CONSUMER
+
+networks:
+  //TODO to add network
