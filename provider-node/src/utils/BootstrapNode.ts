@@ -1,4 +1,3 @@
-import * as process from "node:process";
 
 export const bootstrapNodeSeedFromEnv = (n: number): string | undefined => {
     return process.env[`BOOTSTRAP_SEED_${n}`]

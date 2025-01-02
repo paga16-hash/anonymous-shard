@@ -82,6 +82,14 @@ export class SocketTransport implements Transport {
      */
     // @ts-ignore TODO fix this
     async dial(address: string, maxRetries: number = 5): Promise<Socket> {
+        let port: number;
+        const [addressPart, portPart] = address.split(':');
+        if (portPart) {
+            address = addressPart;
+            port = parseInt(portPart);
+        } else {
+            port = 80;
+        }
         let attempt: number = 0;
 
         while (attempt < maxRetries) {
@@ -89,7 +97,7 @@ export class SocketTransport implements Transport {
             console.log(`Attempt ${attempt}: Trying to dial ${address} directly...`);
 
             try {
-                const port: number = this.config.addressMap.get(address) || 80;
+                //const port: number = this.config.addressMap.get(address) || 80;
                 const socket: Socket = new Socket();
                 socket.connect(port, address);
                 return new Promise((resolve, reject): void => {
