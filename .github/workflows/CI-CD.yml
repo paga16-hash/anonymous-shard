@@ -44,7 +44,7 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
       - name: Check format
-        run: ./gradlew npmFormatProvider npmFormatConsumer --info
+        run: ./gradlew npmFormatProvider --stacktrace npmFormatConsumer --info
       - name: Check lint
         run: ./gradlew npmLintProvider npmLintConsumer --info
   build-website:
