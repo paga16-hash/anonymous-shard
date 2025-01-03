@@ -10,6 +10,8 @@ import {SumTaskFactory} from "../../../domain/factories/core/task/SumTaskFactory
 import {ClientIdFactory} from "../../../domain/factories/core/task/ClientIdFactory.js";
 import {KeyPairFactory} from "../../../utils/KeyPairFactory.js";
 import {Task} from "../../../domain/core/task/Task.js";
+import {TaskId} from "../../../domain/core/task/TaskId";
+import {TaskResult} from "../../../domain/core/task/TaskResult";
 
 export class NodeServiceImpl implements NodeService {
     private readonly SUBMIT_INTERVAL: number = 100000;
@@ -54,5 +56,9 @@ export class NodeServiceImpl implements NodeService {
 
     getTasks(): Map<string, Task> {
         return this.taskService.getTasks()
+    }
+
+    async getLocalTaskResult(id: TaskId): Promise<TaskResult> {
+        return await this.taskService.retrieveLocalResult(id)
     }
 }

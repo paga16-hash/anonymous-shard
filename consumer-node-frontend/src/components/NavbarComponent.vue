@@ -13,8 +13,7 @@ const navbarExpanded = ref(false)
   <nav :class="navbarExpanded ? 'expanded' : ''">
     <div class="title">
       <img src="../assets/logo.png" alt="Anonymous Shard Logo" class="logo" style="font-size: 1.5em"/>
-      <q-icon :name="symSharpControlCamera" style="font-size: 1.5em" />
-      <h1>Anonymous Shard - Consumer</h1>
+      <h1>Consumer</h1>
       <q-btn class="menu" flat @click="navbarExpanded = !navbarExpanded" round dense icon="menu" />
     </div>
     <router-link
@@ -60,6 +59,7 @@ nav {
     align-items: center;
     gap: 0.3rem;
     color: white;
+    margin-right: 10px;
 
     h1 {
       all: unset;

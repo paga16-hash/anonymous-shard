@@ -8,6 +8,7 @@ import {TaskResultEvent} from "../../../domain/events/task/TaskResultEvent.js";
 import {TaskResultIdentifier} from "../../../domain/core/task/TaskResultIdentifier.js";
 import {DomainEventId} from "../../../domain/events/DomainEventId.js";
 import {TaskState} from "../../../domain/core/task/enum/TaskState.js";
+import {TaskId} from "../../../domain/core/task/TaskId.js";
 
 export class TaskServiceImpl implements TaskService {
     private readonly taskRepository: TaskRepository
@@ -35,7 +36,6 @@ export class TaskServiceImpl implements TaskService {
         this.taskRepository.save(cId.value, result)
 
         this.setState(privateKey, result.result.failure ? TaskState.FAILED : TaskState.COMPLETED)
-
     }
 
     setState(pk: string, taskState: TaskState): void {
@@ -48,6 +48,10 @@ export class TaskServiceImpl implements TaskService {
         const result: Promise<TaskResult> = this.taskRepository.retrieve(pk!, cId.value)
         this.persistResult(cId, await result, pk!)
         return result
+    }
+
+    async retrieveLocalResult(taskId: TaskId): Promise<TaskResult> {
+        return await this.taskRepository.retrieveLocally(taskId)
     }
 
     getTasks(): Map<string, Task> {

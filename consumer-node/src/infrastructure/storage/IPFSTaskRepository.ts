@@ -5,6 +5,7 @@ import {Encryptor} from "../encryption/Encryptor.js";
 import * as fs from "fs/promises";
 import * as path from "path";
 import * as process from "node:process";
+import {TaskId} from "../../domain/core/task/TaskId";
 
 export class IPFSTaskRepository implements TaskRepository {
     private readonly gatewayUrl: string;
@@ -16,7 +17,7 @@ export class IPFSTaskRepository implements TaskRepository {
         this.gatewayUrl = gatewayUrl;
     }
 
-    async save(cId: string, result: any): Promise<void> {
+    async save(cId: string, result: TaskResult): Promise<void> {
         try {
             const filePath: string = this.resultsDirPath + "/results-" + process.env.HOST + "on" + process.env.PORT + ".json";
             const resultsData: string = await fs.readFile(filePath, "utf-8").catch(() => "{}");
@@ -41,5 +42,18 @@ export class IPFSTaskRepository implements TaskRepository {
             console.error('Error retrieving TaskResult from IPFS:', error);
             throw error;
         }
+    }
+
+    async retrieveLocally(taskId: TaskId): Promise<TaskResult> {
+        try {
+            const filePath: string = this.resultsDirPath + "/results-" + process.env.HOST + "on" + process.env.PORT + ".json";
+            const resultsData: string = await fs.readFile(filePath, "utf-8").catch(() => "{}");
+            const resultsJson: Record<string, any> = JSON.parse(resultsData);
+            return Object.values(resultsJson).find((value: any) => value.taskId.value === taskId.value);
+        } catch (err) {
+            console.error("Failed to retrieve task result from local storage:", err);
+            throw err;
+        }
+
     }
 }

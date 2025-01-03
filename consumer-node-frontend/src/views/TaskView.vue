@@ -11,7 +11,6 @@ const $q = useQuasar()
 const tasks: ref<Task[]> = ref([])
 
 async function getTasks() {
-  console.log(`${consumerHost}/tasks/`)
   await RequestHelper.get(`${consumerHost}/tasks/`)
     .then(async (res: any) => {
       tasks.value = []
@@ -30,8 +29,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <h2>Tasks</h2>
-  <div>
+  <div class="tasks">
     <task-badge
       v-for="(task, index) in tasks"
       :key="index"
@@ -41,7 +39,7 @@ onMounted(async () => {
 </template>
 
 <style scoped lang="scss">
-h2 {
-  margin-top: 120px;
+.tasks {
+  margin-top: 135px;
 }
 </style>
