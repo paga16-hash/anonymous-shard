@@ -2,6 +2,7 @@ import java.io.BufferedInputStream
 import java.io.ByteArrayInputStream
 import java.io.FileOutputStream
 import java.net.URI
+import java.util.*
 import java.util.zip.ZipInputStream
 
 group = "it-anonymous-shard"
@@ -17,6 +18,64 @@ val nodes = listOf(
     "provider-node",
     "consumer-node",
 )
+
+nodes.forEach { submodule ->
+
+    val formattedSubmoduleName = submodule.replaceFirstChar {
+        if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
+    }.split("-")[0]
+
+    // Register the `npmInstall` task for each submodule
+    tasks.register<Exec>("npmInstall$formattedSubmoduleName") {
+        workingDir = file(submodule)
+        commandLine("npm", "install")
+    }
+
+    // Register the `npmBuild` task for each submodule
+    tasks.register<Exec>("npmBuild$formattedSubmoduleName") {
+        workingDir = file(submodule)
+        commandLine("npm", "run", "build")
+    }
+
+    // Register the `npmTest` task for each submodule
+    tasks.register<Exec>("npmTest$formattedSubmoduleName") {
+        workingDir = file(submodule)
+        commandLine("npm", "run", "test")
+    }
+
+    // Register the `npmLint` task for each submodule
+    tasks.register<Exec>("npmLint$formattedSubmoduleName") {
+        workingDir = file(submodule)
+        commandLine("npm", "run", "lint")
+    }
+
+    // Register the `npmFormat` task for each submodule
+    tasks.register<Exec>("npmFormat$formattedSubmoduleName") {
+        workingDir = file(submodule)
+        commandLine("npm", "run", "format")
+    }
+}
+
+
+tasks.register("npmBuildAll") {
+    dependsOn(nodes.map { submodule ->
+        val name = submodule.replaceFirstChar {
+            if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
+        }.split("-")[0]
+        tasks.named("npmBuild$name")
+    })
+}
+
+
+
+
+
+
+
+
+
+
+
 
 val swaggerUI = "swagger-ui"
 val openAPI = "openapi"
