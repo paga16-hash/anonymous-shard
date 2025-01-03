@@ -99,6 +99,10 @@ export class NodeImpl implements Node {
         }
     }
 
+    getKnownPeers(): string[] {
+        return this.dhtComponent.getAddresses()
+    }
+
     /**
      * Return the peer id of the node
      * @return the peer id of the node composed by address:port

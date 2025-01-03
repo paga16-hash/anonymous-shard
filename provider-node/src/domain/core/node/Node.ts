@@ -6,6 +6,8 @@ export interface Node {
 
     peerId(): string;
 
+    getKnownPeers(): string[];
+
     joinNetwork(): Promise<void>;
 
     propagateMetric(metric: MetricEvent): Promise<void>;

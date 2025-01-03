@@ -6,6 +6,7 @@ plugins {
 rootProject.name = "anonymous-shard"
 val subprojects = listOf(
     "provider-node",
+    "provider-node-frontend",
     "consumer-node",
     "consumer-node-frontend",
 )

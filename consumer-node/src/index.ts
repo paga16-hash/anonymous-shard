@@ -1,9 +1,8 @@
-import type { Express, NextFunction, Request, Response } from 'express'
+import type {Express, NextFunction, Request, Response} from 'express'
 import express from 'express'
 import cors from 'cors'
-import http, { Server as HttpServer } from 'http'
+import http, {Server as HttpServer} from 'http'
 import {tasksRouter} from "./infrastructure/api/routes/tasksRouter.js";
-import {TaskService} from "./application/services/TaskService.js";
 import {config} from 'dotenv'
 import {mapBootstrapAddresses} from "./utils/BootstrapNode.js";
 import {NodeService} from "./application/services/NodeService.js";
@@ -31,7 +30,9 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     const token = (authHeader && authHeader.split(' ')[1]) || ''
 
     if (token === process.env.DEV_API_KEY) return next()
-    else {res.status(HttpStatusCode.FORBIDDEN).send({ error: 'No authentication token' })}
+    else {
+        res.status(HttpStatusCode.FORBIDDEN).send({error: 'No authentication token'})
+    }
 })
 app.use('/tasks', tasksRouter)
 

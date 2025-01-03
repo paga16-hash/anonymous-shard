@@ -57,6 +57,14 @@ export class NodeServiceImpl implements NodeService {
         return this.taskService.getPendingTasks()
     }
 
+    async getKnownMetrics(): Promise<Map<string, Metric>> {
+        return this.metricService.getKnownMetrics();
+    }
+
+    getKnownPeers(): string[] {
+        return this.node.getKnownPeers();
+    }
+
     private waitAndJoinNetwork(): void {
         setTimeout(async (): Promise<void> => {
             this.node.joinNetwork().then((): void => {
