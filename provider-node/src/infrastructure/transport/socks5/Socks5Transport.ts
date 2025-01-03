@@ -58,7 +58,7 @@ export class Socks5Transport implements Transport {
      * @param address The address to dial.
      * @param maxRetries Maximum number of retry attempts.
      */
-    // @ts-ignore TODO fix this
+    // @ts-expect-error to fix the return type
     async dial(address: string, maxRetries: number = 5): Promise<Socket> {
         let attempt: number = 0
 

@@ -19,6 +19,7 @@ export class MetricBasedTaskEvaluator implements TaskEvaluator {
     async evaluate(task: Task): Promise<boolean> {
         // note the task is not used in this implementation, but it could be used to make the evaluation more complex because
         // the design allows for it
+        console.log('Evaluating task:', task.id.value)
         try {
             const currentMetric: Metric = await this.metric()
             const otherMetrics: Map<string, Metric> = this.getOtherMetrics()

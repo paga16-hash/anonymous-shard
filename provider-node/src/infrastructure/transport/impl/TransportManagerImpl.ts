@@ -14,6 +14,7 @@ export class TransportManagerImpl implements TransportManager {
             '',
             new Map(),
             (address: string, message: string) => {
+                console.warn("Wrong situation", address, message)
                 return Promise.resolve()
             }
         )
