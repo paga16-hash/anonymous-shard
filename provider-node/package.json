@@ -13,7 +13,7 @@
     "watch": "tsc -w & tsc-alias -w & nodemon .",
     "lintFix": "eslint src/ --ext .js,.cjs,.mjs,.ts,.cts --fix",
     "lint": "eslint src/ --ext .js,.cjs,.mjs,.ts,.cts",
-    "formatFix": "prettier --write src",
+    "formatFix": "prettier --write src/application/evaluator/TaskEvaluator.ts",
     "format": "prettier --check src"
   },
   "dependencies": {

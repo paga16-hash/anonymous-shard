@@ -14,7 +14,8 @@ repositories {
 val Project.isNodeProject get() = file("package.json").exists()
 
 val nodes = listOf(
-    "provider-node"
+    "provider-node",
+    "consumer-node",
 )
 
 val swaggerUI = "swagger-ui"
