@@ -1,6 +1,6 @@
-import {TaskFailure} from "./enum/TaskFailure.js";
+import { TaskFailure } from './enum/TaskFailure.js'
 
 export interface TaskError {
-    failure: TaskFailure
-    msg: string
+  failure: TaskFailure
+  msg: string
 }

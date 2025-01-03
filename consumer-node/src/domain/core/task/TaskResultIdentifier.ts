@@ -1,3 +1,3 @@
 export interface TaskResultIdentifier {
-    readonly value: string
+  readonly value: string
 }

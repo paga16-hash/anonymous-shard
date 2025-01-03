@@ -14,7 +14,7 @@ export class TransportManagerImpl implements TransportManager {
             '',
             new Map(),
             (address: string, message: string) => {
-                console.warn("Wrong situation", address, message)
+                console.warn('Wrong situation', address, message)
                 return Promise.resolve()
             }
         )
@@ -30,6 +30,7 @@ export class TransportManagerImpl implements TransportManager {
     addDiscoveryComponent(discoveryComponent: DiscoveryComponent): void {
         this.discoveryComponent = discoveryComponent
     }
+
     /**
      * Send a message to a peer identified by its address.
      * @param address The address of the peer.

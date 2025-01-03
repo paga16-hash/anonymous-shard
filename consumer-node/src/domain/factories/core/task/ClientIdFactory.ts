@@ -1,9 +1,9 @@
-import {ClientId} from "../../../core/task/ClientId.js";
+import { ClientId } from '../../../core/task/ClientId.js'
 
 export class ClientIdFactory {
-    static idFrom(value: string): ClientId {
-        return {
-            value: value
-        }
+  static idFrom(value: string): ClientId {
+    return {
+      value: value
     }
+  }
 }

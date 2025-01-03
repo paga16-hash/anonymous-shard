@@ -1,3 +1,3 @@
 export interface ClientId {
-    readonly value: string
+  readonly value: string
 }

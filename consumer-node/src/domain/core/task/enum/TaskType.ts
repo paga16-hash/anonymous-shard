@@ -1,4 +1,4 @@
 export enum TaskType {
-    SUM,
-    FISCAL_CODE
+  SUM,
+  FISCAL_CODE
 }

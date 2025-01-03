@@ -1,4 +1,4 @@
 export enum Topic {
-    METRIC = "metric",
-    TASK = "task"
+  METRIC = 'metric',
+  TASK = 'task'
 }

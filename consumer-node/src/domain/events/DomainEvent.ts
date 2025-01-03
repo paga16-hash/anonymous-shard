@@ -1,5 +1,5 @@
 import { DomainEventId } from './DomainEventId.js'
-import {EventType} from "../../utils/EventType.js";
+import { EventType } from '../../utils/EventType.js'
 
 export interface DomainEvent {
   readonly id: DomainEventId

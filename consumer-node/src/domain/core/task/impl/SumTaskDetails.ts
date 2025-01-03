@@ -1,3 +1,3 @@
 export interface SumTaskDetails {
-    addends: number[]
+  addends: number[]
 }

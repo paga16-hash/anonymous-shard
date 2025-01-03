@@ -1,9 +1,9 @@
-import {Socket} from "net";
+import { Socket } from 'net'
 
 export interface Transport {
-    getAddresses(): string[]
+  getAddresses(): string[]
 
-    listen(address: string, port: number): Promise<void>;
+  listen(address: string, port: number): Promise<void>
 
-    dial(address: string): Promise<Socket | undefined>;
+  dial(address: string): Promise<Socket | undefined>
 }
