@@ -45,12 +45,14 @@ nodes.forEach { submodule ->
 
     // Register the `npmLint` task for each submodule
     tasks.register<Exec>("npmLint$formattedSubmoduleName") {
+        dependsOn("npmInstall$formattedSubmoduleName")
         workingDir = file(submodule)
         commandLine("npm", "run", "lint")
     }
 
     // Register the `npmFormat` task for each submodule
     tasks.register<Exec>("npmFormat$formattedSubmoduleName") {
+        dependsOn("npmInstall$formattedSubmoduleName")
         workingDir = file(submodule)
         commandLine("npm", "run", "format")
     }
