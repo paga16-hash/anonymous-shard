@@ -31,9 +31,9 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
       - name: Build
-        run: ./gradlew npmBuild build --info
+        run: ./gradlew npmBuildAll build --info
       - name: Test
-        run: ./gradlew provider-node:npmTest consumer-node:npmTest --info --parallel
+        run: ./gradlew npmTestProvider --info --parallel
   style:
     runs-on: ubuntu-latest
     steps:
@@ -44,9 +44,9 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
       - name: Check format
-        run: ./gradlew format npmFormat --info
+        run: ./gradlew npmFormatProvider npmFormatConsumer --info
       - name: Check lint
-        run: ./gradlew npmLint --info
+        run: ./gradlew npmLintProvider npmLintConsumer --info
   build-website:
     defaults:
       run:
