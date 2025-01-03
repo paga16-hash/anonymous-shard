@@ -92,7 +92,7 @@ lowestCost = Infinity
 
 In piu, si potrebbe pensare di implementare un sistema di priorità per gli utenti che richiedono task, in modo da poter pagare un reward maggiore per task prioritarie.
 
-## Task Iniziali
+## Peer Iniziali
 
 Per i primi test, le task scelte saranno semplici operazioni, come:
 - Operazioni aritmetiche di base

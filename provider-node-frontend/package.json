@@ -1,7 +1,7 @@
 {
-  "name": "consumer-node-frontend",
+  "name": "provider-node-frontend",
   "version": "1.0.0",
-  "description": "Frontend service for the consumer node",
+  "description": "Frontend service for the provider node",
   "keywords": [],
   "homepage": "https://github.com/paga16-hash/anonymous-shard",
   "license": "MIT",

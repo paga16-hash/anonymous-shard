@@ -22,7 +22,7 @@ export class TaskServiceImpl implements TaskService {
         this.executors = taskExecutors
         this.repository = taskRepository
         this.taskOutcomeHandler = async (taskEvent: TaskEvent): Promise<void> => {
-            console.log("Task outcome handler not implemented", taskEvent)
+            console.log("Peer outcome handler not implemented", taskEvent)
         }
     }
 
@@ -71,7 +71,7 @@ export class TaskServiceImpl implements TaskService {
         if (await this.evaluator.evaluate(task)) {
             await this.execute(task)
         } else {
-            console.log("Task not accepted, redirecting task...")
+            console.log("Peer not accepted, redirecting task...")
             await this.redirectTask(task, await this.evaluator.getCandidates(task, 10))
             //TODO TO implement task redirection
         }

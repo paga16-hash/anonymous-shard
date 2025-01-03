@@ -12,20 +12,20 @@ const navbarExpanded = ref(false)
 <template>
   <nav :class="navbarExpanded ? 'expanded' : ''">
     <div class="title">
-      <img src="../assets/logo.png" alt="Anonymous Shard Logo" class="logo" style="font-size: 1.5em"/>
-      <h1>Consumer</h1>
+      <h1>Provider</h1>
       <q-btn class="menu" flat @click="navbarExpanded = !navbarExpanded" round dense icon="menu" />
     </div>
     <router-link
       to="/task"
       :class="routeName == 'Task' ? 'selected' : ''"
-      >Task
+      >Peer
     </router-link>
     <router-link
       to="/other"
       :class="routeName == 'Other' ? 'selected' : ''"
       >Other
     </router-link>
+    <img src="../assets/logo.png" alt="Anonymous Shard Logo" class="logo" style="font-size: 1.5em"/>
   </nav>
 </template>
 
@@ -79,8 +79,9 @@ nav {
   }
 
   .logo {
-    width: 100px;
-    height: 100px;
+    width: 70px;
+    height: 70px;
+    margin-left: auto;
   }
 
 

@@ -1,12 +1,12 @@
 services:
 
 
-  consumer-node-frontend:
-    image: pagahubbing/consumer-node-frontend
+  provider-node-frontend:
+    image: pagahubbing/provider-node-frontend
     container_name: ${FRONTEND_HOST}
     build:
       context: .
-      dockerfile: ./frontend/Dockerfile
+      dockerfile: ./provider-node-frontend/Dockerfile
     restart: on-failure
     ports:
       - ${FRONTEND_PORT}:${FRONTEND_PORT}

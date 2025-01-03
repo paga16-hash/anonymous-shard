@@ -7,13 +7,12 @@ type Headers = {
     }
 }
 
-
 const getHost = (): string => {
     const protocol: string = 'http://'
-    return protocol + import.meta.env.VITE_CONSUMER_NODE_HOST + ":" + (parseInt(import.meta.env.VITE_CONSUMER_NODE_PORT!) + 1000)
+    return protocol + import.meta.env.VITE_PROVIDER_NODE_HOST + ":" + (parseInt(import.meta.env.VITE_PROVIDER_NODE_PORT!) + 1000)
 }
 
-export const consumerHost: string = getHost()
+export const providerHost: string = getHost()
 
 export default class RequestHelper {
     static getHeaders(): Headers {

@@ -9,7 +9,6 @@ const { task } = defineProps<{
 }>()
 
 const $q = useQuasar()
-console.log(task)
 
 const showDetails = (type: TaskType, details: any) => {
   details = JSON.parse(details)
@@ -35,20 +34,23 @@ const showDetails = (type: TaskType, details: any) => {
 
 const showResults = (id: any) => {
   let message = ""
-  RequestHelper.get(`${consumerHost}/tasks/${{id}}/results`)
+  console.log(`${consumerHost}/tasks/${id}/results`)
+  RequestHelper.get(`${consumerHost}/tasks/${id}/results`)
     .then((res: any) => {
-      message = "Result: " + res.result
+      console.log(res)
+      message = "Result of the sum: " + res.data.result
+      $q.dialog({
+        title: 'Results',
+        message: message,
+        persistent: true,
+        ok: 'Close'
+      })
     })
     .catch(error => {
       console.error(error)
     })
 
-  $q.dialog({
-    title: 'Task Results',
-    message: message,
-    persistent: true,
-    ok: 'Close'
-  })
+
 }
 </script>
 
@@ -69,7 +71,7 @@ const showResults = (id: any) => {
           size="sm"></q-btn>
       <q-btn
           v-show="task.status === 'COMPLETED'"
-          @click="showResults(task.id)"
+          @click="showResults(task.id.value)"
           color="primary"
           label="Results"
           style="margin-left: 20px"

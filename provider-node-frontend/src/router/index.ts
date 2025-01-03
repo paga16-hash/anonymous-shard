@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory, type Router } from 'vue-router'
 import BasicLayout from "../layouts/BasicLayout.vue";
-import NotificationView from "../views/TaskView.vue";
+import PeerView from "../views/PeerView.vue";
 import NotFoundView from "../views/NotFoundView.vue";
 
 const router: Router = createRouter({
@@ -17,7 +17,7 @@ const router: Router = createRouter({
         {
           path: 'home',
           name: 'Home',
-          component: NotificationView
+          component: PeerView
         },
       ]
     },
