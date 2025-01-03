@@ -30,8 +30,8 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-      - name: Build
-        run: ./gradlew npmBuildAll build --info
+      - name: Build and Install
+        run: ./gradlew npmBuildAll npmInstallAll build --info
       - name: Test
         run: ./gradlew npmTestProvider --info --parallel
   style:

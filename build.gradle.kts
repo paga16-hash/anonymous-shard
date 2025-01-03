@@ -66,6 +66,15 @@ tasks.register("npmBuildAll") {
     })
 }
 
+tasks.register("npmInstallAll") {
+    dependsOn(nodes.map { submodule ->
+        val name = submodule.replaceFirstChar {
+            if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
+        }.split("-")[0]
+        tasks.named("npmInstall$name")
+    })
+}
+
 
 
 
