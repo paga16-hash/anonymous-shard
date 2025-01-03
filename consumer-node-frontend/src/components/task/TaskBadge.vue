@@ -54,7 +54,7 @@ const showResults = (id: any) => {
 
 <template>
   <li>
-    <q-icon v-show="task.status === 'PENDING'" size="28px" name="pending" />
+    <q-icon v-show="task.status === 'PENDING'" size="28px" name="pending_actions" />
     <q-icon v-show="task.status === 'COMPLETED'" size="28px" name="done" />
     <span class="id">
       {{ task.id.value.substring(24).toUpperCase() }}
@@ -92,7 +92,7 @@ const showResults = (id: any) => {
 li {
   list-style: none;
   width: 100%;
-  border: #00acc1 1px solid;
+  border: #51346A 1px solid;
   border-radius: 5px;
   background: #eeeeee;
   padding: 10px;
