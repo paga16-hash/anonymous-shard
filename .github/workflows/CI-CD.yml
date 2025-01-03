@@ -31,7 +31,7 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
       - name: Build and Install
-        run: ./gradlew npmInstallAll npmBuildAll build --info
+        run: ./gradlew npmInstallAll --stacktrace npmBuildAll build --info
       - name: Test
         run: ./gradlew npmTestProvider --info --parallel
   style:
@@ -44,7 +44,7 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
       - name: Check format
-        run: ./gradlew npmFormatProvider --stacktrace npmFormatConsumer --info
+        run: ./gradlew npmFormatProvider npmFormatConsumer --info
       - name: Check lint
         run: ./gradlew npmLintProvider npmLintConsumer --info
   build-website:
