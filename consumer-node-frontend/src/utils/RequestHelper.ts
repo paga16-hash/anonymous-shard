@@ -7,23 +7,17 @@ type Headers = {
     }
 }
 
-const protocol: string = 'http://'
 
-const getHost = (service: string): string => {
-    if (import.meta.env.DEV) {
-        return protocol + 'localhost:' + import.meta.env[`VITE_${service.toUpperCase().replace('-', '_')}_PORT`]
-    } else if (window.location.href.includes('localhost')) {
-        return protocol + service + '.localhost'
-    } else {
-        return protocol + service
-    }
+const getHost = (): string => {
+    const protocol: string = 'http://'
+    return protocol + import.meta.env.VITE_CONSUMER_NODE_HOST + ":" + (parseInt(import.meta.env.VITE_CONSUMER_NODE_PORT!) + 1000)
 }
 
-export const consumerHost = "127.0.0.1"//getHost(import.meta.env.CONSUMER_NODE_HOST)
+export const consumerHost: string = getHost()
 
 export default class RequestHelper {
     static getHeaders(): Headers {
-        return {headers: {Authorization: `Bearer ${import.meta.env.DEV_API_KEY}`}}
+        return {headers: {Authorization: `Bearer ${import.meta.env.VITE_DEV_API_KEY}`}}
     }
 
     static async get(url: string): Promise<AxiosResponse | void> {

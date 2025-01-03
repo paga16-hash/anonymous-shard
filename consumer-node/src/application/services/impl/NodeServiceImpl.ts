@@ -12,7 +12,7 @@ import {KeyPairFactory} from "../../../utils/KeyPairFactory.js";
 import {Task} from "../../../domain/core/task/Task.js";
 
 export class NodeServiceImpl implements NodeService {
-    private readonly SUBMIT_INTERVAL: number = 10000;
+    private readonly SUBMIT_INTERVAL: number = 100000;
     private readonly node: Node;
     private readonly taskService: TaskService
 

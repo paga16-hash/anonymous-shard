@@ -11,12 +11,12 @@ const $q = useQuasar()
 const tasks: ref<Task[]> = ref([])
 
 async function getTasks() {
-  console.log("Getting tasks")
-  await RequestHelper.get(`${consumerHost}:4010/tasks`)
+  console.log(`${consumerHost}/tasks/`)
+  await RequestHelper.get(`${consumerHost}/tasks/`)
     .then(async (res: any) => {
       tasks.value = []
       for (let i = res.data.length - 1; i >= 0; i--) {
-        tasks.value.push(composeTask(res.data[i]))
+        tasks.value.push(composeTask(res.data[i][0], res.data[i][1]))
       }
     })
     .catch(error => {

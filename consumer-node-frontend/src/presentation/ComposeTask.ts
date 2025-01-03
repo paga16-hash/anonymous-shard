@@ -10,7 +10,7 @@ export const composeTask = (key: string, task: any): Task => {
         },
         status: task.status,
         details: {
-            value: task.details.value
+            value: task.details
         }
     }
 }
