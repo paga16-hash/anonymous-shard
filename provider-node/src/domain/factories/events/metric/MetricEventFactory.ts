@@ -1,12 +1,11 @@
-import {MetricAvailableEvent} from "../../../events/metric/MetricAvailableEvent.js";
-import {DomainEventId} from "../../../events/DomainEventId.js";
-import {Metric} from "../../../core/metric/Metric.js";
-import {EventType} from "../../../../utils/EventType.js";
-import {Topic} from "../../../../utils/Topic.js";
-import {DomainEventIdFactory} from "../DomainEventIdFactory.js";
+import { MetricAvailableEvent } from '../../../events/metric/MetricAvailableEvent.js'
+import { DomainEventId } from '../../../events/DomainEventId.js'
+import { Metric } from '../../../core/metric/Metric.js'
+import { EventType } from '../../../../utils/EventType.js'
+import { Topic } from '../../../../utils/Topic.js'
+import { DomainEventIdFactory } from '../DomainEventIdFactory.js'
 
 export class MetricEventFactory {
-
     static createMetricAvailableEvent(peerId: string, metric: Metric): MetricAvailableEvent {
         return {
             id: DomainEventIdFactory.newId(),
@@ -18,7 +17,12 @@ export class MetricEventFactory {
         }
     }
 
-    static metricAvailableEventFrom(id: DomainEventId, timestamp: Date, peerId: string, metric: Metric): MetricAvailableEvent {
+    static metricAvailableEventFrom(
+        id: DomainEventId,
+        timestamp: Date,
+        peerId: string,
+        metric: Metric
+    ): MetricAvailableEvent {
         return {
             id,
             topic: Topic.METRIC,

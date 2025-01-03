@@ -1,5 +1,5 @@
-import {TaskId} from "./TaskId.js";
-import {TaskResultIdentifier} from "./TaskResultIdentifier.js";
+import { TaskId } from './TaskId.js'
+import { TaskResultIdentifier } from './TaskResultIdentifier.js'
 
 export interface TaskResult {
     readonly taskId: TaskId

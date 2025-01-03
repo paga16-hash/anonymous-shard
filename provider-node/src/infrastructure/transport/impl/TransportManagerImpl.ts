@@ -1,17 +1,24 @@
-import {Socket} from "net";
-import {TransportManager} from "../TransportManager.js";
-import {DiscoveryComponent} from "../../network/DiscoveryComponent.js";
-import {DHTDiscoveryComponent} from "../../network/dht/DHTDiscoveryComponent.js";
-import {Transport} from "../Transport.js";
+import { Socket } from 'net'
+import { TransportManager } from '../TransportManager.js'
+import { DiscoveryComponent } from '../../network/DiscoveryComponent.js'
+import { DHTDiscoveryComponent } from '../../network/dht/DHTDiscoveryComponent.js'
+import { Transport } from '../Transport.js'
 
 export class TransportManagerImpl implements TransportManager {
-    private readonly transport: Transport;
-    private discoveryComponent: DiscoveryComponent;
+    private readonly transport: Transport
+    private discoveryComponent: DiscoveryComponent
 
-    constructor(transport: Transport,
-                discoveryComponent: DiscoveryComponent =
-                    new DHTDiscoveryComponent("", new Map(), (address: string, message: string) => {return Promise.resolve()})) {
-        this.transport = transport;
+    constructor(
+        transport: Transport,
+        discoveryComponent: DiscoveryComponent = new DHTDiscoveryComponent(
+            '',
+            new Map(),
+            (address: string, message: string) => {
+                return Promise.resolve()
+            }
+        )
+    ) {
+        this.transport = transport
         this.discoveryComponent = discoveryComponent
     }
 
@@ -29,13 +36,13 @@ export class TransportManagerImpl implements TransportManager {
      */
     async sendToPeer(address: string, message: string): Promise<void> {
         try {
-            const socket: Socket = (await this.transport.dial(address))!;
-            socket.write(JSON.stringify(message));
-            socket.end();
+            const socket: Socket = (await this.transport.dial(address))!
+            socket.write(JSON.stringify(message))
+            socket.end()
             //console.log(`[TransportManager] Message sent to ${address}`);
         } catch (error) {
-            console.error(`[TransportManager] Failed to send message to ${address}:`, error);
-            throw error;
+            console.error(`[TransportManager] Failed to send message to ${address}:`, error)
+            throw error
         }
     }
 
@@ -44,18 +51,18 @@ export class TransportManagerImpl implements TransportManager {
      * @param message The message to broadcast.
      */
     async sendToBroadcast(message: string): Promise<void> {
-        const addresses: string[] = this.discoveryComponent.getAddresses();
+        const addresses: string[] = this.discoveryComponent.getAddresses()
         //console.log(`[TransportManager] Broadcasting message to ${addresses.length} peers.`, addresses);
         if (!addresses.length) {
-            console.warn("[TransportManager] No peers available to broadcast the message.");
-            return;
+            console.warn('[TransportManager] No peers available to broadcast the message.')
+            return
         }
 
         await Promise.all(
             addresses.map(async (address: string): Promise<void> => {
-                await this.sendToPeer(address, message);
+                await this.sendToPeer(address, message)
             })
-        );
+        )
     }
 
     /**
@@ -64,20 +71,20 @@ export class TransportManagerImpl implements TransportManager {
      * @param gossipFactor The number of peers to send the message to.
      */
     async sendToRandomPeers(message: string, gossipFactor: number): Promise<void> {
-        const addresses: string[] = this.discoveryComponent.getAddresses();
+        const addresses: string[] = this.discoveryComponent.getAddresses()
         if (!addresses.length) {
-            console.warn("[TransportManager] No peers available for gossip messaging.");
-            return;
+            console.warn('[TransportManager] No peers available for gossip messaging.')
+            return
         }
 
-        const selectedCount: number = Math.min(gossipFactor, addresses.length);
-        const selectedAddresses: string[] = this.selectRandomSubset(addresses, selectedCount);
+        const selectedCount: number = Math.min(gossipFactor, addresses.length)
+        const selectedAddresses: string[] = this.selectRandomSubset(addresses, selectedCount)
 
         await Promise.all(
             selectedAddresses.map(async (address: string): Promise<void> => {
-                await this.sendToPeer(address, message);
+                await this.sendToPeer(address, message)
             })
-        );
+        )
     }
 
     /**
@@ -87,10 +94,10 @@ export class TransportManagerImpl implements TransportManager {
      */
     async listen(address: string, port: number): Promise<void> {
         try {
-            await this.transport.listen(address, port);
-            console.log(`[TransportManager] Listening on ${address}:${port}`);
+            await this.transport.listen(address, port)
+            console.log(`[TransportManager] Listening on ${address}:${port}`)
         } catch (error) {
-            console.error(`[TransportManager] Failed to start listening on ${address}:${port}:`, error);
+            console.error(`[TransportManager] Failed to start listening on ${address}:${port}:`, error)
         }
     }
 
@@ -101,11 +108,11 @@ export class TransportManagerImpl implements TransportManager {
      * @returns A random subset of addresses.
      */
     private selectRandomSubset(addresses: string[], count: number): string[] {
-        const selected: Set<string> = new Set();
+        const selected: Set<string> = new Set()
         while (selected.size < count) {
-            const randomIndex: number = Math.floor(Math.random() * addresses.length);
-            selected.add(addresses[randomIndex]);
+            const randomIndex: number = Math.floor(Math.random() * addresses.length)
+            selected.add(addresses[randomIndex])
         }
-        return Array.from(selected);
+        return Array.from(selected)
     }
 }

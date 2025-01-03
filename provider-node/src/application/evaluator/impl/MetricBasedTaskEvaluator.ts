@@ -1,14 +1,14 @@
-import { TaskEvaluator } from "../TaskEvaluator.js";
-import { Task } from "../../../domain/core/task/Task.js";
-import { Metric } from "../../../domain/core/metric/Metric.js";
+import { TaskEvaluator } from '../TaskEvaluator.js'
+import { Task } from '../../../domain/core/task/Task.js'
+import { Metric } from '../../../domain/core/metric/Metric.js'
 
 export class MetricBasedTaskEvaluator implements TaskEvaluator {
-    private readonly metric: () => Promise<Metric>;
-    private readonly getOtherMetrics: () => Map<string, Metric>;
+    private readonly metric: () => Promise<Metric>
+    private readonly getOtherMetrics: () => Map<string, Metric>
 
     constructor(currentMetric: () => Promise<Metric>, metrics: () => Map<string, Metric>) {
-        this.metric = currentMetric;
-        this.getOtherMetrics = metrics;
+        this.metric = currentMetric
+        this.getOtherMetrics = metrics
     }
 
     /**
@@ -20,16 +20,16 @@ export class MetricBasedTaskEvaluator implements TaskEvaluator {
         // note the task is not used in this implementation, but it could be used to make the evaluation more complex because
         // the design allows for it
         try {
-            const currentMetric: Metric = await this.metric();
-            const otherMetrics: Map<string, Metric> = this.getOtherMetrics();
+            const currentMetric: Metric = await this.metric()
+            const otherMetrics: Map<string, Metric> = this.getOtherMetrics()
 
-            const currentScore: number = this.calculateScore(currentMetric);
-            const otherScores: number[] = Array.from(otherMetrics.values()).map(this.calculateScore);
+            const currentScore: number = this.calculateScore(currentMetric)
+            const otherScores: number[] = Array.from(otherMetrics.values()).map(this.calculateScore)
 
-            return otherScores.every((score: number): boolean => currentScore >= score);
+            return otherScores.every((score: number): boolean => currentScore >= score)
         } catch (error) {
-            console.error("Error during evaluation:", error);
-            return false;
+            console.error('Error during evaluation:', error)
+            return false
         }
     }
 
@@ -41,17 +41,17 @@ export class MetricBasedTaskEvaluator implements TaskEvaluator {
      */
     async getCandidates(task: Task, n: number): Promise<string[]> {
         try {
-            const otherMetrics: Map<string, Metric> = this.getOtherMetrics();
+            const otherMetrics: Map<string, Metric> = this.getOtherMetrics()
 
             const scoredNodes = Array.from(otherMetrics.entries())
                 .map(([key, metric]) => ({ key, score: this.calculateScore(metric) }))
                 .sort((a, b) => b.score - a.score)
-                .slice(0, n);
+                .slice(0, n)
 
-            return scoredNodes.map(node => node.key);
+            return scoredNodes.map(node => node.key)
         } catch (error) {
-            console.error("Error during candidate selection:", error);
-            return [];
+            console.error('Error during candidate selection:', error)
+            return []
         }
     }
 
@@ -61,10 +61,10 @@ export class MetricBasedTaskEvaluator implements TaskEvaluator {
      * @returns A numeric score.
      */
     private calculateScore(metric: Metric): number {
-        const memoryScore: number = metric.memory.free / metric.memory.total;
-        const cpuScore: number = (1 - metric.cpu.load / 100) * metric.cpu.speed;
-        const gpuScore: number = metric.gpu.reduce((acc, gpu) => acc + gpu.memoryTotal, 0);
+        const memoryScore: number = metric.memory.free / metric.memory.total
+        const cpuScore: number = (1 - metric.cpu.load / 100) * metric.cpu.speed
+        const gpuScore: number = metric.gpu.reduce((acc, gpu) => acc + gpu.memoryTotal, 0)
 
-        return memoryScore * 0.5 + cpuScore * 0.4 + gpuScore * 0.1;
+        return memoryScore * 0.5 + cpuScore * 0.4 + gpuScore * 0.1
     }
 }

@@ -1,21 +1,21 @@
-import {EventsHub} from "../EventsHub.js";
-import {MetricEvent} from "../../../domain/events/metric/MetricEvent.js";
-import {DomainEvent} from "../../../domain/events/DomainEvent.js";
-import {TransportManager} from "../../transport/TransportManager.js";
-import {Topic} from "../../../utils/Topic.js";
-import {TaskEvent} from "../../../domain/events/task/TaskEvent.js";
-import {EventType} from "../../../utils/EventType.js";
-import {TaskResultEvent} from "../../../domain/events/task/TaskResultEvent.js";
-import {TaskFailureEvent} from "../../../domain/events/task/TaskFailureEvent.js";
-import {DiscoveryEvent} from "../../../domain/events/discovery/DiscoveryEvent.js";
-import {TaskForceSubmissionEvent} from "../../../domain/events/task/TaskForceSubmissionEvent";
+import { EventsHub } from '../EventsHub.js'
+import { MetricEvent } from '../../../domain/events/metric/MetricEvent.js'
+import { DomainEvent } from '../../../domain/events/DomainEvent.js'
+import { TransportManager } from '../../transport/TransportManager.js'
+import { Topic } from '../../../utils/Topic.js'
+import { TaskEvent } from '../../../domain/events/task/TaskEvent.js'
+import { EventType } from '../../../utils/EventType.js'
+import { TaskResultEvent } from '../../../domain/events/task/TaskResultEvent.js'
+import { TaskFailureEvent } from '../../../domain/events/task/TaskFailureEvent.js'
+import { DiscoveryEvent } from '../../../domain/events/discovery/DiscoveryEvent.js'
+import { TaskForceSubmissionEvent } from '../../../domain/events/task/TaskForceSubmissionEvent'
 
 export class ProviderEventsHub implements EventsHub {
     private transportManager: TransportManager | undefined
-    private topicEventListeners: Map<string, ((data: any) => void)>
+    private topicEventListeners: Map<string, (data: any) => void>
 
     constructor() {
-        this.topicEventListeners = new Map<string, ((data: any) => void)>();
+        this.topicEventListeners = new Map<string, (data: any) => void>()
     }
 
     /**
@@ -23,7 +23,7 @@ export class ProviderEventsHub implements EventsHub {
      * @param transportManager the transport manager to use
      */
     async useTransport(transportManager: TransportManager): Promise<void> {
-        this.transportManager = transportManager;
+        this.transportManager = transportManager
     }
 
     /**
@@ -33,12 +33,12 @@ export class ProviderEventsHub implements EventsHub {
     async routeEvent(event: DomainEvent): Promise<void> {
         //console.log("Handler routeEvent: " + event)
         //TODO introduce presentation layer to handle the event safely
-        const listener = this.topicEventListeners.get(JSON.parse(event.toString()).topic);
+        const listener = this.topicEventListeners.get(JSON.parse(event.toString()).topic)
         if (listener) {
-            listener(JSON.parse(event.toString()));
+            listener(JSON.parse(event.toString()))
         } else {
             console.log(JSON.parse(event.toString()))
-            console.error("No registered handler for topic: " + JSON.parse(event.toString()).topic);
+            console.error('No registered handler for topic: ' + JSON.parse(event.toString()).topic)
         }
     }
 
@@ -47,11 +47,13 @@ export class ProviderEventsHub implements EventsHub {
      * @param handler the handler to register
      */
     registerMetricEventsHandler(handler: (metricEvent: MetricEvent) => Promise<void>): void {
-        this.subscribe(Topic.METRIC, handler).then((): void => {
-            console.log("Registered handler for topic: " + Topic.METRIC);
-        }).catch((err: any): void => {
-            console.error("Error registering handler for topic: " + Topic.METRIC, err);
-        })
+        this.subscribe(Topic.METRIC, handler)
+            .then((): void => {
+                console.log('Registered handler for topic: ' + Topic.METRIC)
+            })
+            .catch((err: any): void => {
+                console.error('Error registering handler for topic: ' + Topic.METRIC, err)
+            })
     }
 
     /**
@@ -60,7 +62,7 @@ export class ProviderEventsHub implements EventsHub {
      */
     publishMetricEvent(metricEvent: MetricEvent): void {
         this.publish(metricEvent).catch((err: any): void => {
-            console.error("Error publishing metric event", err);
+            console.error('Error publishing metric event', err)
         })
     }
 
@@ -72,26 +74,33 @@ export class ProviderEventsHub implements EventsHub {
         switch (taskEvent.type) {
             case EventType.TASK_COMPLETED:
                 const taskCompletedEvent: TaskResultEvent = taskEvent as TaskResultEvent
-                this.directPublish(taskCompletedEvent.clientId.value, taskCompletedEvent).catch((err: any): void => {
-                    console.error("Error publishing task result directly", err);
-                })
-                break;
+                this.directPublish(taskCompletedEvent.clientId.value, taskCompletedEvent).catch(
+                    (err: any): void => {
+                        console.error('Error publishing task result directly', err)
+                    }
+                )
+                break
             case EventType.TASK_FAILED:
                 const taskFailedEvent: TaskFailureEvent = taskEvent as TaskFailureEvent
-                this.directPublish(taskFailedEvent.clientId.value, taskFailedEvent).catch((err: any): void => {
-                    console.error("Error publishing task event", err);
-                })
-                break;
+                this.directPublish(taskFailedEvent.clientId.value, taskFailedEvent).catch(
+                    (err: any): void => {
+                        console.error('Error publishing task event', err)
+                    }
+                )
+                break
             case EventType.TASK_FORCE_SUBMISSION:
                 // in this case the provider node is redirecting the task to another provider
-                const taskForceSubmissionEvent: TaskForceSubmissionEvent = taskEvent as TaskForceSubmissionEvent
-                this.directPublish(taskForceSubmissionEvent.provider, taskForceSubmissionEvent).catch((err: any): void => {
-                    console.error("Error redirecting task event", err);
-                    // TODO to handle this error and to inform the client
-                })
-                break;
+                const taskForceSubmissionEvent: TaskForceSubmissionEvent =
+                    taskEvent as TaskForceSubmissionEvent
+                this.directPublish(taskForceSubmissionEvent.provider, taskForceSubmissionEvent).catch(
+                    (err: any): void => {
+                        console.error('Error redirecting task event', err)
+                        // TODO to handle this error and to inform the client
+                    }
+                )
+                break
             default:
-                console.error("Unrecognized or not supported event type: " + taskEvent.type)
+                console.error('Unrecognized or not supported event type: ' + taskEvent.type)
         }
     }
 
@@ -100,11 +109,13 @@ export class ProviderEventsHub implements EventsHub {
      * @param handler the handler to register
      */
     registerTaskEventsHandler(handler: (metricEvent: TaskEvent) => Promise<void>): void {
-        this.subscribe(Topic.TASK, handler).then((): void => {
-            console.log("Registered handler for topic: " + Topic.TASK);
-        }).catch((err: any): void => {
-            console.error("Error registering handler for topic: " + Topic.TASK, err);
-        })
+        this.subscribe(Topic.TASK, handler)
+            .then((): void => {
+                console.log('Registered handler for topic: ' + Topic.TASK)
+            })
+            .catch((err: any): void => {
+                console.error('Error registering handler for topic: ' + Topic.TASK, err)
+            })
     }
 
     /**
@@ -112,11 +123,13 @@ export class ProviderEventsHub implements EventsHub {
      * @param handler the handler to register
      */
     registerDiscoveryEventsHandler(handler: (discoveryEvent: DiscoveryEvent) => Promise<void>): void {
-        this.subscribe(Topic.PEERS, handler).then((): void => {
-            console.log("Registered handler for topic: " + Topic.PEERS);
-        }).catch((err: any): void => {
-            console.error("Error registering handler for topic: " + Topic.PEERS, err);
-        })
+        this.subscribe(Topic.PEERS, handler)
+            .then((): void => {
+                console.log('Registered handler for topic: ' + Topic.PEERS)
+            })
+            .catch((err: any): void => {
+                console.error('Error registering handler for topic: ' + Topic.PEERS, err)
+            })
     }
 
     /**
@@ -126,9 +139,9 @@ export class ProviderEventsHub implements EventsHub {
      */
     private async publish(domainEvent: DomainEvent): Promise<void> {
         if (this.transportManager) {
-            await this.transportManager.sendToBroadcast(JSON.stringify(domainEvent));
+            await this.transportManager.sendToBroadcast(JSON.stringify(domainEvent))
         } else {
-            console.error("No transport manager available to publish event");
+            console.error('No transport manager available to publish event')
         }
     }
 
@@ -139,7 +152,7 @@ export class ProviderEventsHub implements EventsHub {
      * @private
      */
     private async subscribe(topic: string, listener: (data: any) => void): Promise<void> {
-        this.topicEventListeners.set(topic, listener);
+        this.topicEventListeners.set(topic, listener)
     }
 
     /**
@@ -150,13 +163,16 @@ export class ProviderEventsHub implements EventsHub {
      */
     private async directPublish(address: string, domainEvent: DomainEvent): Promise<void> {
         if (this.transportManager) {
-            await this.transportManager.sendToPeer(address, JSON.stringify(domainEvent)).then((): void => {
-                console.log("Message sent to " + address);
-            }).catch((err: any): void => {
-                console.error("Error sending message to " + address, err);
-            });
+            await this.transportManager
+                .sendToPeer(address, JSON.stringify(domainEvent))
+                .then((): void => {
+                    console.log('Message sent to ' + address)
+                })
+                .catch((err: any): void => {
+                    console.error('Error sending message to ' + address, err)
+                })
         } else {
-            console.error("No transport manager available to directly publish message");
+            console.error('No transport manager available to directly publish message')
         }
     }
 }

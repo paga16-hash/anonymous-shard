@@ -1,18 +1,17 @@
-import {DiscoveryComponent} from "../network/DiscoveryComponent.js";
+import { DiscoveryComponent } from '../network/DiscoveryComponent.js'
 
 export interface TransportManager {
-
     /**
      * Add the discovery component.
      * @param discoveryComponent the discovery component
      */
-    addDiscoveryComponent(discoveryComponent: DiscoveryComponent): void;
+    addDiscoveryComponent(discoveryComponent: DiscoveryComponent): void
     /**
      * Send a message to a peer, identified by its onion address.
      * @param address the onion address of the peer
      * @param message the message to send
      */
-    sendToPeer(address: string, message: string): Promise<void>;
+    sendToPeer(address: string, message: string): Promise<void>
 
     /**
      * Send a message to all known peers.
@@ -34,5 +33,4 @@ export interface TransportManager {
      * @param port the port to listen on
      */
     listen(address: string, port: number): Promise<void>
-
 }

@@ -1,5 +1,5 @@
-import {providerNodeService} from "../../../index.js";
-import {Metric} from "../../../domain/core/metric/Metric.js";
+import { providerNodeService } from '../../../index.js'
+import { Metric } from '../../../domain/core/metric/Metric.js'
 
 export const peerController = {
     getPeers: (): string[] => {
@@ -11,4 +11,3 @@ export const peerController = {
         return metrics.get(peerId)!
     }
 }
-

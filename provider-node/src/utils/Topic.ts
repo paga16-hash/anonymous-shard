@@ -1,5 +1,5 @@
 export enum Topic {
-    PEERS = "peers",
-    METRIC = "metric",
-    TASK = "task"
+    PEERS = 'peers',
+    METRIC = 'metric',
+    TASK = 'task'
 }

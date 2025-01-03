@@ -1,19 +1,18 @@
-import {Task} from "../../../domain/core/task/Task.js";
-import {SumTask} from "../../../domain/core/task/impl/SumTask.js";
-import {TaskResult} from "../../../domain/core/task/TaskResult.js";
-import {TaskFailure} from "../../../domain/core/task/enum/TaskFailure.js";
+import { Task } from '../../../domain/core/task/Task.js'
+import { SumTask } from '../../../domain/core/task/impl/SumTask.js'
+import { TaskResult } from '../../../domain/core/task/TaskResult.js'
+import { TaskFailure } from '../../../domain/core/task/enum/TaskFailure.js'
 
 export class SumTaskExecutor {
     execute(task: Task): TaskResult {
         try {
-            const sumTask: SumTask  = this.parseSumTask(task);
-            const sum: number = sumTask.details.addends.reduce((acc: number, val: number) => acc + val, 0);
+            const sumTask: SumTask = this.parseSumTask(task)
+            const sum: number = sumTask.details.addends.reduce((acc: number, val: number) => acc + val, 0)
             return {
                 taskId: sumTask.id,
                 result: sum
-            };
-        }
-        catch (e: any) {
+            }
+        } catch (e: any) {
             return {
                 taskId: task.id,
                 result: {
@@ -26,10 +25,10 @@ export class SumTaskExecutor {
 
     private parseSumTask(task: Task): SumTask {
         if (task.details.addends === undefined) {
-            throw new Error("Invalid task details");
+            throw new Error('Invalid task details')
         }
         //TODO TO IMPLEMENT VALIDATION
         //TaskPresenter.validate(task)
-        return task as SumTask;
+        return task as SumTask
     }
 }

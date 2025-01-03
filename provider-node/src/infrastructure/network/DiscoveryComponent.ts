@@ -1,4 +1,4 @@
-import {DiscoveryEvent} from "../../domain/events/discovery/DiscoveryEvent.js";
+import { DiscoveryEvent } from '../../domain/events/discovery/DiscoveryEvent.js'
 
 export interface DiscoveryComponent {
     /**

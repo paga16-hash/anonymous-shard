@@ -1,12 +1,12 @@
-import {Metric} from "../../domain/core/metric/Metric.js";
-import {Task} from "../../domain/core/task/Task.js";
+import { Metric } from '../../domain/core/metric/Metric.js'
+import { Task } from '../../domain/core/task/Task.js'
 
 export interface NodeService {
-    getKnownPeers(): string[];
+    getKnownPeers(): string[]
 
-    getKnownMetrics(): Promise<Map<string, Metric>>;
+    getKnownMetrics(): Promise<Map<string, Metric>>
 
-    getCurrentMetrics(): Promise<Metric>;
+    getCurrentMetrics(): Promise<Metric>
 
-    getPendingTask(): Promise<Task[]>;
+    getPendingTask(): Promise<Task[]>
 }

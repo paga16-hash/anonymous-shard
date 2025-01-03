@@ -1,4 +1,4 @@
-import {TaskResultIdentifier} from "../../../core/task/TaskResultIdentifier.js";
+import { TaskResultIdentifier } from '../../../core/task/TaskResultIdentifier.js'
 
 export class TaskResultIdentifierFactory {
     static taskResultIdentifierFrom(contentIdentifier: string): TaskResultIdentifier {
