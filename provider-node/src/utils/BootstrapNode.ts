@@ -20,14 +20,9 @@ export const mapBootstrapAddresses = (): Map<string, number> => {
             const address = process.env[key]
             const port = parseInt(process.env[`${keyPrefix.replace('ADDRESS', 'PORT')}${index}`] || '0', 10)
 
-            if (address && port && port.toString() !== process.env.PORT) {
+            if (address && port && (address !== process.env.HOST || port.toString() !== process.env.PORT)) {
                 bootstrapMap.set(address + ':' + port, port)
             }
         })
-    /*if(process.env.NODE_ENV !== 'develop') {
-        bootstrapMap.delete(
-            process.env.HOST!
-        )
-    }*/
     return bootstrapMap
 }

@@ -18,7 +18,6 @@ import HttpStatusCode from './utils/HttpStatusCode.js'
 
 config({ path: process.cwd() + '/../.env' })
 
-//console.log(mapBootstrapAddresses())
 const metricService: MetricServiceImpl = new MetricServiceImpl()
 const taskEvaluator: TaskEvaluator = new MetricBasedTaskEvaluator(
     metricService.getCurrentMetric.bind(metricService),

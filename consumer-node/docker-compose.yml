@@ -17,16 +17,16 @@ services:
       dockerfile: Dockerfile
     environment:
       - ANONYMOUS_MODE=${ANONYMOUS_MODE}
-      - HOST=eww4sjfxwj6vgucebupol2nk7yhbvhjzxo2v4t46f42gukn3btknzvid
+      - HOST=y2hyyiiriy3l6sfuh4birmnp7ct6ynxlhxtfnefx5bc4wfb7ptdkndid
       - PORT=3000
       - BOOTSTRAP_NODE_ADDRESS_1=a7oxxul76cei44utvngfg2tnhqmedkjlwiiudbaqzer5z5w75gpgyeqd
       - BOOTSTRAP_NODE_PORT_1=3000
-      - LOCAL_BOOTSTRAP_NODE_ADDRESS_1=127.0.0.1
-      - LOCAL_BOOTSTRAP_NODE_PORT_1=3000
+      # - LOCAL_BOOTSTRAP_NODE_ADDRESS_1=127.0.0.1
+      # - LOCAL_BOOTSTRAP_NODE_PORT_1=3000
       - BOOTSTRAP_NODE_ADDRESS_2=eww4sjfxwj6vgucebupol2nk7yhbvhjzxo2v4t46f42gukn3btknzvid
       - BOOTSTRAP_NODE_PORT_2=3000
-      - LOCAL_BOOTSTRAP_NODE_ADDRESS_2=127.0.0.1
-      - LOCAL_BOOTSTRAP_NODE_PORT_2=3001
+      # - LOCAL_BOOTSTRAP_NODE_ADDRESS_2=127.0.0.1
+      # - LOCAL_BOOTSTRAP_NODE_PORT_2=3001
     ports:
       - "3002:3000"
     volumes:

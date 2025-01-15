@@ -1,8 +1,8 @@
-import { createServer, Server, Socket } from 'net'
-import { Socks5Config } from './Socks5Config.js'
-import { SocksClient } from 'socks'
-import { Transport } from '../Transport.js'
-import { DomainEvent } from '../../../domain/events/DomainEvent.js'
+import {createServer, Server, Socket} from 'net'
+import {Socks5Config} from './Socks5Config.js'
+import {SocksClient} from 'socks'
+import {Transport} from '../Transport.js'
+import {DomainEvent} from '../../../domain/events/DomainEvent.js'
 
 export class Socks5Transport implements Transport {
     private readonly config: Socks5Config
@@ -28,23 +28,12 @@ export class Socks5Transport implements Transport {
      * @param port the port to listen on
      */
     async listen(address: string, port: number): Promise<void> {
-        console.log('Trying to listen: ', address, 'on port', port)
 
         const server: Server = createServer((socket: Socket): void => {
-            console.log(`Connection from ${socket.remoteAddress}:${socket.remotePort}`)
-            socket.on('connect', (): void => {
-                console.log('Connection established with', socket.remoteAddress)
-            })
-
+            // Here you can add every default event that you want to the socket, like 'connect', 'end', etc..
             socket.on('data', (data: Buffer): void => {
-                //parse the data and cast to a domain event depending on the topic
-                //console.log('Received:', JSON.parse(data.toString()), 'from', socket.remoteAddress);
                 this.handler(JSON.parse(data.toString()) as unknown as DomainEvent)
-                //this.handler(presentationLayer.parseEvent(data));
-            })
-
-            socket.on('end', (): void => {
-                console.log('Connection ended with ', socket.remoteAddress)
+                //TODO this.handler(presentationLayer.parseEvent(data));
             })
         })
 
@@ -60,15 +49,20 @@ export class Socks5Transport implements Transport {
      */
     // @ts-expect-error to fix the return type
     async dial(address: string, maxRetries: number = 5): Promise<Socket> {
+        let port: number
+        const [addressPart, portPart] = address.split(':')
+        if (portPart) {
+            address = addressPart
+            port = parseInt(portPart)
+        } else {
+            port = 80
+        }
         let attempt: number = 0
 
         while (attempt < maxRetries) {
             attempt++
-            console.log(`Attempt ${attempt}: Trying to dial ${address} via SOCKS5 proxy...`)
-            // TODO QUESTION ABOUT PORT PART AND HOST PART
-
             try {
-                const socket: Socket = (
+                return (
                     await SocksClient.createConnection({
                         proxy: {
                             host: this.config.socksHost,
@@ -78,17 +72,12 @@ export class Socks5Transport implements Transport {
                         command: 'connect',
                         destination: {
                             host: `${address}.onion`,
-                            port: 80 //this.config.addressMap.get(address) ||
+                            port: port
                         }
                     })
                 ).socket
-
-                console.log('Connected to target via SOCKS5 proxy.')
-                return socket
             } catch (err) {
-                console.error(`Attempt ${attempt} failed`) //: , err
                 if (attempt < maxRetries) {
-                    console.log(`Retrying in ${this.config.sleepOnError / 1000} seconds...`)
                     await new Promise(
                         (resolve): NodeJS.Timeout => setTimeout(resolve, this.config.sleepOnError)
                     )
