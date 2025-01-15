@@ -3,23 +3,23 @@ import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
-  title: 'Revue',
-  tagline: 'A monitoring and survaillance system',
+  title: 'Anonymous Shard',
+  tagline: 'Anonymous and decentralized computation',
   favicon: 'img/favicon.ico',
   markdown: {
     mermaid: true,
   },
   themes: ['@docusaurus/theme-mermaid'],
   // Set the production url of your site here
-  url: 'https://revue-org.github.io',
+  url: 'https://paga16-hash.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/revue/',
+  baseUrl: '/anonymous-shard/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'Revue', // Usually your GitHub org/user name.
-  projectName: 'revue', // Usually your repo name.
+  organizationName: 'paga16-hash', // Usually your GitHub org/user name.
+  projectName: 'anonymous-shard', // Usually your repo name.
 
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
@@ -48,9 +48,9 @@ const config: Config = {
     // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
     navbar: {
-      title: 'Revue',
+      title: 'Anonymous Shard',
       logo: {
-        alt: 'Revue Logo',
+        alt: 'Anonymous Shard Logo',
         src: 'img/logo.svg',
       },
       items: [
@@ -61,7 +61,7 @@ const config: Config = {
           label: 'Report',
         },
         {
-          href: 'https://github.com/revue-org/revue',
+          href: 'https://github.com/paga16-hash/anonymous-shard',
           label: 'GitHub',
           position: 'right',
         },
@@ -88,12 +88,12 @@ const config: Config = {
           items: [
             {
               label: 'GitHub',
-              href: 'https://github.com/revue-org/revue',
+              href: 'https://github.com/paga16-hash/anonymous-shard',
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Revue. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Anonymous Shard. Built with Docusaurus.`,
     },
     prism: {
       theme: prismThemes.github,
