@@ -43,10 +43,10 @@ components:
             payload:
                 $ref: "#/components/schemas/Metrics"
 
-    Metrics:
-        PeerId:
-            additionalProperties: false
+    schemas:
+        Metrics:
             type: object
+            additionalProperties: false
             properties:
                 memory:
                     type: object
