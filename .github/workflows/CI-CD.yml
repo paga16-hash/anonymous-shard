@@ -91,7 +91,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '21'
+          node-version: '20.17'
           cache: 'npm'
       - name: Pre-compute the next version
         id: compute-next-version

@@ -33,7 +33,7 @@ channels:
         address: metrics
         messages:
             Metric:
-                $ref: "#/components/messages/Metric"
+                $ref: "#/components/messages/Metrics"
         servers:
             - $ref: "#/servers/peer-to-peer-gossip-pubsub"
 
