@@ -49,7 +49,7 @@ jobs:
   build-website:
     defaults:
       run:
-        working-directory: docs/website 
+        working-directory: doc/website
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -62,7 +62,7 @@ jobs:
           npm run build
           cd ../..
           ./gradlew generate-openapi-website generate-openapi-index-page
-          mv build/openapi docs/website/build
+          mv build/openapi doc/website/build
       - name: Build AsyncAPI
         run: |
           cd ../api/asyncapi
@@ -72,7 +72,7 @@ jobs:
       - uses: actions/upload-artifact@v4.4.0
         with:
           name: website
-          path: docs/website/build              
+          path: doc/website/build
   compute-next-version:
     needs:
       - build
