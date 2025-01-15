@@ -16,9 +16,9 @@ const navbarExpanded = ref(false)
       <q-btn class="menu" flat @click="navbarExpanded = !navbarExpanded" round dense icon="menu" />
     </div>
     <router-link
-      to="/task"
-      :class="routeName == 'Task' ? 'selected' : ''"
-      >Peer
+      to="/home"
+      :class="routeName == 'Home' ? 'selected' : ''"
+      >Peers
     </router-link>
     <router-link
       to="/other"
@@ -64,7 +64,8 @@ nav {
     h1 {
       all: unset;
       margin-right: auto;
-      font-size: 18px;
+      font-size: 20px;
+      font-weight: bold;
     }
   }
 
@@ -82,6 +83,7 @@ nav {
     width: 70px;
     height: 70px;
     margin-left: auto;
+    border-radius: 30%;
   }
 
 
