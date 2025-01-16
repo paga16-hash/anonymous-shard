@@ -24,7 +24,6 @@ tasksRouter.route('/:id/results').get(async (req: Request, res: Response): Promi
 
 tasksRouter.route('/').post((req: Request, res: Response): void => {
   try {
-    console.log('BODY: ', req.body)
     res.status(HttpStatusCode.OK).send(Array.from(controller.getTasks()))
   } catch (e) {
     res.send({ error: 'No tasks found' })

@@ -20,6 +20,7 @@ paths:
                                 type: array
                                 items:
                                     $ref: "./schemas.yml#/components/schemas/Peer"
+                            example: ["peer-address"]
                 403:
                     description: User is not authorized
                 404:
