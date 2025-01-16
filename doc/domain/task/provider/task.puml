@@ -11,13 +11,29 @@ interface TaskService {
   + deleteTask(taskId: TaskId): void
 }
 
+interface TaskExecutor {
+  + execute(task: Task): TaskResult
+}
+
+interface TaskEvaluator {
+  + evaluate(task: Task): Promise<boolean>
+  + getCandidates(task: Task, n: number): Promise<string[]>
+}
+
 TaskService --> TaskRepository : uses
 TaskService --> TaskFactory : uses
+TaskService -right-> TaskEvaluator : uses
+TaskService --> TaskExecutor : uses
+TaskRepository -up-> Encryptor : uses
+
+interface Encryptor {
+  + encrypt(publicKey: string, data: any): Promise<string>
+}
 
 interface TaskRepository {
-  + saveResult(taskId: TaskId, result: string): void
+  + upload(publicKey: string, taskResult: TaskResult): Promise<TaskResultIdentifier>
 }
-note top of TaskRepository : Maybe to avoid? Depending on IPFS design choice
+note top of TaskRepository : IPFS for storage
 
 TaskRepository o-- Task
 
@@ -49,12 +65,12 @@ interface TaskStatus {
 note left of TaskStatus : Value Object
 
 enum StatusType {
-  ACTIVE
+  COMPLETED
   PENDING
   FAILED
 }
 
-StatusType -down- TaskStatus : has
+StatusType -up- TaskStatus : has
 
 interface TaskId {
     + getValue(): string

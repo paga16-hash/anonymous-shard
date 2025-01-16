@@ -1,0 +1,41 @@
+
+@startuml
+
+interface TaskService {
+
+}
+
+TaskService --> TaskRepository : uses
+TaskService --> TaskFactory : uses
+TaskRepository -up-> Encryptor : uses
+
+interface Encryptor {
+  + decrypt(privateKey: string, data: string): Promise<string>
+}
+
+interface TaskRepository {
+  + saveLocally(taskId: TaskId, result: string): void
+  + retrieve(privateKey: string, cId: string): Promise<TaskResult>
+}
+note top of TaskRepository : IPFS for storage
+
+TaskRepository o-- Task
+
+interface TaskFactory {
+      + createTask(): Task
+      + taskFrom(taskId: TaskId, otherTaskDetails: string): Task
+}
+TaskFactory -left-> Task : creates
+
+interface Task {
+
+}
+note bottom of Task : Entity
+
+interface TaskId {
+    + getValue(): string
+}
+
+TaskId -right-> Task : identifies
+
+@enduml
