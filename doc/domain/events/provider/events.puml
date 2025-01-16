@@ -1,0 +1,78 @@
+/'
+@startuml
+
+interface DomainEventId {
+  + getValue(): string
+}
+
+interface DomainEvent {
+  + getId(): DomainEventId
+  + getTimestamp(): Date
+}
+
+interface MetricEvent {
+  + getPeerId(): string
+}
+
+interface MetricAvailableEvent {
+  + getMetric(): Metric
+}
+
+interface TaskEvent {
+  + getTaskId(): TaskId
+}
+
+interface TaskSubmissionEvent {
+  + taskDetails: TaskDetails
+}
+
+interface TaskResultEvent {
+  + getResult(): TaskResult
+}
+
+interface TaskFailureEvent {
+  + getError(): TaskError
+}
+
+interface TaskForceSubmissionEvent {
+  + provider: string
+}
+
+interface PeerDiscoveryEvent {
+    + senderId: string
+    + type: EventType
+}
+
+interface DiscoveryEvent {
+    + type: EventType.DISCOVER
+}
+
+interface DiscoveryResponseEvent {
+    + type: EventType.DISCOVER_RESPONSE
+    + peers: string[]
+}
+
+interface PingEvent {
+    + type: EventType.PING
+}
+
+
+
+DomainEvent *-up- DomainEventId
+
+DomainEvent <|-- TaskEvent
+TaskSubmissionEvent <|-- TaskEvent
+TaskForceSubmissionEvent <|-- TaskSubmissionEvent
+TaskResultEvent <|-- TaskEvent
+TaskFailureEvent <|-- TaskEvent
+
+DomainEvent <|-- MetricEvent
+DomainEvent <|-- PeerDiscoveryEvent
+DiscoveryEvent <|-- PeerDiscoveryEvent
+DiscoveryResponseEvent <|-- PeerDiscoveryEvent
+PingEvent <|-- PeerDiscoveryEvent
+MetricAvailableEvent <|-- MetricEvent
+
+
+@enduml
+'/

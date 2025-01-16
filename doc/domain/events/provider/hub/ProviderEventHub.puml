@@ -1,0 +1,20 @@
+@startuml
+
+interface EventHub {
+      + routeEvent(domainEvent: DomainEvent): void
+      + publishMetricEvent(metricEvent: MetricEvent): void
+      + registerMetricEventsHandler(handler: (metricEvent: MetricEvent) => Promise<void>): void
+      + publishTaskOutcome(taskEvent: TaskEvent): void
+      + registerTaskEventsHandler(handler: (taskEvent: TaskEvent) => Promise<void>): void
+      + registerDiscoveryEventsHandler(handler: (discoveryEvent: DiscoveryEvent) => Promise<void>): void
+}
+note right of EventHub: Event Hub
+
+class ProviderEventHub {
+}
+
+ProviderEventHub --|> EventHub
+note right of ProviderEventHub: Gossip-based\nEvent Hub, implementation
+
+
+@enduml

@@ -1,0 +1,19 @@
+@startuml
+
+interface EventHub {
+    + useTransport(transportManager: TransportManager): void
+    + routeEvent(event: DomainEvent): void
+    + publishTaskEvent(task: TaskEvent): void
+    + publishTask(taskSubmissionEvent: TaskSubmissionEvent): void
+    + registerTaskEventsHandler(handler: (taskEvent: TaskEvent) => Promise<void>): void
+}
+note right of EventHub: Event Hub
+
+class ConsumerEventHub {
+}
+
+ConsumerEventHub --|> EventHub
+note right of ConsumerEventHub: Gossip-based\nEvent Hub, implementation
+
+
+@enduml
