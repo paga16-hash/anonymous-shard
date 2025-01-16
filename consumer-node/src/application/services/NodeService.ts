@@ -3,6 +3,8 @@ import { TaskResult } from '../../domain/core/task/TaskResult.js'
 import { TaskId } from '../../domain/core/task/TaskId.js'
 
 export interface NodeService {
+  submit(): void
+
   getTasks(): Map<string, Task>
 
   getLocalTaskResult(id: TaskId): Promise<TaskResult>

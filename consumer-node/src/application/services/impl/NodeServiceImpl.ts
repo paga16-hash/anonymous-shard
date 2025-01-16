@@ -23,7 +23,8 @@ export class NodeServiceImpl implements NodeService {
     this.taskService = taskService
     this.init().then((): void => {
       console.log('Consumer service node initialized')
-      this.startSubmitting()
+      //TODO, de-comment for demos
+      //TODO this.startSubmitting()
     })
   }
 
@@ -34,21 +35,25 @@ export class NodeServiceImpl implements NodeService {
     })
   }
 
+  submit(): void {
+    const rndAddends: number[] = Array.from({ length: 8 }, (): number => Math.floor(Math.random() * 100))
+    const { publicKey, privateKey } = KeyPairFactory.newPair()
+    const taskEvent: TaskSubmissionEvent = TaskEventFactory.taskSubmissionEventFrom(
+        SumTaskFactory.createTask(
+            publicKey,
+            ClientIdFactory.idFrom(process.env.HOST! + ':' + process.env.PORT!),
+            rndAddends
+        )
+    )
+    this.taskService.addTask(privateKey, taskEvent.task)
+    this.node.submitTask(taskEvent).catch((e: any): void => {
+      console.error('Error submitting task', e)
+    })
+  }
+
   private startSubmitting(): void {
     setInterval(async (): Promise<void> => {
-      const rndAddends: number[] = Array.from({ length: 5 }, (): number => Math.floor(Math.random() * 100))
-      const { publicKey, privateKey } = KeyPairFactory.newPair()
-      const taskEvent: TaskSubmissionEvent = TaskEventFactory.taskSubmissionEventFrom(
-        SumTaskFactory.createTask(
-          publicKey,
-          ClientIdFactory.idFrom(process.env.HOST! + ':' + process.env.PORT!),
-          rndAddends
-        )
-      )
-      this.taskService.addTask(privateKey, taskEvent.task)
-      this.node.submitTask(taskEvent).catch((e: any): void => {
-        console.error('Error submitting task', e)
-      })
+      this.submit()
     }, this.SUBMIT_INTERVAL)
   }
 

@@ -6,6 +6,9 @@ import { TaskType } from '../../../domain/core/task/enum/TaskType.js'
 import { TaskResult } from '../../../domain/core/task/TaskResult.js'
 
 export const taskController = {
+  submit(): void {
+    consumerNodeService.submit()
+  },
   getTasks: (): Map<string, Task> => {
     return consumerNodeService.getTasks()
   },

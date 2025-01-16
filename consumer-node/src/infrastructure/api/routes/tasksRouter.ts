@@ -1,5 +1,5 @@
 import express, { Request, Response, Router } from 'express'
-import { taskController as controller } from '../controllers/tasksController.js'
+import {taskController, taskController as controller} from '../controllers/tasksController.js'
 import HttpStatusCode from '../../../utils/HttpStatusCode.js'
 import { TaskStateConverter } from '../../../domain/core/task/enum/TaskState.js'
 
@@ -24,7 +24,8 @@ tasksRouter.route('/:id/results').get(async (req: Request, res: Response): Promi
 
 tasksRouter.route('/').post((req: Request, res: Response): void => {
   try {
-    res.status(HttpStatusCode.OK).send(Array.from(controller.getTasks()))
+    taskController.submit()
+    res.status(HttpStatusCode.OK).send()
   } catch (e) {
     res.send({ error: 'No tasks found' })
   }
