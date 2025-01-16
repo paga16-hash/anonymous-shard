@@ -97,7 +97,6 @@ paths:
                 items:
                   $ref: "./schemas.yml#/components/schemas/Task"
               example:
-                example:
                   [ [
                     "-----BEGIN PRIVATE-----",
                     {
