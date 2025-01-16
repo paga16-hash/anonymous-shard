@@ -1,0 +1,301 @@
+asyncapi: 3.0.0
+info:
+    title: Discovery and Metrics API
+    version: 1.0.0
+    description: >-
+        This API describes events related to peer discovery, metric sharing, and task processing in a peer-to-peer network.
+    tags:
+        - name: Metrics
+          description: Events related to metrics shared in the system.
+        - name: Discovery
+          description: Events related to peer discovery.
+        - name: Tasks
+          description: Events related to task processing.
+
+servers:
+    peer-to-peer-gossip-pubsub:
+        host: peers
+        description: Peer-to-peer gossip pubsub network, implemented on top of sockets
+        protocol: pubsub
+
+operations:
+    publishMetric:
+        action: send
+        summary: Publish a metric to the Metrics channel
+        channel:
+            $ref: "#/channels/metrics"
+    onMetricReceived:
+        action: receive
+        summary: Receive a metric from the Metrics channel
+        channel:
+            $ref: "#/channels/metrics"
+    publishDiscovery:
+        action: send
+        summary: Publish a discovery event to the Discovery channel
+        channel:
+            $ref: "#/channels/discovery"
+    onDiscoveryReceived:
+        action: receive
+        summary: Receive a discovery event from the Discovery channel
+        channel:
+            $ref: "#/channels/discovery"
+    publishTaskEvent:
+        action: send
+        summary: Publish a task-related event to the Task channel
+        channel:
+            $ref: "#/channels/tasks"
+    onTaskEventReceived:
+        action: receive
+        summary: Receive a task-related event from the Task channel
+        channel:
+            $ref: "#/channels/tasks"
+
+channels:
+    metrics:
+        tags:
+            - name: Metrics
+        description: This channel contains messages for metrics shared in the system.
+        address: metrics
+        messages:
+            MetricAvailableEvent:
+                $ref: "#/components/messages/MetricAvailableEvent"
+        servers:
+            - $ref: "#/servers/peer-to-peer-gossip-pubsub"
+
+    discovery:
+        tags:
+            - name: Discovery
+        description: This channel contains messages related to peer discovery.
+        address: discovery
+        messages:
+            DiscoveryEvent:
+                $ref: "#/components/messages/DiscoveryEvent"
+            DiscoveryResponseEvent:
+                $ref: "#/components/messages/DiscoveryResponseEvent"
+            PingEvent:
+                $ref: "#/components/messages/PingEvent"
+        servers:
+            - $ref: "#/servers/peer-to-peer-gossip-pubsub"
+
+    tasks:
+        tags:
+            - name: Tasks
+        description: This channel contains messages related to task processing.
+        address: tasks
+        messages:
+            TaskEvent:
+                $ref: "#/components/messages/TaskEvent"
+            TaskFailureEvent:
+                $ref: "#/components/messages/TaskFailureEvent"
+            TaskForceSubmissionEvent:
+                $ref: "#/components/messages/TaskForceSubmissionEvent"
+            TaskResultEvent:
+                $ref: "#/components/messages/TaskResultEvent"
+            TaskSubmissionEvent:
+                $ref: "#/components/messages/TaskSubmissionEvent"
+        servers:
+            - $ref: "#/servers/peer-to-peer-gossip-pubsub"
+
+components:
+    messages:
+        MetricAvailableEvent:
+            payload:
+                $ref: "#/components/schemas/MetricAvailableEvent"
+        DiscoveryEvent:
+            payload:
+                $ref: "#/components/schemas/DiscoveryEvent"
+        DiscoveryResponseEvent:
+            payload:
+                $ref: "#/components/schemas/DiscoveryResponseEvent"
+        PingEvent:
+            payload:
+                $ref: "#/components/schemas/PingEvent"
+        TaskEvent:
+            payload:
+                $ref: "#/components/schemas/TaskEvent"
+        TaskFailureEvent:
+            payload:
+                $ref: "#/components/schemas/TaskFailureEvent"
+        TaskForceSubmissionEvent:
+            payload:
+                $ref: "#/components/schemas/TaskForceSubmissionEvent"
+        TaskResultEvent:
+            payload:
+                $ref: "#/components/schemas/TaskResultEvent"
+        TaskSubmissionEvent:
+            payload:
+                $ref: "#/components/schemas/TaskSubmissionEvent"
+
+    schemas:
+        MetricAvailableEvent:
+            type: object
+            properties:
+                metric:
+                    $ref: "#/components/schemas/Metric"
+        Metric:
+            type: object
+            properties:
+                memory:
+                    type: object
+                    properties:
+                        total:
+                            type: number
+                            description: The total memory available
+                        free:
+                            type: number
+                            description: The free memory available
+                        used:
+                            type: number
+                            description: The used memory
+                cpu:
+                    type: object
+                    properties:
+                        model:
+                            type: string
+                            description: The CPU model name
+                        load:
+                            type: number
+                            description: The CPU load
+                        cores:
+                            type: number
+                            description: The number of cores
+                        threads:
+                            type: number
+                            description: The number of threads
+                        speed:
+                            type: number
+                            description: The CPU speed in GHz
+                gpu:
+                    type: array
+                    items:
+                        type: object
+                        properties:
+                            model:
+                                type: string
+                                description: The GPU model name
+                            memoryTotal:
+                                type: number
+                                description: Total GPU memory in MB
+        DiscoveryEvent:
+            type: object
+            properties:
+                type:
+                    type: string
+                    enum:
+                        - DISCOVER
+                senderId:
+                    type: string
+                    description: The ID of the peer sending the discovery request
+        DiscoveryResponseEvent:
+            type: object
+            properties:
+                type:
+                    type: string
+                    enum:
+                        - DISCOVER_RESPONSE
+                senderId:
+                    type: string
+                    description: The ID of the peer sending the response
+                peers:
+                    type: array
+                    items:
+                        type: string
+                        description: List of discovered peers
+        PingEvent:
+            type: object
+            properties:
+                type:
+                    type: string
+                    enum:
+                        - PING
+                senderId:
+                    type: string
+                    description: The ID of the peer sending the ping
+        TaskEvent:
+            type: object
+            properties:
+                id:
+                    $ref: "#/components/schemas/DomainEventId"
+                topic:
+                    type: string
+                    description: The topic of the task event
+                type:
+                    $ref: "#/components/schemas/EventType"
+                timestamp:
+                    type: string
+                    format: date-time
+                    description: The timestamp of the event
+                clientId:
+                    type: string
+                    description: The client ID associated with the task
+        TaskFailureEvent:
+            allOf:
+                - $ref: "#/components/schemas/TaskEvent"
+                - type: object
+                  properties:
+                      error:
+                          $ref: "#/components/schemas/TaskError"
+        TaskForceSubmissionEvent:
+            allOf:
+                - $ref: "#/components/schemas/TaskSubmissionEvent"
+                - type: object
+                  properties:
+                      provider:
+                          type: string
+                          description: The provider for the forced task submission
+        TaskResultEvent:
+            allOf:
+                - $ref: "#/components/schemas/TaskEvent"
+                - type: object
+                  properties:
+                      contentIdentifier:
+                          $ref: "#/components/schemas/TaskResultIdentifier"
+        TaskSubmissionEvent:
+            allOf:
+                - $ref: "#/components/schemas/TaskEvent"
+                - type: object
+                  properties:
+                      task:
+                          $ref: "#/components/schemas/Task"
+        DomainEventId:
+            type: object
+            properties:
+                value:
+                    type: string
+                    description: The unique value of the domain event ID
+        EventType:
+            type: string
+            enum:
+                - DISCOVER
+                - DISCOVER_RESPONSE
+                - PING
+                - TASK_SUBMISSION
+                - TASK_RESULT
+                - TASK_FAILURE
+                - TASK_FORCE_SUBMISSION
+        TaskError:
+            type: object
+            properties:
+                message:
+                    type: string
+                    description: A descriptive error message
+                code:
+                    type: string
+                    description: The error code
+        TaskResultIdentifier:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: The identifier for the task result
+        Task:
+            type: object
+            properties:
+                description:
+                    type: string
+                    description: A brief description of the task
+                parameters:
+                    type: object
+                    additionalProperties:
+                        type: string
+                    description: Parameters required for the task

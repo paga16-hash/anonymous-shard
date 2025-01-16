@@ -1,0 +1,123 @@
+asyncapi: 3.0.0
+info:
+  title: Task Events API
+  version: 1.0.0
+  description: API for publishing and subscribing to task-related events.
+  tags:
+    - name: Tasks
+      description: Events related to task processing.
+
+servers:
+    direct-socket:
+      host: random-provider.example.com
+      protocol: ws
+      description: Direct WebSocket communication through a socket connection (SOCKS5 needed if in tor network)
+
+channels:
+  tasks:
+    tags:
+      - name: Tasks
+    description: This channel contains messages related to task processing.
+    address: tasks
+    messages:
+      TaskEvent:
+        $ref: "#/components/messages/TaskEvent"
+      TaskFailureEvent:
+        $ref: "#/components/messages/TaskFailureEvent"
+      TaskResultEvent:
+        $ref: "#/components/messages/TaskResultEvent"
+      TaskSubmissionEvent:
+        $ref: "#/components/messages/TaskSubmissionEvent"
+
+components:
+  messages:
+    TaskEvent:
+      payload:
+        $ref: "#/components/schemas/TaskEvent"
+    TaskFailureEvent:
+      payload:
+        $ref: "#/components/schemas/TaskFailureEvent"
+    TaskResultEvent:
+      payload:
+        $ref: "#/components/schemas/TaskResultEvent"
+    TaskSubmissionEvent:
+      payload:
+        $ref: "#/components/schemas/TaskSubmissionEvent"
+
+  schemas:
+    TaskEvent:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/DomainEventId"
+        topic:
+          type: string
+          description: The topic of the task event
+        type:
+          $ref: "#/components/schemas/EventType"
+        timestamp:
+          type: string
+          format: date-time
+          description: The timestamp of the event
+        clientId:
+          type: string
+          description: The client ID associated with the task
+    TaskFailureEvent:
+      allOf:
+        - $ref: "#/components/schemas/TaskEvent"
+        - type: object
+          properties:
+            error:
+              $ref: "#/components/schemas/TaskError"
+    TaskResultEvent:
+      allOf:
+        - $ref: "#/components/schemas/TaskEvent"
+        - type: object
+          properties:
+            contentIdentifier:
+              $ref: "#/components/schemas/TaskResultIdentifier"
+    TaskSubmissionEvent:
+      allOf:
+        - $ref: "#/components/schemas/TaskEvent"
+        - type: object
+          properties:
+            task:
+              $ref: "#/components/schemas/Task"
+    DomainEventId:
+      type: object
+      properties:
+        value:
+          type: string
+          description: The unique value of the domain event ID
+    EventType:
+      type: string
+      enum:
+        - TASK_SUBMISSION
+        - TASK_RESULT
+        - TASK_FAILURE
+    TaskError:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A descriptive error message
+        code:
+          type: string
+          description: The error code
+    TaskResultIdentifier:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The identifier for the task result
+    Task:
+      type: object
+      properties:
+        description:
+          type: string
+          description: A brief description of the task
+        parameters:
+          type: object
+          additionalProperties:
+            type: string
+          description: Parameters required for the task

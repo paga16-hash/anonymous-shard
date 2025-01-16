@@ -1,3 +1,4 @@
+/'
 @startuml
 
 interface DomainEventId {
@@ -46,3 +47,4 @@ MetricAvailable <|-- MetricEvent
 
 
 @enduml
+'/
