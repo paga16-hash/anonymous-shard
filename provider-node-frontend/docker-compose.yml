@@ -2,13 +2,23 @@ services:
 
   provider-node-frontend:
     image: pagahubbing/provider-node-frontend
-    container_name: ${FRONTEND_HOST}
+    container_name: provider-node-frontend
     build:
       context: .
-      dockerfile: ./provider-node-frontend/Dockerfile
+      dockerfile: ./Dockerfile
+      args:
+        ANONYMOUS_MODE: false
+        PROVIDER_HOST: 127.0.0.1
+        PROVIDER_PORT: 3002
+        DEV_API_KEY: apikey-dev
+    environment:
+      - ANONYMOUS_MODE=false
+      - PROVIDER_HOST=127.0.0.1
+      - PROVIDER_PORT=3002
+      - DEV_API_KEY=apikey-dev
     restart: on-failure
     ports:
-      - ${FRONTEND_PORT}:${FRONTEND_PORT}
+      - 8080:8080
     networks:
       - test-network
 

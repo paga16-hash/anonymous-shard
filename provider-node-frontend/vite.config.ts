@@ -31,12 +31,12 @@ export default defineConfig(({ mode }) => {
     preview: {
       port: 8080
     },
-    envDir: '../',
+
     define: {
-      VITE_PROVIDER_NODE_HOST: JSON.stringify(env.VITE_PROVIDER_NODE_HOST || 'localhost'),
-      VITE_PROVIDER_NODE_PORT: JSON.stringify(env.VITE_PROVIDER_NODE_PORT || ''),
-      VITE_DEV_API_KEY: JSON.stringify(env.VITE_DEV_API_KEY || ''),
-      VITE_ANONYMOUS_MODE: JSON.stringify(env.VITE_ANONYMOUS_MODE || '')
+      VITE_PROVIDER_HOST: JSON.stringify(env.PROVIDER_HOST || 'localhost'),
+      VITE_PROVIDER_PORT: JSON.stringify(env.PROVIDER_PORT || ''),
+      VITE_DEV_API_KEY: JSON.stringify(env.DEV_API_KEY || ''),
+      VITE_ANONYMOUS_MODE: JSON.stringify(env.ANONYMOUS_MODE || '')
     }
   };
 });
