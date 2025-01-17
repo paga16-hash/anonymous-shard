@@ -1,6 +1,5 @@
 services:
 
-
   provider-node-frontend:
     image: pagahubbing/provider-node-frontend
     container_name: ${FRONTEND_HOST}
@@ -11,7 +10,8 @@ services:
     ports:
       - ${FRONTEND_PORT}:${FRONTEND_PORT}
     networks:
-      - NETWORK SAME AS CONSUMER
+      - test-network
 
 networks:
-  //TODO to add network
+  test-network:
+    driver: bridge
