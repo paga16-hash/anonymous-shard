@@ -17,7 +17,7 @@ services:
       ANONYMOUS_MODE: true
     restart: on-failure
     ports:
-      - 8080:8080
+      # - 8080:8080
       - 9050:9050
     networks:
       - test-network

@@ -1,7 +1,15 @@
 import axios, {type AxiosRequestConfig, type AxiosResponse, HttpStatusCode} from 'axios'
 import router from "../router";
 import {SocksProxyAgent} from 'socks-proxy-agent';
+import http from 'http';
+import {HttpsProxyAgent} from "https-proxy-agent";
 
+/*
+* const HttpsProxyAgent = require('https-proxy-agent');
+
+// Configure Axios to use the Tor proxy
+const proxyAgent = new HttpsProxyAgent('socks5h://127.0.0.1:9050');
+* */
 type Headers = {
     headers: {
         Authorization: string
@@ -36,13 +44,22 @@ export default class RequestHelper {
 
     static async get(url: string): Promise<AxiosResponse | void> {
         console.log(this.proxyAddress, this.isAnonymousMode)
-        const agent: SocksProxyAgent = new SocksProxyAgent(this.proxyAddress)
+        const agent2: SocksProxyAgent = new SocksProxyAgent(this.proxyAddress)
+        const proxyAgent = new HttpsProxyAgent('socks5h://127.0.0.1:9050');
+        //const http = require('http');
+        //'User-Agent': 'curl/7.64.1'
+
+        /*const agent = new http.Agent({
+            host: 'localhost', // Replace with your proxy host
+            port: 9050,        // Tor SOCKS proxy port (default for Tor is 9050)
+            protocol: 'socks5:', // Protocol for SOCKS
+        });*/
         console.log("Making a GET request to the Tor hidden service...", url);
 
         async function makeRequest() {
             try {
-                const response = await axios.get(url, {
-                    httpAgent: agent,
+                const response = await axios.get("cuffhcxwm63td4e2n67o3bq7j5qc2ipuegtsuo7cwi3i2j3oxns47kid.onion:4000/peers/", {
+                    httpAgent: agent2,
                 });
 
                 // Log the response
