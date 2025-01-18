@@ -11,11 +11,6 @@ services:
         PROVIDER_HOST: 127.0.0.1
         PROVIDER_PORT: 3002
         DEV_API_KEY: apikey-dev
-    environment:
-      - ANONYMOUS_MODE=false
-      - PROVIDER_HOST=127.0.0.1
-      - PROVIDER_PORT=3002
-      - DEV_API_KEY=apikey-dev
     restart: on-failure
     ports:
       - 8080:8080

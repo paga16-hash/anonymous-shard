@@ -6,13 +6,17 @@ COPY /package.json ./
 RUN npm install
 
 COPY . .
-#RUN echo 'Creating .env file '
-#RUN echo "VITE_PROVIDER_HOST=${PROVIDER_HOST}"
-#RUN echo "VITE_PROVIDER_HOST=${PROVIDER_HOST}" > .env
-#RUN echo "VITE_PROVIDER_PORT=${PROVIDER_PORT}" >> .env
-#RUN echo "VITE_DEV_API_KEY=${DEV_API_KEY}" >> .env
-#RUN echo "VITE_ANONYMOUS_MODE=${ANONYMOUS_MODE}" >> .env
-RUN PROVIDER_HOST=127.0.0.1 PROVIDER_PORT=3002 ANONYMOUS_MODE=false DEV_API_KEY=apikey-dev npm run build
+ARG PROVIDER_HOST
+ARG PROVIDER_PORT
+ARG DEV_API_KEY
+ARG ANONYMOUS_MODE
+
+# Generate .env.development file with the environment variables
+RUN echo "VITE_PROVIDER_HOST=${PROVIDER_HOST}" > .env.development && \
+    echo "VITE_PROVIDER_PORT=${PROVIDER_PORT}" >> .env.development && \
+    echo "VITE_DEV_API_KEY=${DEV_API_KEY}" >> .env.development && \
+    echo "VITE_ANONYMOUS_MODE=${ANONYMOUS_MODE}" >> .env.development
+RUN npm run build
 
 
 # Install Tor on top of the Node.js image
