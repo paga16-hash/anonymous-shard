@@ -1,5 +1,6 @@
-import axios, {type AxiosResponse, HttpStatusCode} from 'axios'
+import axios, {type AxiosRequestConfig, type AxiosResponse, HttpStatusCode} from 'axios'
 import router from "../router";
+import {SocksProxyAgent} from 'socks-proxy-agent';
 
 type Headers = {
     headers: {
@@ -15,14 +16,49 @@ const getHost = (): string => {
 export const providerHost: string = getHost()
 
 export default class RequestHelper {
+    private static isAnonymousMode: boolean = import.meta.env.VITE_ANONYMOUS_MODE === 'true';
+    private static proxyAddress: string = `socks5h://${import.meta.env.VITE_SOCKS5_HOST}:${import.meta.env.VITE_SOCKS5_PORT}`;
+    private static proxyAgent = RequestHelper.isAnonymousMode
+        ? new SocksProxyAgent(`socks5h://${import.meta.env.VITE_SOCKS5_HOST}:${import.meta.env.VITE_SOCKS5_PORT}`)
+        : undefined;
+
     static getHeaders(): Headers {
         return {headers: {Authorization: `Bearer ${import.meta.env.VITE_DEV_API_KEY}`}}
     }
 
+    private static getRequestConfig(): AxiosRequestConfig {
+        return this.isAnonymousMode && this.proxyAgent
+            ? {
+                httpAgent: this.proxyAgent, httpsAgent: this.proxyAgent
+            }
+            : {};
+    }
+
     static async get(url: string): Promise<AxiosResponse | void> {
-        return await axios.get(url, this.getHeaders()).catch((error): void => {
-            this.errorHandling(error)
-        })
+        console.log(this.proxyAddress, this.isAnonymousMode)
+        const agent: SocksProxyAgent = new SocksProxyAgent(this.proxyAddress)
+        console.log("Making a GET request to the Tor hidden service...", url);
+
+        async function makeRequest() {
+            try {
+                const response = await axios.get(url, {
+                    httpAgent: agent,
+                });
+
+                // Log the response
+                console.log('Response:', response.data);
+            } catch (error) {
+                // Handle errors
+                console.error('Error making request:', error);
+            }
+        }
+
+// Call the function to make the request
+        await makeRequest();
+        //return
+        /*return await axios.get(url, { ...this.getRequestConfig(), ...this.getHeaders() }).catch((error): void => {
+            this.errorHandling(error);
+        });*/
     }
 
     static async post(url: string, body?: any): Promise<AxiosResponse | void> {

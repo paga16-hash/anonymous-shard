@@ -1,4 +1,1 @@
-HiddenServiceDir /var/lib/tor/hidden_service/
-HiddenServicePort 3000 127.0.0.1:3000
-HiddenServicePort 4000 127.0.0.1:4000
-SocksPort 9050
+SocksPort 0.0.0.0:9050

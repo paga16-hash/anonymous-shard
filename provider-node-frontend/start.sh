@@ -8,15 +8,6 @@ if [ "$ANONYMOUS_MODE" = "true" ]; then
     TEMP_LOG="/tmp/tor_bootstrap.log"
     tor > "$TEMP_LOG" 2>&1 &
 
-    # Wait for Tor to generate the hidden service hostname
-    while [ ! -f /var/lib/tor/hidden_service/hostname ]; do
-        sleep 1
-    done
-
-    # Print the Tor hidden service address
-    echo "Tor is running. Hidden Service Address:"
-    cat /var/lib/tor/hidden_service/hostname
-
     # Wait for "Bootstrap 100%" in the logs
     echo "Waiting for Tor to complete bootstrap..."
     while ! grep -q "Bootstrapped 100% (done): Done" "$TEMP_LOG"; do
