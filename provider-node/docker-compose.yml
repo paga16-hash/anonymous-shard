@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      - ANONYMOUS_MODE=${ANONYMOUS_MODE}
+      - ANONYMOUS_MODE=true
       - PINATA_API_KEY=1fd0fe489d865a398820
       - PINATA_API_SECRET=cac1872634ecbf108f0a00cdff9be7ecf04e0a2ad13a8211be5b80bb974e8974
       - HOST=a7oxxul76cei44utvngfg2tnhqmedkjlwiiudbaqzer5z5w75gpgyeqd
@@ -33,7 +33,7 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      - ANONYMOUS_MODE=${ANONYMOUS_MODE}
+      - ANONYMOUS_MODE=true
       - PINATA_API_KEY=1fd0fe489d865a398820
       - PINATA_API_SECRET=cac1872634ecbf108f0a00cdff9be7ecf04e0a2ad13a8211be5b80bb974e8974
       - HOST=eww4sjfxwj6vgucebupol2nk7yhbvhjzxo2v4t46f42gukn3btknzvid
