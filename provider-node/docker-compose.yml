@@ -8,9 +8,9 @@ services:
       - ANONYMOUS_MODE=true
       - PINATA_API_KEY=1fd0fe489d865a398820
       - PINATA_API_SECRET=cac1872634ecbf108f0a00cdff9be7ecf04e0a2ad13a8211be5b80bb974e8974
-      - HOST=a7oxxul76cei44utvngfg2tnhqmedkjlwiiudbaqzer5z5w75gpgyeqd
+      - HOST=cuffhcxwm63td4e2n67o3bq7j5qc2ipuegtsuo7cwi3i2j3oxns47kid
       - PORT=3000
-      - BOOTSTRAP_NODE_ADDRESS_1=a7oxxul76cei44utvngfg2tnhqmedkjlwiiudbaqzer5z5w75gpgyeqd
+      - BOOTSTRAP_NODE_ADDRESS_1=cuffhcxwm63td4e2n67o3bq7j5qc2ipuegtsuo7cwi3i2j3oxns47kid
       - BOOTSTRAP_NODE_PORT_1=3000
       # - LOCAL_BOOTSTRAP_NODE_ADDRESS_1=127.0.0.1
       # - LOCAL_BOOTSTRAP_NODE_PORT_1=3000
@@ -19,9 +19,6 @@ services:
       # - LOCAL_BOOTSTRAP_NODE_ADDRESS_2=127.0.0.1
       # - LOCAL_BOOTSTRAP_NODE_PORT_2=3001
       # and so on and so forth for multiple bootstrap nodes
-    ports:
-      - "3000:3000"
-      - "9050:9050"
     volumes:
       - tor1-data:/var/lib/tor/hidden_service
     networks:
@@ -36,19 +33,16 @@ services:
       - ANONYMOUS_MODE=true
       - PINATA_API_KEY=1fd0fe489d865a398820
       - PINATA_API_SECRET=cac1872634ecbf108f0a00cdff9be7ecf04e0a2ad13a8211be5b80bb974e8974
-      - HOST=eww4sjfxwj6vgucebupol2nk7yhbvhjzxo2v4t46f42gukn3btknzvid
+      - HOST=rlnox5ie2e6crrdajtohhwtqp5oz3nt3qewr24egczwftixh2jbgv4yd
       - PORT=3000
-      - BOOTSTRAP_NODE_ADDRESS_1=a7oxxul76cei44utvngfg2tnhqmedkjlwiiudbaqzer5z5w75gpgyeqd
+      - BOOTSTRAP_NODE_ADDRESS_1=cuffhcxwm63td4e2n67o3bq7j5qc2ipuegtsuo7cwi3i2j3oxns47kid
       - BOOTSTRAP_NODE_PORT_1=3000
       # - LOCAL_BOOTSTRAP_NODE_ADDRESS_1=127.0.0.1
       # - LOCAL_BOOTSTRAP_NODE_PORT_1=3000
-      - BOOTSTRAP_NODE_ADDRESS_2=eww4sjfxwj6vgucebupol2nk7yhbvhjzxo2v4t46f42gukn3btknzvid
+      - BOOTSTRAP_NODE_ADDRESS_2=rlnox5ie2e6crrdajtohhwtqp5oz3nt3qewr24egczwftixh2jbgv4yd
       - BOOTSTRAP_NODE_PORT_2=3000
       # - LOCAL_BOOTSTRAP_NODE_ADDRESS_2=127.0.0.1
       # - LOCAL_BOOTSTRAP_NODE_PORT_2=3001
-    ports:
-      - "3001:3000"
-      - "9051:9050"
     volumes:
       - tor2-data:/var/lib/tor/hidden_service
     networks:

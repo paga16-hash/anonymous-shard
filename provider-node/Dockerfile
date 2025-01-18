@@ -24,9 +24,6 @@ COPY torrc /etc/tor/torrc
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
 
-# Expose the necessary ports, in this case 9050 for the SOCKS proxy
-#EXPOSE 9050
-#EXPOSE 3000
 
 # Default command to start both Tor and the app
 CMD ["/start.sh"]
