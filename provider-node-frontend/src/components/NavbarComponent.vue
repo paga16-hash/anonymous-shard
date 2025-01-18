@@ -30,9 +30,6 @@ const navbarExpanded = ref(false)
 </template>
 
 <style scoped lang="scss">
-@import 'src/assets/variables.scss';
-
-
 
 nav {
   z-index: 10;
@@ -42,7 +39,7 @@ nav {
   max-height: 150px;
   overflow: hidden;
   transition: max-height 200ms linear;
-  background-color: $primary-color;
+  background-color: #51346A;
   padding: 10px;
 
   display: flex;
