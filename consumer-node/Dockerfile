@@ -2,13 +2,33 @@ FROM node:23-slim AS app-base
 
 WORKDIR /app
 
-COPY package*.json ./
+# Copy and install dependencies for the consumer-node
+COPY consumer-node/package*.json ./consumer-node/
+WORKDIR /app/consumer-node
 RUN npm install
 
-COPY . .
+# Copy the rest of the consumer-node files
+COPY consumer-node/ .
 
-# Compile TypeScript code
-#RUN npm run build
+# Copy and install dependencies for the consumer-node-frontend
+WORKDIR /app
+COPY consumer-node-frontend/package.json ./consumer-node-frontend/
+WORKDIR /app/consumer-node-frontend
+RUN npm install
+
+# Copy the rest of the consumer-node-frontend files
+COPY consumer-node-frontend/ .
+ARG DEV_API_KEY
+ARG API_PORT
+
+# Generate .env file with the environment variables
+RUN echo "VITE_DEV_API_KEY=${DEV_API_KEY}" > .env && \
+    echo "VITE_API_PORT=${API_PORT}" >> .env
+# Build the frontend
+RUN npm run build
+
+# Reset workdir to /app for runtime operations
+WORKDIR /app
 
 # Install Tor on top of the Node.js image
 FROM app-base AS final
@@ -18,17 +38,15 @@ RUN apt-get update && apt-get install -y tor && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Add a custom Tor configuration
-COPY torrc /etc/tor/torrc
+COPY consumer-node/torrc /etc/tor/torrc
 
 # Combine the startup commands for both services
-COPY start.sh /start.sh
-RUN chmod +x /start.sh
+COPY consumer-node/start.sh /consumer-node/start.sh
+COPY consumer-node-frontend/start.sh /consumer-node-frontend/start.sh
+RUN chmod +x consumer-node/start.sh
+RUN chmod +x consumer-node-frontend/start.sh
 
-# Expose the necessary ports, in this case 9050 for the SOCKS proxy
-EXPOSE 9050
-#EXPOSE 3000
+CMD ["sh", "-c", "./consumer-node/start.sh & ./consumer-node-frontend/start.sh > /tmp/frontend.log 2>&1"]
 
-# Default command to start both Tor and the app
-CMD ["/start.sh"]
 
 

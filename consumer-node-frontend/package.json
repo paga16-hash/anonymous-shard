@@ -19,7 +19,7 @@
     "dev": "vite",
     "test": "echo \"Error: no test specified\" \u0026\u0026 exit 1",
     "watch": "tsc -w \u0026 tsc-alias -w \u0026 nodemon .",
-    "build": "vite build || rm -rf node_modules \u0026\u0026 rm -rf package-lock.json \u0026\u0026 npm install \u0026\u0026 vite build",
+    "build": "vite build",
     "format": "prettier --check src",
     "host": "vite --host",
     "serve": "serve -s dist -l 8080"

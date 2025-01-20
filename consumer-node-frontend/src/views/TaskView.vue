@@ -11,6 +11,7 @@ const $q = useQuasar()
 const tasks: ref<Task[]> = ref([])
 
 async function getTasks() {
+  console.log(`${consumerHost}/tasks/`)
   await RequestHelper.get(`${consumerHost}/tasks/`)
       .then(async (res: any) => {
         tasks.value = []

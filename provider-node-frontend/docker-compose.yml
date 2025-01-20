@@ -11,14 +11,9 @@ services:
         PROVIDER_HOST: cuffhcxwm63td4e2n67o3bq7j5qc2ipuegtsuo7cwi3i2j3oxns47kid.onion
         PROVIDER_PORT: 3000
         DEV_API_KEY: apikey-dev
-        SOCKS5_HOST: 127.0.0.1
-        SOCKS5_PORT: 9050
-    environment:
-      ANONYMOUS_MODE: true
     restart: on-failure
     ports:
-      # - 8080:8080
-      - 9050:9050
+      - 8080:8080
     networks:
       - test-network
 

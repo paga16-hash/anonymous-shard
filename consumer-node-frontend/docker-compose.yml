@@ -1,15 +1,19 @@
 services:
 
-
   consumer-node-frontend:
     image: pagahubbing/consumer-node-frontend
     container_name: ${FRONTEND_HOST}
     build:
       context: .
       dockerfile: ./frontend/Dockerfile
+      args:
+        ANONYMOUS_MODE: true
+        CONSUMER_HOST: cuffhcxwm63td4e2n67o3bq7j5qc2ipuegtsuo7cwi3i2j3oxns47kid.onion
+        CONSUMER_PORT: 3000
+        DEV_API_KEY: apikey-dev
     restart: on-failure
     ports:
-      - ${FRONTEND_PORT}:${FRONTEND_PORT}
+      - 8080:8080
     networks:
       - test-network
 

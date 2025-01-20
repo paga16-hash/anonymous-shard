@@ -7,10 +7,9 @@ type Headers = {
     }
 }
 
-
 const getHost = (): string => {
     const protocol: string = 'http://'
-    return protocol + import.meta.env.VITE_CONSUMER_NODE_HOST + ":" + (parseInt(import.meta.env.VITE_CONSUMER_NODE_PORT!) + 1000)
+    return protocol + (import.meta.env.VITE_CONSUMER_HOST || 'localhost') + ":" + ((parseInt(import.meta.env.VITE_CONSUMER_PORT) + 1000) || import.meta.env.VITE_API_PORT!)
 }
 
 export const consumerHost: string = getHost()

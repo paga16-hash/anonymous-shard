@@ -1,13 +1,12 @@
 import vue from '@vitejs/plugin-vue';
-import { defineConfig, loadEnv } from 'vite';
+import { defineConfig } from 'vite';
 import { quasar, transformAssetUrls } from '@quasar/vite-plugin';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
+import * as path from "node:path";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
-  // Load environment variables based on the current mode
-  const env = loadEnv(mode, process.cwd());
   return {
     base: './',
     plugins: [
@@ -22,7 +21,7 @@ export default defineConfig(({ mode }) => {
         template: { transformAssetUrls }
       }),
       quasar({
-        sassVariables: 'src/assets/quasar-variables.sass'
+        sassVariables: path.resolve(__dirname, 'src/assets/quasar-variables.sass')
       })
     ],
     server: {
@@ -30,13 +29,6 @@ export default defineConfig(({ mode }) => {
     },
     preview: {
       port: 8080
-    },
-    envDir: '../',
-    define: {
-      VITE_CONSUMER_NODE_HOST: JSON.stringify(env.VITE_CONSUMER_NODE_HOST || 'localhost'),
-      VITE_CONSUMER_NODE_PORT: JSON.stringify(env.VITE_CONSUMER_NODE_PORT || ''),
-      VITE_DEV_API_KEY: JSON.stringify(env.VITE_DEV_API_KEY || ''),
-      VITE_ANONYMOUS_MODE: JSON.stringify(env.VITE_ANONYMOUS_MODE || '')
     }
   };
 });

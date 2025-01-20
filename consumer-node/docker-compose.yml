@@ -1,34 +1,27 @@
-#services:
-
-#  anonymous-shard-provider-node:
-#    image: pagahubbing/anonymous-shard-provider-node:latest
-#    container_name: ${PROVIDER_NODE_CONTAINER_NAME}
-#    build:
-#      context: .
-#      dockerfile: ./provider-node/Dockerfile
-#    restart: on-failure
-#    ports:
-#      - ${TOR_PORT}:${TOR_PORT}
-
 services:
   consumer:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: consumer-node/Dockerfile
+      args:
+        - DEV_API_KEY=apikey-dev
+        - API_PORT=4900
     environment:
-      - ANONYMOUS_MODE=${ANONYMOUS_MODE}
-      - HOST=y2hyyiiriy3l6sfuh4birmnp7ct6ynxlhxtfnefx5bc4wfb7ptdkndid
+      - ANONYMOUS_MODE=true
+      - DEV_API_KEY=apikey-dev
+      - HOST=h3se2r3j7t7txezijeaffx45pjbtd32y452zdjkjexzcs7q767vqx5ad
       - PORT=3000
-      - BOOTSTRAP_NODE_ADDRESS_1=a7oxxul76cei44utvngfg2tnhqmedkjlwiiudbaqzer5z5w75gpgyeqd
+      - BOOTSTRAP_NODE_ADDRESS_1=cuffhcxwm63td4e2n67o3bq7j5qc2ipuegtsuo7cwi3i2j3oxns47kid
       - BOOTSTRAP_NODE_PORT_1=3000
       # - LOCAL_BOOTSTRAP_NODE_ADDRESS_1=127.0.0.1
       # - LOCAL_BOOTSTRAP_NODE_PORT_1=3000
-      - BOOTSTRAP_NODE_ADDRESS_2=eww4sjfxwj6vgucebupol2nk7yhbvhjzxo2v4t46f42gukn3btknzvid
+      - BOOTSTRAP_NODE_ADDRESS_2=rlnox5ie2e6crrdajtohhwtqp5oz3nt3qewr24egczwftixh2jbgv4yd
       - BOOTSTRAP_NODE_PORT_2=3000
       # - LOCAL_BOOTSTRAP_NODE_ADDRESS_2=127.0.0.1
       # - LOCAL_BOOTSTRAP_NODE_PORT_2=3001
     ports:
-      - "3002:3000"
+      - "4900:4000"
+      - "8085:8080"
     volumes:
       - tor1-data-consumer:/var/lib/tor/hidden_service
     networks:
@@ -41,3 +34,4 @@ volumes:
 networks:
   test-network:
     driver: bridge
+
