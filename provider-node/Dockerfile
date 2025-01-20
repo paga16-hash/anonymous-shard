@@ -2,13 +2,29 @@ FROM node:23-slim AS app-base
 
 WORKDIR /app
 
-COPY package*.json ./
+# Copy and install dependencies for the provider-node
+COPY provider-node/package*.json ./provider-node/
+WORKDIR /app/provider-node
 RUN npm install
 
-COPY . .
+# Copy the rest of the provider-node files
+COPY provider-node/ .
 
-# Compile TypeScript code
-#RUN npm run build
+# Copy and install dependencies for the provider-node-frontend
+WORKDIR /app
+COPY provider-node-frontend/package.json ./provider-node-frontend/
+WORKDIR /app/provider-node-frontend
+RUN npm install
+
+# Copy the rest of the provider-node-frontend files
+COPY provider-node-frontend/ .
+
+# Build the frontend
+RUN npm run build
+
+# Reset workdir to /app for runtime operations
+WORKDIR /app
+
 
 # Install Tor on top of the Node.js image
 FROM app-base AS final
@@ -18,14 +34,17 @@ RUN apt-get update && apt-get install -y tor && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Add a custom Tor configuration
-COPY torrc /etc/tor/torrc
+COPY provider-node/torrc /etc/tor/torrc
 
 # Combine the startup commands for both services
-COPY start.sh /start.sh
-RUN chmod +x /start.sh
+COPY provider-node/start.sh /provider-node/start.sh
+COPY provider-node-frontend/start.sh /provider-node-frontend/start.sh
+RUN chmod +x provider-node/start.sh
+RUN chmod +x provider-node-frontend/start.sh
 
 
-# Default command to start both Tor and the app
-CMD ["/start.sh"]
+#CMD ["./provider-node/start.sh", "./provider-node-frontend/start.sh"]
+CMD ["sh", "-c", "./provider-node/start.sh & ./provider-node-frontend/start.sh"]
+
 
 

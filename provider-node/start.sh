@@ -32,4 +32,4 @@ fi
 
 # Start the Node.js application
 echo "Starting the Node.js application..."
-npm run dev
+cd provider-node && npm run dev

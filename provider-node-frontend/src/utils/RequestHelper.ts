@@ -25,27 +25,27 @@ export const providerHost: string = getHost()
 
 export default class RequestHelper {
     private static isAnonymousMode: boolean = import.meta.env.VITE_ANONYMOUS_MODE === 'true';
-    private static proxyAddress: string = `socks5h://${import.meta.env.VITE_SOCKS5_HOST}:${import.meta.env.VITE_SOCKS5_PORT}`;
+    /*private static proxyAddress: string = `socks5h://${import.meta.env.VITE_SOCKS5_HOST}:${import.meta.env.VITE_SOCKS5_PORT}`;
     private static proxyAgent = RequestHelper.isAnonymousMode
         ? new SocksProxyAgent(`socks5h://${import.meta.env.VITE_SOCKS5_HOST}:${import.meta.env.VITE_SOCKS5_PORT}`)
-        : undefined;
+        : undefined;*/
 
     static getHeaders(): Headers {
         return {headers: {Authorization: `Bearer ${import.meta.env.VITE_DEV_API_KEY}`}}
     }
 
-    private static getRequestConfig(): AxiosRequestConfig {
+    /*private static getRequestConfig(): AxiosRequestConfig {
         return this.isAnonymousMode && this.proxyAgent
             ? {
                 httpAgent: this.proxyAgent, httpsAgent: this.proxyAgent
             }
             : {};
-    }
+    }*/
 
     static async get(url: string): Promise<AxiosResponse | void> {
-        console.log(this.proxyAddress, this.isAnonymousMode)
-        const agent2: SocksProxyAgent = new SocksProxyAgent(this.proxyAddress)
-        const proxyAgent = new HttpsProxyAgent('socks5h://127.0.0.1:9050');
+        //console.log(this.proxyAddress, this.isAnonymousMode)
+        //const agent2: SocksProxyAgent = new SocksProxyAgent(this.proxyAddress)
+        //const proxyAgent = new HttpsProxyAgent('socks5h://127.0.0.1:9050');
         //const http = require('http');
         //'User-Agent': 'curl/7.64.1'
 
@@ -58,9 +58,7 @@ export default class RequestHelper {
 
         async function makeRequest() {
             try {
-                const response = await axios.get("http://cuffhcxwm63td4e2n67o3bq7j5qc2ipuegtsuo7cwi3i2j3oxns47kid.onion:4000/peers/", {
-                    httpAgent: agent2,
-                });
+                const response = await axios.get("http://127.0.0.1:4000/peers/");
 
                 // Log the response
                 console.log('Response:', response.data);
