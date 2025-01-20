@@ -98,7 +98,7 @@ jobs:
         id: compute-next-version
         uses: nicolasfara/precompute-semantic-release-version-action@2.0.1
         with:
-          github-token: ${{ secrets.GH_TOKEN }}
+          github-token: ${{ secrets.TEST_GH_TOKEN }}
       - name: Use the next version
         run: |
           echo "Will release: ${{ steps.compute-next-version.outputs.will-release }}"
