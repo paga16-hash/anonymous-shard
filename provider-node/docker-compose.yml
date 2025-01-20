@@ -14,7 +14,7 @@ services:
       - BOOTSTRAP_NODE_PORT_1=3000
       # - LOCAL_BOOTSTRAP_NODE_ADDRESS_1=127.0.0.1
       # - LOCAL_BOOTSTRAP_NODE_PORT_1=3000
-      - BOOTSTRAP_NODE_ADDRESS_2=eww4sjfxwj6vgucebupol2nk7yhbvhjzxo2v4t46f42gukn3btknzvid
+      - BOOTSTRAP_NODE_ADDRESS_2=rlnox5ie2e6crrdajtohhwtqp5oz3nt3qewr24egczwftixh2jbgv4yd
       - BOOTSTRAP_NODE_PORT_2=3000
       # - LOCAL_BOOTSTRAP_NODE_ADDRESS_2=127.0.0.1
       # - LOCAL_BOOTSTRAP_NODE_PORT_2=3001
