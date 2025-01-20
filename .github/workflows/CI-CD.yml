@@ -138,7 +138,7 @@ jobs:
         run: npm audit signatures
       - name: Release
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.TEST_GH_TOKEN }}
         run: npx semantic-release
   deploy-website:
     runs-on: ubuntu-latest
@@ -159,7 +159,7 @@ jobs:
           path: docs/website/build
       - uses: JamesIves/github-pages-deploy-action@v4
         with:
-          token: ${{ secrets.GH_TOKEN }}
+          token: ${{ secrets.TEST_GH_TOKEN }}
           folder: docs/website/build          
   docker:
     name: Push ${{ matrix.image }} image to docker hub
