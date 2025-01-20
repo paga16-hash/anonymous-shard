@@ -6,6 +6,7 @@ services:
       dockerfile: provider-node/Dockerfile
       args:
         - DEV_API_KEY=apikey-dev
+        - API_PORT=4000
     environment:
       - ANONYMOUS_MODE=true
       - DEV_API_KEY=apikey-dev
@@ -37,6 +38,7 @@ services:
       dockerfile: provider-node/Dockerfile
       args:
         - DEV_API_KEY=apikey-dev
+        - API_PORT=4001
     environment:
       - ANONYMOUS_MODE=true
       - DEV_API_KEY=apikey-dev
@@ -53,6 +55,7 @@ services:
       # - LOCAL_BOOTSTRAP_NODE_ADDRESS_2=127.0.0.1
       # - LOCAL_BOOTSTRAP_NODE_PORT_2=3001
     ports:
+      - "4001:4000"
       - "8081:8080"
     volumes:
       - tor2-data:/var/lib/tor/hidden_service

@@ -19,15 +19,16 @@ RUN npm install
 # Copy the rest of the provider-node-frontend files
 COPY provider-node-frontend/ .
 ARG DEV_API_KEY
+ARG API_PORT
 
 # Generate .env file with the environment variables
-RUN echo "VITE_DEV_API_KEY=${DEV_API_KEY}" >> .env
+RUN echo "VITE_DEV_API_KEY=${DEV_API_KEY}" > .env && \
+    echo "VITE_API_PORT=${API_PORT}" >> .env
 # Build the frontend
 RUN npm run build
 
 # Reset workdir to /app for runtime operations
 WORKDIR /app
-
 
 # Install Tor on top of the Node.js image
 FROM app-base AS final
@@ -45,9 +46,7 @@ COPY provider-node-frontend/start.sh /provider-node-frontend/start.sh
 RUN chmod +x provider-node/start.sh
 RUN chmod +x provider-node-frontend/start.sh
 
-
-#CMD ["./provider-node/start.sh", "./provider-node-frontend/start.sh"]
-CMD ["sh", "-c", "./provider-node/start.sh & ./provider-node-frontend/start.sh"]
+CMD ["sh", "-c", "./provider-node/start.sh & ./provider-node-frontend/start.sh > /tmp/frontend.log 2>&1"]
 
 
 
