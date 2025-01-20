@@ -68,7 +68,7 @@ jobs:
           cd ../api/asyncapi
           npx -p @asyncapi/cli@2.15.0 asyncapi generate fromTemplate ./provider/specification.yml @asyncapi/html-template@2.3.14 -o ./build-provider/asyncapi --force-write
           npx -p @asyncapi/cli@2.15.0 asyncapi generate fromTemplate ./consumer/specification.yml @asyncapi/html-template@2.3.14 -o ./build-consumer/asyncapi --force-write
-          mv ./build-provider/asyncapi/ ../../website/build-provider
+          mv ./build-provider/asyncapi/ ../../website/build
           mv ./build-consumer/asyncapi/ ../../website/build-consumer
       - uses: actions/upload-artifact@v4.4.0
         with:
@@ -156,11 +156,11 @@ jobs:
       - uses: actions/download-artifact@v4.1.8
         with:
           name: website
-          path: docs/website/build
+          path: doc/website/build
       - uses: JamesIves/github-pages-deploy-action@v4
         with:
           token: ${{ secrets.TEST_GH_TOKEN }}
-          folder: docs/website/build          
+          folder: doc/website/build
   docker:
     name: Push ${{ matrix.image }} image to docker hub
     concurrency:
