@@ -68,8 +68,9 @@ jobs:
           cd ../api/asyncapi
           npm install
           npx -p @asyncapi/cli asyncapi generate fromTemplate ./provider/specification.yml @asyncapi/html-template -o ./build/asyncapi --force-write
-          mv ./build/asyncapi/ ../../website/build    
+          mv ./build/asyncapi/ ../../website/build
       - uses: actions/upload-artifact@v4.4.0
+        # npx -p @asyncapi/cli asyncapi generate fromTemplate ./provider/specification.yml @asyncapi/html-template -o ./build/asyncapi --force-write
         with:
           name: website
           path: doc/website/build
