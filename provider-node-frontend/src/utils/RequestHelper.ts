@@ -58,7 +58,7 @@ export default class RequestHelper {
 
         async function makeRequest() {
             try {
-                const response = await axios.get("cuffhcxwm63td4e2n67o3bq7j5qc2ipuegtsuo7cwi3i2j3oxns47kid.onion:4000/peers/", {
+                const response = await axios.get("http://cuffhcxwm63td4e2n67o3bq7j5qc2ipuegtsuo7cwi3i2j3oxns47kid.onion:4000/peers/", {
                     httpAgent: agent2,
                 });
 
