@@ -66,12 +66,11 @@ jobs:
       - name: Build AsyncAPI
         run: |
           cd ../api/asyncapi
-          npm install
-          npx -p @asyncapi/cli asyncapi generate fromTemplate ./provider/specification.yml @asyncapi/html-template -o ./build/asyncapi --force-write
-          npm install @asyncapi/cli@^2.3.13
-          mv ./build/asyncapi/ ../../website/build
+          npx -p @asyncapi/cli@2.15.0 asyncapi generate fromTemplate ./provider/specification.yml @asyncapi/html-template@2.3.14 -o ./build/provider/asyncapi --force-write
+          npx -p @asyncapi/cli@2.15.0 asyncapi generate fromTemplate ./consumer/specification.yml @asyncapi/html-template@2.3.14 -o ./build/consumer/asyncapi --force-write
+          mv ./build/provider/asyncapi/ ../../website/provider/build
+          mv ./build/consumer/asyncapi/ ../../website/consumer/build
       - uses: actions/upload-artifact@v4.4.0
-        # npx -p @asyncapi/cli asyncapi generate fromTemplate ./provider/specification.yml @asyncapi/html-template -o ./build/asyncapi --force-write
         with:
           name: website
           path: doc/website/build
