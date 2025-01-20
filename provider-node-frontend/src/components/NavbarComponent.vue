@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
-import {computed, ref} from "vue";
-import router from "../router";
-import {symSharpControlCamera} from "@quasar/extras/material-symbols-sharp";
+import { computed, ref } from 'vue'
+import router from '../router'
+import { symSharpControlCamera } from '@quasar/extras/material-symbols-sharp'
 
 const routeName = computed(() => router.currentRoute.value.name)
 const navbarExpanded = ref(false)
-
 </script>
 
 <template>
@@ -15,22 +14,13 @@ const navbarExpanded = ref(false)
       <h1>Provider</h1>
       <q-btn class="menu" flat @click="navbarExpanded = !navbarExpanded" round dense icon="menu" />
     </div>
-    <router-link
-      to="/home"
-      :class="routeName == 'Home' ? 'selected' : ''"
-      >Peers
-    </router-link>
-    <router-link
-      to="/other"
-      :class="routeName == 'Other' ? 'selected' : ''"
-      >Other
-    </router-link>
-    <img src="../assets/logo.png" alt="Anonymous Shard Logo" class="logo" style="font-size: 1.5em"/>
+    <router-link to="/home" :class="routeName == 'Home' ? 'selected' : ''">Peers </router-link>
+    <router-link to="/other" :class="routeName == 'Other' ? 'selected' : ''">Other </router-link>
+    <img src="../assets/logo.png" alt="Anonymous Shard Logo" class="logo" style="font-size: 1.5em" />
   </nav>
 </template>
 
 <style scoped lang="scss">
-
 nav {
   z-index: 10;
   position: fixed;
@@ -39,7 +29,7 @@ nav {
   max-height: 150px;
   overflow: hidden;
   transition: max-height 200ms linear;
-  background-color: #51346A;
+  background-color: #51346a;
   padding: 10px;
 
   display: flex;
@@ -82,7 +72,6 @@ nav {
     margin-left: auto;
     border-radius: 30%;
   }
-
 
   a {
     font-size: 16px;

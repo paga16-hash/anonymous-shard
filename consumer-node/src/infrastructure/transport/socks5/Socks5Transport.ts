@@ -1,8 +1,8 @@
-import {createServer, Server, Socket} from 'net'
-import {Socks5Config} from './Socks5Config.js'
-import {SocksClient} from 'socks'
-import {Transport} from '../Transport.js'
-import {DomainEvent} from '../../../domain/events/DomainEvent.js'
+import { createServer, Server, Socket } from 'net'
+import { Socks5Config } from './Socks5Config.js'
+import { SocksClient } from 'socks'
+import { Transport } from '../Transport.js'
+import { DomainEvent } from '../../../domain/events/DomainEvent.js'
 
 export class Socks5Transport implements Transport {
   private readonly config: Socks5Config
@@ -87,18 +87,18 @@ export class Socks5Transport implements Transport {
       attempt++
       try {
         return (
-            await SocksClient.createConnection({
-              proxy: {
-                host: this.config.socksHost,
-                port: this.config.socksPort,
-                type: 5
-              },
-              command: 'connect',
-              destination: {
-                host: `${address}.onion`,
-                port: port
-              }
-            })
+          await SocksClient.createConnection({
+            proxy: {
+              host: this.config.socksHost,
+              port: this.config.socksPort,
+              type: 5
+            },
+            command: 'connect',
+            destination: {
+              host: `${address}.onion`,
+              port: port
+            }
+          })
         ).socket
       } catch (err) {
         if (attempt < maxRetries) {

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import {useQuasar} from 'quasar'
-import type {Peer} from "../../domain/core/Peer";
-import {TaskType, TaskTypeConverter} from "../../utils/Converters";
-import RequestHelper, {providerHost} from "../../utils/RequestHelper";
-import {composeMetricMessage} from "../../presentation/ComposePeer";
+import { useQuasar } from 'quasar'
+import type { Peer } from '../../domain/core/Peer'
+import { TaskType, TaskTypeConverter } from '../../utils/Converters'
+import RequestHelper, { providerHost } from '../../utils/RequestHelper'
+import { composeMetricMessage } from '../../presentation/ComposePeer'
 
 const { peer } = defineProps<{
   peer: Peer
@@ -20,14 +20,12 @@ const showMetrics = (id: string) => {
         title: 'Peer Metrics',
         message: composeMetricMessage(peer.metric),
         persistent: true,
-        ok: 'Close',
+        ok: 'Close'
       })
     })
     .catch(error => {
       console.error(error)
     })
-
-
 }
 </script>
 
@@ -39,17 +37,17 @@ const showMetrics = (id: string) => {
     </span>
     <span class="metrics">
       <q-btn
-          @click="showMetrics(peer.id)"
-          color="primary"
-          label="Available metrics"
-          style="margin-left: 20px"
-          size="sm"></q-btn>
+        @click="showMetrics(peer.id)"
+        color="primary"
+        label="Available metrics"
+        style="margin-left: 20px"
+        size="sm"
+      ></q-btn>
     </span>
   </li>
 </template>
 
 <style scoped lang="scss">
-
 .id {
   max-width: max-content;
 }
@@ -62,7 +60,7 @@ const showMetrics = (id: string) => {
 li {
   list-style: none;
   width: 100%;
-  border: #51346A 1px solid;
+  border: #51346a 1px solid;
   border-radius: 5px;
   background: #eeeeee;
   padding: 10px;

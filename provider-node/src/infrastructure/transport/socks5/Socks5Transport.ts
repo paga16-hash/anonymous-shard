@@ -1,8 +1,8 @@
-import {createServer, Server, Socket} from 'net'
-import {Socks5Config} from './Socks5Config.js'
-import {SocksClient} from 'socks'
-import {Transport} from '../Transport.js'
-import {DomainEvent} from '../../../domain/events/DomainEvent.js'
+import { createServer, Server, Socket } from 'net'
+import { Socks5Config } from './Socks5Config.js'
+import { SocksClient } from 'socks'
+import { Transport } from '../Transport.js'
+import { DomainEvent } from '../../../domain/events/DomainEvent.js'
 
 export class Socks5Transport implements Transport {
     private readonly config: Socks5Config
@@ -28,7 +28,6 @@ export class Socks5Transport implements Transport {
      * @param port the port to listen on
      */
     async listen(address: string, port: number): Promise<void> {
-
         const server: Server = createServer((socket: Socket): void => {
             // Here you can add every default event that you want to the socket, like 'connect', 'end', etc..
             socket.on('data', (data: Buffer): void => {

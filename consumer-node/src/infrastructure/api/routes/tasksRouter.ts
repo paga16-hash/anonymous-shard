@@ -1,5 +1,5 @@
 import express, { Request, Response, Router } from 'express'
-import {taskController, taskController as controller} from '../controllers/tasksController.js'
+import { taskController, taskController as controller } from '../controllers/tasksController.js'
 import HttpStatusCode from '../../../utils/HttpStatusCode.js'
 import { TaskStateConverter } from '../../../domain/core/task/enum/TaskState.js'
 

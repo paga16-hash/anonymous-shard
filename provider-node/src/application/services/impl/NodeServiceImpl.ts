@@ -22,7 +22,7 @@ export class NodeServiceImpl implements NodeService {
         this.metricService = metricService
         this.taskService = taskService
         this.init().then((): void => {
-            console.log('Provider service node initialized', "Bootstrap addresses: ", mapBootstrapAddresses())
+            console.log('Provider service node initialized', 'Bootstrap addresses: ', mapBootstrapAddresses())
         })
     }
 

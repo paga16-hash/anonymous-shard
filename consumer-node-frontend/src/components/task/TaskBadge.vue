@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import {useQuasar} from 'quasar'
-import type {Task} from "../../domain/core/Task";
-import {TaskType, TaskTypeConverter} from "../../utils/Converters";
-import RequestHelper, {consumerHost} from "../../utils/RequestHelper";
+import { useQuasar } from 'quasar'
+import type { Task } from '../../domain/core/Task'
+import { TaskType, TaskTypeConverter } from '../../utils/Converters'
+import RequestHelper, { consumerHost } from '../../utils/RequestHelper'
 
 const { task } = defineProps<{
   task: Task
@@ -12,7 +12,7 @@ const $q = useQuasar()
 
 const showDetails = (type: TaskType, details: any) => {
   details = JSON.parse(details)
-  let message = ""
+  let message = ''
   switch (type) {
     case TaskType.SUM:
       message = `Addends: `
@@ -33,12 +33,12 @@ const showDetails = (type: TaskType, details: any) => {
 }
 
 const showResults = (id: any) => {
-  let message = ""
+  let message = ''
   console.log(`${consumerHost}/tasks/${id}/results`)
   RequestHelper.get(`${consumerHost}/tasks/${id}/results`)
     .then((res: any) => {
       console.log(res)
-      message = "Result of the sum: " + res.data.result
+      message = 'Result of the sum: ' + res.data.result
       $q.dialog({
         title: 'Results',
         message: message,
@@ -49,8 +49,6 @@ const showResults = (id: any) => {
     .catch(error => {
       console.error(error)
     })
-
-
 }
 </script>
 
@@ -62,26 +60,33 @@ const showResults = (id: any) => {
       {{ task.id.value.substring(24).toUpperCase() }}
     </span>
     <span class="type"> {{ TaskTypeConverter.from(task.id.type) }} </span>
-    <span :style="{ color: task.status === 'PENDING' ? 'orange' : task.status === 'COMPLETED' ? 'green' : 'inherit' }"> {{ task.status }} </span>
+    <span
+      :style="{
+        color: task.status === 'PENDING' ? 'orange' : task.status === 'COMPLETED' ? 'green' : 'inherit'
+      }"
+    >
+      {{ task.status }}
+    </span>
     <span class="results">
       <q-btn
-          @click="showDetails(task.id.type, JSON.stringify(task.details))"
-          color="primary"
-          label="Details"
-          size="sm"></q-btn>
+        @click="showDetails(task.id.type, JSON.stringify(task.details))"
+        color="primary"
+        label="Details"
+        size="sm"
+      ></q-btn>
       <q-btn
-          v-show="task.status === 'COMPLETED'"
-          @click="showResults(task.id.value)"
-          color="primary"
-          label="Results"
-          style="margin-left: 20px"
-          size="sm"></q-btn>
+        v-show="task.status === 'COMPLETED'"
+        @click="showResults(task.id.value)"
+        color="primary"
+        label="Results"
+        style="margin-left: 20px"
+        size="sm"
+      ></q-btn>
     </span>
   </li>
 </template>
 
 <style scoped lang="scss">
-
 .id {
   max-width: max-content;
 }
@@ -94,7 +99,7 @@ const showResults = (id: any) => {
 li {
   list-style: none;
   width: 100%;
-  border: #51346A 1px solid;
+  border: #51346a 1px solid;
   border-radius: 5px;
   background: #eeeeee;
   padding: 10px;

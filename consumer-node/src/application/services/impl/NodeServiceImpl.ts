@@ -39,11 +39,11 @@ export class NodeServiceImpl implements NodeService {
     const rndAddends: number[] = Array.from({ length: 8 }, (): number => Math.floor(Math.random() * 100))
     const { publicKey, privateKey } = KeyPairFactory.newPair()
     const taskEvent: TaskSubmissionEvent = TaskEventFactory.taskSubmissionEventFrom(
-        SumTaskFactory.createTask(
-            publicKey,
-            ClientIdFactory.idFrom(process.env.HOST! + ':' + process.env.PORT!),
-            rndAddends
-        )
+      SumTaskFactory.createTask(
+        publicKey,
+        ClientIdFactory.idFrom(process.env.HOST! + ':' + process.env.PORT!),
+        rndAddends
+      )
     )
     this.taskService.addTask(privateKey, taskEvent.task)
     this.node.submitTask(taskEvent).catch((e: any): void => {

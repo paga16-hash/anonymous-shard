@@ -1,7 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import NavbarComponent from "../components/NavbarComponent.vue";
-
+import NavbarComponent from '../components/NavbarComponent.vue'
 
 const rightDrawerOpen = ref(false)
 const toggleRightDrawer = () => {
