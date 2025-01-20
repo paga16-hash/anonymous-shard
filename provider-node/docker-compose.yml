@@ -4,8 +4,11 @@ services:
     build:
       context: ..
       dockerfile: provider-node/Dockerfile
+      args:
+        - DEV_API_KEY=apikey-dev
     environment:
       - ANONYMOUS_MODE=true
+      - DEV_API_KEY=apikey-dev
       - PINATA_API_KEY=1fd0fe489d865a398820
       - PINATA_API_SECRET=cac1872634ecbf108f0a00cdff9be7ecf04e0a2ad13a8211be5b80bb974e8974
       - HOST=cuffhcxwm63td4e2n67o3bq7j5qc2ipuegtsuo7cwi3i2j3oxns47kid
@@ -20,6 +23,7 @@ services:
       # - LOCAL_BOOTSTRAP_NODE_PORT_2=3001
       # and so on and so forth for multiple bootstrap nodes
     ports:
+      - "4000:4000"
       - "8080:8080"
     volumes:
       - tor1-data:/var/lib/tor/hidden_service
@@ -31,8 +35,11 @@ services:
     build:
       context: ..
       dockerfile: provider-node/Dockerfile
+      args:
+        - DEV_API_KEY=apikey-dev
     environment:
       - ANONYMOUS_MODE=true
+      - DEV_API_KEY=apikey-dev
       - PINATA_API_KEY=1fd0fe489d865a398820
       - PINATA_API_SECRET=cac1872634ecbf108f0a00cdff9be7ecf04e0a2ad13a8211be5b80bb974e8974
       - HOST=rlnox5ie2e6crrdajtohhwtqp5oz3nt3qewr24egczwftixh2jbgv4yd

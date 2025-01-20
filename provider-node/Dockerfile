@@ -18,7 +18,10 @@ RUN npm install
 
 # Copy the rest of the provider-node-frontend files
 COPY provider-node-frontend/ .
+ARG DEV_API_KEY
 
+# Generate .env file with the environment variables
+RUN echo "VITE_DEV_API_KEY=${DEV_API_KEY}" >> .env
 # Build the frontend
 RUN npm run build
 

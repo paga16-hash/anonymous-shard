@@ -11,11 +11,6 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd());
   return {
     base: './',
-    build: {
-      rollupOptions: {
-        external: ['src/main.ts'],
-      },
-    },
     plugins: [
       // Resolving paths as defined in tsconfig.shared.json
       tsconfigPaths(),
