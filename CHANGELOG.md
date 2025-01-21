@@ -1,3 +1,21 @@
+## [1.1.2](https://github.com/paga16-hash/anonymous-shard/compare/v1.1.1...v1.1.2) (2025-01-21)
+
+### Documentation
+
+* readme ([fd7a21a](https://github.com/paga16-hash/anonymous-shard/commit/fd7a21a6dc981dd29d562b76a30282c8702d951a))
+
+
+## [1.1.2](https://github.com/paga16-hash/anonymous-shard/compare/v1.1.1...v1.1.2) (2025-01-21)
+
+## [1.1.2](https://github.com/paga16-hash/anonymous-shard/compare/v1.1.1...v1.1.2) (2025-01-21)
+
+### Documentation
+
+* readme ([fd7a21a](https://github.com/paga16-hash/anonymous-shard/commit/fd7a21a6dc981dd29d562b76a30282c8702d951a))
+
+
+## [1.1.2](https://github.com/paga16-hash/anonymous-shard/compare/v1.1.1...v1.1.2) (2025-01-21)
+
 ## [1.1.1](https://github.com/paga16-hash/anonymous-shard/compare/v1.1.0...v1.1.1) (2025-01-21)
 
 ### Documentation
