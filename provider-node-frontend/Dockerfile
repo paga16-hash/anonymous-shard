@@ -24,9 +24,6 @@ RUN apt-get update && apt-get install -y tor && \
     chmod 700 /var/lib/tor/hidden_service && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Add a custom Tor configuration
-COPY torrc /etc/tor/torrc
-
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
 

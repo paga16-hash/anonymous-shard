@@ -14,4 +14,4 @@ else
 fi
 
 echo "Starting the frontend application asynchronously..."
-cd provider-node-frontend && npm run serve
+(cd provider-node-frontend && npm run serve) || npm run serve

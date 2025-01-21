@@ -1,6 +1,6 @@
 services:
   provider-1:
-    image: pagahubbing/anonymous-shard-provider-node:latest
+    #image: pagahubbing/anonymous-shard-provider-node:latest
     container_name: provider-1
     build:
       context: ..
@@ -9,22 +9,16 @@ services:
         - DEV_API_KEY=apikey-dev
         - API_PORT=4000
     environment:
-      - ANONYMOUS_MODE=false
+      - ANONYMOUS_MODE=true
       - DEV_API_KEY=apikey-dev
       - PINATA_API_KEY=1fd0fe489d865a398820
       - PINATA_API_SECRET=cac1872634ecbf108f0a00cdff9be7ecf04e0a2ad13a8211be5b80bb974e8974
-      #- HOST=cuffhcxwm63td4e2n67o3bq7j5qc2ipuegtsuo7cwi3i2j3oxns47kid
-      - HOST=provider-1
+      - HOST=cuffhcxwm63td4e2n67o3bq7j5qc2ipuegtsuo7cwi3i2j3oxns47kid
       - PORT=3000
       - BOOTSTRAP_NODE_ADDRESS_1=cuffhcxwm63td4e2n67o3bq7j5qc2ipuegtsuo7cwi3i2j3oxns47kid
       - BOOTSTRAP_NODE_PORT_1=3000
-      - LOCAL_BOOTSTRAP_NODE_ADDRESS_1=provider-1
-      - LOCAL_BOOTSTRAP_NODE_PORT_1=3000
       - BOOTSTRAP_NODE_ADDRESS_2=rlnox5ie2e6crrdajtohhwtqp5oz3nt3qewr24egczwftixh2jbgv4yd
       - BOOTSTRAP_NODE_PORT_2=3000
-      - LOCAL_BOOTSTRAP_NODE_ADDRESS_2=provider-2
-      - LOCAL_BOOTSTRAP_NODE_PORT_2=3001
-      # and so on and so forth for multiple bootstrap nodes
     ports:
       - "4000:4000"
       - "8080:8080"
@@ -43,21 +37,16 @@ services:
         - DEV_API_KEY=apikey-dev
         - API_PORT=4001
     environment:
-      - ANONYMOUS_MODE=false
+      - ANONYMOUS_MODE=true
       - DEV_API_KEY=apikey-dev
       - PINATA_API_KEY=1fd0fe489d865a398820
       - PINATA_API_SECRET=cac1872634ecbf108f0a00cdff9be7ecf04e0a2ad13a8211be5b80bb974e8974
-      #- HOST=rlnox5ie2e6crrdajtohhwtqp5oz3nt3qewr24egczwftixh2jbgv4yd
-      - HOST=provider-2
-      - PORT=3001
+      - HOST=rlnox5ie2e6crrdajtohhwtqp5oz3nt3qewr24egczwftixh2jbgv4yd
+      - PORT=3000
       - BOOTSTRAP_NODE_ADDRESS_1=cuffhcxwm63td4e2n67o3bq7j5qc2ipuegtsuo7cwi3i2j3oxns47kid
       - BOOTSTRAP_NODE_PORT_1=3000
-      - LOCAL_BOOTSTRAP_NODE_ADDRESS_1=provider-1
-      - LOCAL_BOOTSTRAP_NODE_PORT_1=3000
       - BOOTSTRAP_NODE_ADDRESS_2=rlnox5ie2e6crrdajtohhwtqp5oz3nt3qewr24egczwftixh2jbgv4yd
       - BOOTSTRAP_NODE_PORT_2=3000
-      - LOCAL_BOOTSTRAP_NODE_ADDRESS_2=provider-2
-      - LOCAL_BOOTSTRAP_NODE_PORT_2=3001
     ports:
       - "4001:4000"
       - "8081:8080"

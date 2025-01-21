@@ -5,7 +5,6 @@ interface ImportMetaEnv {
   readonly VITE_PROVIDER_HOST: string
   readonly VITE_PROVIDER_PORT: string
   readonly VITE_DEV_API_KEY: string
-  readonly VITE_ANONYMOUS_MODE: string
   readonly VITE_API_PORT: string
 }
 
