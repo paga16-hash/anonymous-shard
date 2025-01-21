@@ -1,5 +1,7 @@
 
-# <img src="doc/logo.png" width="250" alt="Tor Logo">
+<div style="text-align: center;">
+  <img src="doc/logo.png" width="250" alt="Tor Logo">
+</div>
 
 # 🌐 Welcome to **Anonymous Shard**
 
