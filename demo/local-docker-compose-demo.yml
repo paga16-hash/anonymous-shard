@@ -22,8 +22,6 @@ services:
     ports:
       - "4000:4000"
       - "8080:8080"
-    volumes:
-      - tor1-data:/var/lib/tor/hidden_service
     networks:
       - test-network
 
@@ -50,16 +48,82 @@ services:
     ports:
       - "4001:4001"
       - "8081:8080"
-    volumes:
-      - tor2-data:/var/lib/tor/hidden_service
     networks:
       - test-network
 
-volumes:
-  tor1-data:
-    name: tor1-data # Persistent volume for node1, so that in case of tor the onion address remains the same
-  tor2-data:
-    name: tor2-data # Persistent volume for node2, so that in case of tor the onion address remains the same
+  provider-3:
+    #image: pagahubbing/anonymous-shard-provider-node:latest
+    container_name: local-provider-3
+    build:
+      context: ..
+      dockerfile: provider-node/Dockerfile
+      args:
+        - DEV_API_KEY=apikey-dev
+        - API_PORT=4002
+    environment:
+      - ANONYMOUS_MODE=false
+      - DEV_API_KEY=apikey-dev
+      - PINATA_API_KEY=1fd0fe489d865a398820
+      - PINATA_API_SECRET=cac1872634ecbf108f0a00cdff9be7ecf04e0a2ad13a8211be5b80bb974e8974
+      - HOST=local-provider-3
+      - PORT=3002
+      - LOCAL_BOOTSTRAP_NODE_ADDRESS_1=local-provider-1
+      - LOCAL_BOOTSTRAP_NODE_PORT_1=3000
+      - LOCAL_BOOTSTRAP_NODE_ADDRESS_2=local-provider-2
+      - LOCAL_BOOTSTRAP_NODE_PORT_2=3001
+    ports:
+      - "4002:4002"
+      - "8082:8080"
+    networks:
+      - test-network
+
+  consumer-1:
+    #image: pagahubbing/anonymous-shard-consumer-node:latest
+    container_name: local-consumer-1
+    build:
+      context: ..
+      dockerfile: consumer-node/Dockerfile
+      args:
+        - DEV_API_KEY=apikey-dev
+        - API_PORT=4900
+    environment:
+      - ANONYMOUS_MODE=false
+      - DEV_API_KEY=apikey-dev
+      - HOST=local-consumer-1
+      - PORT=3900
+      - LOCAL_BOOTSTRAP_NODE_ADDRESS_1=local-provider-1
+      - LOCAL_BOOTSTRAP_NODE_PORT_1=3000
+      - LOCAL_BOOTSTRAP_NODE_ADDRESS_2=local-provider-2
+      - LOCAL_BOOTSTRAP_NODE_PORT_2=3001
+    ports:
+      - "4900:4900"
+      - "8085:8080"
+    networks:
+      - test-network
+
+  consumer-2:
+    #image: pagahubbing/anonymous-shard-consumer-node:latest
+    container_name: local-consumer-2
+    build:
+      context: ..
+      dockerfile: consumer-node/Dockerfile
+      args:
+        - DEV_API_KEY=apikey-dev
+        - API_PORT=4901
+    environment:
+      - ANONYMOUS_MODE=false
+      - DEV_API_KEY=apikey-dev
+      - HOST=local-consumer-2
+      - PORT=3901
+      - LOCAL_BOOTSTRAP_NODE_ADDRESS_1=local-provider-1
+      - LOCAL_BOOTSTRAP_NODE_PORT_1=3000
+      - LOCAL_BOOTSTRAP_NODE_ADDRESS_2=local-provider-2
+      - LOCAL_BOOTSTRAP_NODE_PORT_2=3001
+    ports:
+      - "4901:4901"
+      - "8086:8080"
+    networks:
+      - test-network
 
 networks:
   test-network:
