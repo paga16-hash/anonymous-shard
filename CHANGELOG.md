@@ -1,3 +1,41 @@
+## [1.1.0](https://github.com/paga16-hash/anonymous-shard/compare/v1.0.0...v1.1.0) (2025-01-21)
+
+### Features
+
+* end demo conf files ([2bfa5b7](https://github.com/paga16-hash/anonymous-shard/commit/2bfa5b7929a9b64fc85407babb820984ce52f36d))
+
+### General maintenance
+
+* add compose for demo ([2684205](https://github.com/paga16-hash/anonymous-shard/commit/26842058360bd0d1157d140a73998681d592c212))
+* **frontend:** adjusted navbar dimension and responsiveness ([0bda168](https://github.com/paga16-hash/anonymous-shard/commit/0bda16871609a68d9e1eef0bfb3a10d6c0553d48))
+* local demo ultimate ([54cb30d](https://github.com/paga16-hash/anonymous-shard/commit/54cb30dadca1ea72421bc1318eb4027c53660f07))
+
+
+## [1.1.0](https://github.com/paga16-hash/anonymous-shard/compare/v1.0.0...v1.1.0) (2025-01-21)
+
+### Features
+
+* end demo conf files ([2bfa5b7](https://github.com/paga16-hash/anonymous-shard/commit/2bfa5b7929a9b64fc85407babb820984ce52f36d))
+
+## [1.1.0](https://github.com/paga16-hash/anonymous-shard/compare/v1.0.0...v1.1.0) (2025-01-21)
+
+### Features
+
+* end demo conf files ([2bfa5b7](https://github.com/paga16-hash/anonymous-shard/commit/2bfa5b7929a9b64fc85407babb820984ce52f36d))
+
+### General maintenance
+
+* add compose for demo ([2684205](https://github.com/paga16-hash/anonymous-shard/commit/26842058360bd0d1157d140a73998681d592c212))
+* **frontend:** adjusted navbar dimension and responsiveness ([0bda168](https://github.com/paga16-hash/anonymous-shard/commit/0bda16871609a68d9e1eef0bfb3a10d6c0553d48))
+* local demo ultimate ([54cb30d](https://github.com/paga16-hash/anonymous-shard/commit/54cb30dadca1ea72421bc1318eb4027c53660f07))
+
+
+## [1.1.0](https://github.com/paga16-hash/anonymous-shard/compare/v1.0.0...v1.1.0) (2025-01-21)
+
+### Features
+
+* end demo conf files ([2bfa5b7](https://github.com/paga16-hash/anonymous-shard/commit/2bfa5b7929a9b64fc85407babb820984ce52f36d))
+
 ## 1.0.0 (2025-01-20)
 
 ### Features
