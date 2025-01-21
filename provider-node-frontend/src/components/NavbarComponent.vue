@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
-import { computed, ref } from 'vue'
+import {RouterLink} from 'vue-router'
+import {computed, ref} from 'vue'
 import router from '../router'
-import { symSharpControlCamera } from '@quasar/extras/material-symbols-sharp'
 
 const routeName = computed(() => router.currentRoute.value.name)
 const navbarExpanded = ref(false)
@@ -12,11 +11,11 @@ const navbarExpanded = ref(false)
   <nav :class="navbarExpanded ? 'expanded' : ''">
     <div class="title">
       <h1>Provider</h1>
-      <q-btn class="menu" flat @click="navbarExpanded = !navbarExpanded" round dense icon="menu" />
+      <q-btn class="menu" flat @click="navbarExpanded = !navbarExpanded" round dense icon="menu"/>
     </div>
-    <router-link to="/home" :class="routeName == 'Home' ? 'selected' : ''">Peers </router-link>
-    <router-link to="/other" :class="routeName == 'Other' ? 'selected' : ''">Other </router-link>
-    <img src="../assets/logo.png" alt="Anonymous Shard Logo" class="logo" style="font-size: 1.5em" />
+    <router-link to="/home" :class="routeName == 'Home' ? 'selected' : ''">Peers</router-link>
+    <router-link to="/other" :class="routeName == 'Other' ? 'selected' : ''">Other</router-link>
+    <img src="../assets/logo.png" alt="Anonymous Shard Logo" class="logo" style="font-size: 1.5em"/>
   </nav>
 </template>
 
@@ -59,11 +58,6 @@ nav {
   button.menu {
     display: none;
     color: white;
-  }
-
-  .home,
-  .logout {
-    margin-left: auto !important;
   }
 
   .logo {
@@ -113,22 +107,14 @@ nav {
 
 @media screen and (max-width: 700px) {
   nav {
-    flex-direction: column;
+    flex-direction: row;
 
     div.title {
-      width: 100%;
-    }
-
-    .home,
-    .logout {
-      margin-left: unset !important;
-    }
-
-    button.menu {
-      display: inline-flex;
+      width: auto;
     }
 
     .selected {
+      margin-left: auto;
       display: block !important;
     }
 

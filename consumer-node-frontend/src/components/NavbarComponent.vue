@@ -113,22 +113,14 @@ nav {
 
 @media screen and (max-width: 700px) {
   nav {
-    flex-direction: column;
+    flex-direction: row;
 
     div.title {
-      width: 100%;
-    }
-
-    .home,
-    .logout {
-      margin-left: unset !important;
-    }
-
-    button.menu {
-      display: inline-flex;
+      width: auto;
     }
 
     .selected {
+      margin-left: auto;
       display: block !important;
     }
 
