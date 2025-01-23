@@ -15,18 +15,7 @@ WORKDIR /app
 COPY provider-node-frontend/package.json ./provider-node-frontend/
 WORKDIR /app/provider-node-frontend
 RUN npm install
-
-# Copy the rest of the provider-node-frontend files
 COPY provider-node-frontend/ .
-ARG DEV_API_KEY
-ARG API_PORT
-
-# Generate .env file with the environment variables
-RUN echo "VITE_DEV_API_KEY=${DEV_API_KEY}" > .env && \
-    echo "VITE_API_PORT=${API_PORT}" >> .env
-# Build the frontend
-RUN npm run build
-
 # Reset workdir to /app for runtime operations
 WORKDIR /app
 
@@ -47,6 +36,3 @@ RUN chmod +x provider-node/start.sh
 RUN chmod +x provider-node-frontend/start.sh
 
 CMD ["sh", "-c", "./provider-node/start.sh & ./provider-node-frontend/start.sh > /tmp/frontend.log 2>&1"]
-
-
-

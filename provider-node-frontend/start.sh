@@ -14,4 +14,10 @@ else
 fi
 
 echo "Starting the frontend application asynchronously..."
-(cd provider-node-frontend && npm run serve) || npm run serve
+# To build the vite frontend, enter the directory first if in backend + frontend monorepo
+cd provider-node-frontend || cd .
+# Generate .env file with the environment variables
+echo "VITE_DEV_API_KEY=${DEV_API_KEY}" > .env && \
+echo "VITE_API_PORT=${API_PORT}" >> .env
+# Build and serve the frontend
+npm run build && npm run serve

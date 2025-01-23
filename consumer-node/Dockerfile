@@ -18,14 +18,6 @@ RUN npm install
 
 # Copy the rest of the consumer-node-frontend files
 COPY consumer-node-frontend/ .
-ARG DEV_API_KEY
-ARG API_PORT
-
-# Generate .env file with the environment variables
-RUN echo "VITE_DEV_API_KEY=${DEV_API_KEY}" > .env && \
-    echo "VITE_API_PORT=${API_PORT}" >> .env
-# Build the frontend
-RUN npm run build
 
 # Reset workdir to /app for runtime operations
 WORKDIR /app

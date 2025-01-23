@@ -5,12 +5,10 @@ services:
     build:
       context: ..
       dockerfile: provider-node/Dockerfile
-      args:
-        - DEV_API_KEY=apikey-dev
-        - API_PORT=4000
     environment:
       - ANONYMOUS_MODE=false
       - DEV_API_KEY=apikey-dev
+      - API_PORT=4000
       - PINATA_API_KEY=1fd0fe489d865a398820
       - PINATA_API_SECRET=cac1872634ecbf108f0a00cdff9be7ecf04e0a2ad13a8211be5b80bb974e8974
       #- HOST=cuffhcxwm63td4e2n67o3bq7j5qc2ipuegtsuo7cwi3i2j3oxns47kid
@@ -31,20 +29,18 @@ services:
     volumes:
       - tor1-data:/var/lib/tor/hidden_service
     networks:
-      - test-network
+      - anonymous-shard-network
 
   provider-2:
-    #image: pagahubbing/anonymous-shard-provider-node:latest
+    image: pagahubbing/anonymous-shard-provider-node:latest
     container_name: provider-2
     build:
       context: ..
       dockerfile: provider-node/Dockerfile
-      args:
-        - DEV_API_KEY=apikey-dev
-        - API_PORT=4001
     environment:
       - ANONYMOUS_MODE=false
       - DEV_API_KEY=apikey-dev
+      - API_PORT=4001
       - PINATA_API_KEY=1fd0fe489d865a398820
       - PINATA_API_SECRET=cac1872634ecbf108f0a00cdff9be7ecf04e0a2ad13a8211be5b80bb974e8974
       #- HOST=rlnox5ie2e6crrdajtohhwtqp5oz3nt3qewr24egczwftixh2jbgv4yd
@@ -59,12 +55,12 @@ services:
       - LOCAL_BOOTSTRAP_NODE_ADDRESS_2=provider-2
       - LOCAL_BOOTSTRAP_NODE_PORT_2=3001
     ports:
-      - "4001:4000"
+      - "4001:4001"
       - "8081:8080"
     volumes:
       - tor2-data:/var/lib/tor/hidden_service
     networks:
-      - test-network
+      - anonymous-shard-network
 
 volumes:
   tor1-data:
@@ -73,5 +69,7 @@ volumes:
     name: tor2-data # Persistent volume for node2, so that in case of tor the onion address remains the same
 
 networks:
-  test-network:
+  anonymous-shard-network:
+    name: anonymous-shard-network
     driver: bridge
+    external: true

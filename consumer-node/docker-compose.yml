@@ -3,15 +3,13 @@ services:
     build:
       context: ..
       dockerfile: consumer-node/Dockerfile
-      args:
-        - DEV_API_KEY=apikey-dev
-        - API_PORT=4900
     environment:
-      - ANONYMOUS_MODE=true
+      - ANONYMOUS_MODE=false
       - DEV_API_KEY=apikey-dev
+      - API_PORT=4900
       #- HOST=h3se2r3j7t7txezijeaffx45pjbtd32y452zdjkjexzcs7q767vqx5ad
       - HOST=consumer
-      - PORT=3000
+      - PORT=3900
       - BOOTSTRAP_NODE_ADDRESS_1=cuffhcxwm63td4e2n67o3bq7j5qc2ipuegtsuo7cwi3i2j3oxns47kid
       - BOOTSTRAP_NODE_PORT_1=3000
       - LOCAL_BOOTSTRAP_NODE_ADDRESS_1=provider-1
@@ -21,18 +19,20 @@ services:
       - LOCAL_BOOTSTRAP_NODE_ADDRESS_2=provider-2
       - LOCAL_BOOTSTRAP_NODE_PORT_2=3001
     ports:
-      - "4900:4000"
+      - "4900:4900"
       - "8085:8080"
     volumes:
       - tor1-data-consumer:/var/lib/tor/hidden_service
     networks:
-      - test-network
+      - anonymous-shard-network
 
 volumes:
   tor1-data-consumer:
     name: tor1-data-consumer # Persistent to keep the same onion address
 
 networks:
-  test-network:
+  anonymous-shard-network:
+    name: anonymous-shard-network
     driver: bridge
+    external: true
 

@@ -30,6 +30,6 @@ else
     echo "Starting in non-anonymous mode. Skipping Tor setup..."
 fi
 
-# Start the Node.js application
-echo "Starting the Node.js application..."
-cd consumer-node && npm run dev
+# Serve the Node.js backend application
+echo "Serving the Node.js application..."
+(cd consumer-node && npm run build && npm run serve) || npm run build && npm run serve
