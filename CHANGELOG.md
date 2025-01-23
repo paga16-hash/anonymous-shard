@@ -1,3 +1,41 @@
+## [1.2.0](https://github.com/paga16-hash/anonymous-shard/compare/v1.1.2...v1.2.0) (2025-01-23)
+
+### Features
+
+* demo updated ([e63bef3](https://github.com/paga16-hash/anonymous-shard/commit/e63bef303a82ddd6a376b3771869cf8eda18436d))
+* move build in image, not the best option, ask to the mantainer for explanation ([8e104ba](https://github.com/paga16-hash/anonymous-shard/commit/8e104badfc657889ba2d49a6efba9d2ff492c9cf))
+
+### Documentation
+
+* readme ([3bba0e1](https://github.com/paga16-hash/anonymous-shard/commit/3bba0e1a4d45b7eea8c567f060285c504dbc3e35))
+
+
+## [1.2.0](https://github.com/paga16-hash/anonymous-shard/compare/v1.1.2...v1.2.0) (2025-01-23)
+
+### Features
+
+* demo updated ([e63bef3](https://github.com/paga16-hash/anonymous-shard/commit/e63bef303a82ddd6a376b3771869cf8eda18436d))
+* move build in image, not the best option, ask to the mantainer for explanation ([8e104ba](https://github.com/paga16-hash/anonymous-shard/commit/8e104badfc657889ba2d49a6efba9d2ff492c9cf))
+
+## [1.2.0](https://github.com/paga16-hash/anonymous-shard/compare/v1.1.2...v1.2.0) (2025-01-23)
+
+### Features
+
+* demo updated ([e63bef3](https://github.com/paga16-hash/anonymous-shard/commit/e63bef303a82ddd6a376b3771869cf8eda18436d))
+* move build in image, not the best option, ask to the mantainer for explanation ([8e104ba](https://github.com/paga16-hash/anonymous-shard/commit/8e104badfc657889ba2d49a6efba9d2ff492c9cf))
+
+### Documentation
+
+* readme ([3bba0e1](https://github.com/paga16-hash/anonymous-shard/commit/3bba0e1a4d45b7eea8c567f060285c504dbc3e35))
+
+
+## [1.2.0](https://github.com/paga16-hash/anonymous-shard/compare/v1.1.2...v1.2.0) (2025-01-23)
+
+### Features
+
+* demo updated ([e63bef3](https://github.com/paga16-hash/anonymous-shard/commit/e63bef303a82ddd6a376b3771869cf8eda18436d))
+* move build in image, not the best option, ask to the mantainer for explanation ([8e104ba](https://github.com/paga16-hash/anonymous-shard/commit/8e104badfc657889ba2d49a6efba9d2ff492c9cf))
+
 ## [1.1.2](https://github.com/paga16-hash/anonymous-shard/compare/v1.1.1...v1.1.2) (2025-01-21)
 
 ### Documentation
