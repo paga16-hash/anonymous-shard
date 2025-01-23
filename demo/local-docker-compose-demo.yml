@@ -1,13 +1,10 @@
 services:
   provider-1:
-    #image: pagahubbing/anonymous-shard-provider-node:latest
+    image: pagahubbing/anonymous-shard-provider-node:latest
     container_name: local-provider-1
     build:
       context: ..
       dockerfile: provider-node/Dockerfile
-      args:
-        - DEV_API_KEY=apikey-dev
-        - API_PORT=4000
     environment:
       - ANONYMOUS_MODE=false
       - DEV_API_KEY=apikey-dev
@@ -15,6 +12,7 @@ services:
       - PINATA_API_SECRET=cac1872634ecbf108f0a00cdff9be7ecf04e0a2ad13a8211be5b80bb974e8974
       - HOST=local-provider-1
       - PORT=3000
+      - API_PORT=4000
       - LOCAL_BOOTSTRAP_NODE_ADDRESS_1=local-provider-1
       - LOCAL_BOOTSTRAP_NODE_PORT_1=3000
       - LOCAL_BOOTSTRAP_NODE_ADDRESS_2=local-provider-2
@@ -23,17 +21,14 @@ services:
       - "4000:4000"
       - "8080:8080"
     networks:
-      - test-network
+      - anonymous-shard-network
 
   provider-2:
-    #image: pagahubbing/anonymous-shard-provider-node:latest
+    image: pagahubbing/anonymous-shard-provider-node:latest
     container_name: local-provider-2
     build:
       context: ..
       dockerfile: provider-node/Dockerfile
-      args:
-        - DEV_API_KEY=apikey-dev
-        - API_PORT=4001
     environment:
       - ANONYMOUS_MODE=false
       - DEV_API_KEY=apikey-dev
@@ -49,17 +44,14 @@ services:
       - "4001:4001"
       - "8081:8080"
     networks:
-      - test-network
+      - anonymous-shard-network
 
   provider-3:
-    #image: pagahubbing/anonymous-shard-provider-node:latest
+    image: pagahubbing/anonymous-shard-provider-node:latest
     container_name: local-provider-3
     build:
       context: ..
       dockerfile: provider-node/Dockerfile
-      args:
-        - DEV_API_KEY=apikey-dev
-        - API_PORT=4002
     environment:
       - ANONYMOUS_MODE=false
       - DEV_API_KEY=apikey-dev
@@ -67,6 +59,7 @@ services:
       - PINATA_API_SECRET=cac1872634ecbf108f0a00cdff9be7ecf04e0a2ad13a8211be5b80bb974e8974
       - HOST=local-provider-3
       - PORT=3002
+      - API_PORT=4002
       - LOCAL_BOOTSTRAP_NODE_ADDRESS_1=local-provider-1
       - LOCAL_BOOTSTRAP_NODE_PORT_1=3000
       - LOCAL_BOOTSTRAP_NODE_ADDRESS_2=local-provider-2
@@ -75,22 +68,20 @@ services:
       - "4002:4002"
       - "8082:8080"
     networks:
-      - test-network
+      - anonymous-shard-network
 
   consumer-1:
-    #image: pagahubbing/anonymous-shard-consumer-node:latest
+    image: pagahubbing/anonymous-shard-consumer-node:latest
     container_name: local-consumer-1
     build:
       context: ..
       dockerfile: consumer-node/Dockerfile
-      args:
-        - DEV_API_KEY=apikey-dev
-        - API_PORT=4900
     environment:
       - ANONYMOUS_MODE=false
       - DEV_API_KEY=apikey-dev
       - HOST=local-consumer-1
       - PORT=3900
+      - API_PORT=4900
       - LOCAL_BOOTSTRAP_NODE_ADDRESS_1=local-provider-1
       - LOCAL_BOOTSTRAP_NODE_PORT_1=3000
       - LOCAL_BOOTSTRAP_NODE_ADDRESS_2=local-provider-2
@@ -99,22 +90,20 @@ services:
       - "4900:4900"
       - "8085:8080"
     networks:
-      - test-network
+      - anonymous-shard-network
 
   consumer-2:
-    #image: pagahubbing/anonymous-shard-consumer-node:latest
+    image: pagahubbing/anonymous-shard-consumer-node:latest
     container_name: local-consumer-2
     build:
       context: ..
       dockerfile: consumer-node/Dockerfile
-      args:
-        - DEV_API_KEY=apikey-dev
-        - API_PORT=4901
     environment:
       - ANONYMOUS_MODE=false
       - DEV_API_KEY=apikey-dev
       - HOST=local-consumer-2
       - PORT=3901
+      - API_PORT=4901
       - LOCAL_BOOTSTRAP_NODE_ADDRESS_1=local-provider-1
       - LOCAL_BOOTSTRAP_NODE_PORT_1=3000
       - LOCAL_BOOTSTRAP_NODE_ADDRESS_2=local-provider-2
@@ -123,8 +112,10 @@ services:
       - "4901:4901"
       - "8086:8080"
     networks:
-      - test-network
+      - anonymous-shard-network
 
 networks:
-  test-network:
+  anonymous-shard-network:
+    name: anonymous-shard-network
     driver: bridge
+    external: true

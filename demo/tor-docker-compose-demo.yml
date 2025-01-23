@@ -1,13 +1,10 @@
 services:
   provider-1:
-    #image: pagahubbing/anonymous-shard-provider-node:latest
+    image: pagahubbing/anonymous-shard-provider-node:latest
     container_name: tor-provider-1
     build:
       context: ..
       dockerfile: provider-node/Dockerfile
-      args:
-        - DEV_API_KEY=apikey-dev
-        - API_PORT=4000
     environment:
       - ANONYMOUS_MODE=true
       - DEV_API_KEY=apikey-dev
@@ -15,6 +12,7 @@ services:
       - PINATA_API_SECRET=cac1872634ecbf108f0a00cdff9be7ecf04e0a2ad13a8211be5b80bb974e8974
       - HOST=cuffhcxwm63td4e2n67o3bq7j5qc2ipuegtsuo7cwi3i2j3oxns47kid
       - PORT=3000
+      - API_PORT=4000
       - BOOTSTRAP_NODE_ADDRESS_1=cuffhcxwm63td4e2n67o3bq7j5qc2ipuegtsuo7cwi3i2j3oxns47kid
       - BOOTSTRAP_NODE_PORT_1=3000
       - BOOTSTRAP_NODE_ADDRESS_2=rlnox5ie2e6crrdajtohhwtqp5oz3nt3qewr24egczwftixh2jbgv4yd
@@ -25,17 +23,14 @@ services:
     volumes:
       - tor1-data:/var/lib/tor/hidden_service
     networks:
-      - test-network
+      - anonymous-shard-network
 
   provider-2:
-    #image: pagahubbing/anonymous-shard-provider-node:latest
+    image: pagahubbing/anonymous-shard-provider-node:latest
     container_name: tor-provider-2
     build:
       context: ..
       dockerfile: provider-node/Dockerfile
-      args:
-        - DEV_API_KEY=apikey-dev
-        - API_PORT=4001
     environment:
       - ANONYMOUS_MODE=true
       - DEV_API_KEY=apikey-dev
@@ -43,6 +38,7 @@ services:
       - PINATA_API_SECRET=cac1872634ecbf108f0a00cdff9be7ecf04e0a2ad13a8211be5b80bb974e8974
       - HOST=rlnox5ie2e6crrdajtohhwtqp5oz3nt3qewr24egczwftixh2jbgv4yd
       - PORT=3000
+      - API_PORT=4001
       - BOOTSTRAP_NODE_ADDRESS_1=cuffhcxwm63td4e2n67o3bq7j5qc2ipuegtsuo7cwi3i2j3oxns47kid
       - BOOTSTRAP_NODE_PORT_1=3000
       - BOOTSTRAP_NODE_ADDRESS_2=rlnox5ie2e6crrdajtohhwtqp5oz3nt3qewr24egczwftixh2jbgv4yd
@@ -53,17 +49,14 @@ services:
     volumes:
       - tor2-data:/var/lib/tor/hidden_service
     networks:
-      - test-network
+      - anonymous-shard-network
 
   provider-3:
-    #image: pagahubbing/anonymous-shard-provider-node:latest
+    image: pagahubbing/anonymous-shard-provider-node:latest
     container_name: tor-provider-3
     build:
       context: ..
       dockerfile: provider-node/Dockerfile
-      args:
-        - DEV_API_KEY=apikey-dev
-        - API_PORT=4002
     environment:
       - ANONYMOUS_MODE=true
       - DEV_API_KEY=apikey-dev
@@ -71,6 +64,7 @@ services:
       - PINATA_API_SECRET=cac1872634ecbf108f0a00cdff9be7ecf04e0a2ad13a8211be5b80bb974e8974
       - HOST=dtnx2clailpt3xt3bib4ti247s7n4mj4v55d35fyowop4aw6buzl3zad
       - PORT=3000
+      - API_PORT=4002
       - BOOTSTRAP_NODE_ADDRESS_1=cuffhcxwm63td4e2n67o3bq7j5qc2ipuegtsuo7cwi3i2j3oxns47kid
       - BOOTSTRAP_NODE_PORT_1=3000
       - BOOTSTRAP_NODE_ADDRESS_2=rlnox5ie2e6crrdajtohhwtqp5oz3nt3qewr24egczwftixh2jbgv4yd
@@ -81,17 +75,14 @@ services:
     volumes:
       - tor3-data:/var/lib/tor/hidden_service
     networks:
-      - test-network
+      - anonymous-shard-network
 
   provider-4:
-    #image: pagahubbing/anonymous-shard-provider-node:latest
+    image: pagahubbing/anonymous-shard-provider-node:latest
     container_name: tor-provider-4
     build:
       context: ..
       dockerfile: provider-node/Dockerfile
-      args:
-        - DEV_API_KEY=apikey-dev
-        - API_PORT=4003
     environment:
       - ANONYMOUS_MODE=true
       - DEV_API_KEY=apikey-dev
@@ -99,6 +90,7 @@ services:
       - PINATA_API_SECRET=cac1872634ecbf108f0a00cdff9be7ecf04e0a2ad13a8211be5b80bb974e8974
       - HOST=2ruoxrivzdc6jsnwfhfrekfcujebudrllazqg7rj4dajqvpbvit7gwid
       - PORT=3000
+      - API_PORT=4003
       - BOOTSTRAP_NODE_ADDRESS_1=cuffhcxwm63td4e2n67o3bq7j5qc2ipuegtsuo7cwi3i2j3oxns47kid
       - BOOTSTRAP_NODE_PORT_1=3000
       - BOOTSTRAP_NODE_ADDRESS_2=rlnox5ie2e6crrdajtohhwtqp5oz3nt3qewr24egczwftixh2jbgv4yd
@@ -109,22 +101,20 @@ services:
     volumes:
       - tor4-data:/var/lib/tor/hidden_service
     networks:
-      - test-network
+      - anonymous-shard-network
 
   consumer-1:
-    #image: pagahubbing/anonymous-shard-provider-node:latest
+    image: pagahubbing/anonymous-shard-provider-node:latest
     container_name: tor-consumer-1
     build:
       context: ..
       dockerfile: consumer-node/Dockerfile
-      args:
-        - DEV_API_KEY=apikey-dev
-        - API_PORT=4900
     environment:
       - ANONYMOUS_MODE=true
       - DEV_API_KEY=apikey-dev
       - HOST=h3se2r3j7t7txezijeaffx45pjbtd32y452zdjkjexzcs7q767vqx5ad
       - PORT=3000
+      - API_PORT=4900
       - BOOTSTRAP_NODE_ADDRESS_1=cuffhcxwm63td4e2n67o3bq7j5qc2ipuegtsuo7cwi3i2j3oxns47kid
       - BOOTSTRAP_NODE_PORT_1=3000
       - BOOTSTRAP_NODE_ADDRESS_2=rlnox5ie2e6crrdajtohhwtqp5oz3nt3qewr24egczwftixh2jbgv4yd
@@ -135,22 +125,20 @@ services:
     volumes:
       - tor1-data-consumer:/var/lib/tor/hidden_service
     networks:
-      - test-network
+      - anonymous-shard-network
 
   consumer-2:
-    #image: pagahubbing/anonymous-shard-provider-node:latest
+    image: pagahubbing/anonymous-shard-provider-node:latest
     container_name: tor-consumer-2
     build:
       context: ..
       dockerfile: consumer-node/Dockerfile
-      args:
-        - DEV_API_KEY=apikey-dev
-        - API_PORT=4901
     environment:
       - ANONYMOUS_MODE=true
       - DEV_API_KEY=apikey-dev
       - HOST=xzzpioxaxstm6bqf6xj4hgfifxrnmrxp2qth2hffsf76vcaf3h2qhiid
       - PORT=3000
+      - API_PORT=4901
       - BOOTSTRAP_NODE_ADDRESS_1=cuffhcxwm63td4e2n67o3bq7j5qc2ipuegtsuo7cwi3i2j3oxns47kid
       - BOOTSTRAP_NODE_PORT_1=3000
       - BOOTSTRAP_NODE_ADDRESS_2=rlnox5ie2e6crrdajtohhwtqp5oz3nt3qewr24egczwftixh2jbgv4yd
@@ -161,7 +149,7 @@ services:
     volumes:
       - tor2-data-consumer:/var/lib/tor/hidden_service
     networks:
-      - test-network
+      - anonymous-shard-network
 
 volumes:
   tor1-data:
@@ -178,5 +166,7 @@ volumes:
     name: tor2-data-consumer
 
 networks:
-  test-network:
+  anonymous-shard-network:
+    name: anonymous-shard-network
     driver: bridge
+    external: true
