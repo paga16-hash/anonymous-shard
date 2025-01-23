@@ -36,6 +36,7 @@ services:
       - PINATA_API_SECRET=cac1872634ecbf108f0a00cdff9be7ecf04e0a2ad13a8211be5b80bb974e8974
       - HOST=local-provider-2
       - PORT=3001
+      - API_PORT=4000
       - LOCAL_BOOTSTRAP_NODE_ADDRESS_1=local-provider-1
       - LOCAL_BOOTSTRAP_NODE_PORT_1=3000
       - LOCAL_BOOTSTRAP_NODE_ADDRESS_2=local-provider-2
