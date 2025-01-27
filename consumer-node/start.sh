@@ -29,6 +29,16 @@ if [ "$ANONYMOUS_MODE" = "true" ]; then
     # Wait 5 seconds after bootstrap
     echo "Tor bootstrap completed. Waiting 5 seconds before starting the app..."
     sleep 5
+
+    # Export the bootstrap node addresses and ports
+    i=1
+    while IFS=":" read -r node_address node_port; do
+        export "BOOTSTRAP_NODE_ADDRESS_$i=$node_address"
+        export "BOOTSTRAP_NODE_PORT_$i=$node_port"
+        echo "BOOTSTRAP_NODE_ADDRESS_$i=$node_address"
+        echo "BOOTSTRAP_NODE_PORT_$i=$node_port"
+        ((i++))
+    done < /app/bootstrap/nodes.txt
 else
     echo "Starting in non-anonymous mode. Skipping Tor setup..."
 fi
