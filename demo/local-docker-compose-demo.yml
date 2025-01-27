@@ -87,6 +87,8 @@ services:
       - LOCAL_BOOTSTRAP_NODE_PORT_1=3000
       - LOCAL_BOOTSTRAP_NODE_ADDRESS_2=local-provider-2
       - LOCAL_BOOTSTRAP_NODE_PORT_2=3001
+    volumes:
+      - ./results:/app/consumer-node/results
     ports:
       - "4900:4900"
       - "8085:8080"
@@ -109,6 +111,8 @@ services:
       - LOCAL_BOOTSTRAP_NODE_PORT_1=3000
       - LOCAL_BOOTSTRAP_NODE_ADDRESS_2=local-provider-2
       - LOCAL_BOOTSTRAP_NODE_PORT_2=3001
+    volumes:
+      - ./results:/app/consumer-node/results
     ports:
       - "4901:4901"
       - "8086:8080"
