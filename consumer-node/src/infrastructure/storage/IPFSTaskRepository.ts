@@ -24,6 +24,7 @@ export class IPFSTaskRepository implements TaskRepository {
       const resultsData: string = await fs.readFile(filePath, 'utf-8').catch(() => '{}')
       const resultsJson: Record<string, any> = JSON.parse(resultsData)
       resultsJson[cId] = result
+      resultsJson[cId].timestamp = new Date().toISOString()
       await fs.writeFile(filePath, JSON.stringify(resultsJson, null, 2), 'utf-8')
       console.log('Task result successfully saved to local storage.')
     } catch (err) {

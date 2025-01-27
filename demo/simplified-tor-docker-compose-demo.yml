@@ -10,7 +10,6 @@ services:
       - DEV_API_KEY=apikey-dev
       - PINATA_API_KEY=1fd0fe489d865a398820
       - PINATA_API_SECRET=cac1872634ecbf108f0a00cdff9be7ecf04e0a2ad13a8211be5b80bb974e8974
-      - HOST=cuffhcxwm63td4e2n67o3bq7j5qc2ipuegtsuo7cwi3i2j3oxns47kid
       - PORT=3000
       - API_PORT=4000
       - BOOTSTRAP_NODE_ADDRESS_1=cuffhcxwm63td4e2n67o3bq7j5qc2ipuegtsuo7cwi3i2j3oxns47kid
@@ -36,7 +35,7 @@ services:
       - DEV_API_KEY=apikey-dev
       - PINATA_API_KEY=1fd0fe489d865a398820
       - PINATA_API_SECRET=cac1872634ecbf108f0a00cdff9be7ecf04e0a2ad13a8211be5b80bb974e8974
-      - HOST=rlnox5ie2e6crrdajtohhwtqp5oz3nt3qewr24egczwftixh2jbgv4yd
+      # - HOST=rlnox5ie2e6crrdajtohhwtqp5oz3nt3qewr24egczwftixh2jbgv4yd
       - PORT=3000
       - API_PORT=4001
       - BOOTSTRAP_NODE_ADDRESS_1=cuffhcxwm63td4e2n67o3bq7j5qc2ipuegtsuo7cwi3i2j3oxns47kid
@@ -62,7 +61,7 @@ services:
       - DEV_API_KEY=apikey-dev
       - PINATA_API_KEY=1fd0fe489d865a398820
       - PINATA_API_SECRET=cac1872634ecbf108f0a00cdff9be7ecf04e0a2ad13a8211be5b80bb974e8974
-      - HOST=dtnx2clailpt3xt3bib4ti247s7n4mj4v55d35fyowop4aw6buzl3zad
+      # - HOST=dtnx2clailpt3xt3bib4ti247s7n4mj4v55d35fyowop4aw6buzl3zad
       - PORT=3000
       - API_PORT=4002
       - BOOTSTRAP_NODE_ADDRESS_1=cuffhcxwm63td4e2n67o3bq7j5qc2ipuegtsuo7cwi3i2j3oxns47kid
@@ -77,32 +76,6 @@ services:
     networks:
       - anonymous-shard-network
 
-  provider-4:
-    image: pagahubbing/anonymous-shard-provider-node:latest
-    container_name: tor-provider-4
-    build:
-      context: ..
-      dockerfile: provider-node/Dockerfile
-    environment:
-      - ANONYMOUS_MODE=true
-      - DEV_API_KEY=apikey-dev
-      - PINATA_API_KEY=1fd0fe489d865a398820
-      - PINATA_API_SECRET=cac1872634ecbf108f0a00cdff9be7ecf04e0a2ad13a8211be5b80bb974e8974
-      - HOST=2ruoxrivzdc6jsnwfhfrekfcujebudrllazqg7rj4dajqvpbvit7gwid
-      - PORT=3000
-      - API_PORT=4003
-      - BOOTSTRAP_NODE_ADDRESS_1=cuffhcxwm63td4e2n67o3bq7j5qc2ipuegtsuo7cwi3i2j3oxns47kid
-      - BOOTSTRAP_NODE_PORT_1=3000
-      - BOOTSTRAP_NODE_ADDRESS_2=rlnox5ie2e6crrdajtohhwtqp5oz3nt3qewr24egczwftixh2jbgv4yd
-      - BOOTSTRAP_NODE_PORT_2=3000
-    ports:
-      - "4003:4000"
-      - "8083:8080"
-    volumes:
-      - tor4-data:/var/lib/tor/hidden_service
-    networks:
-      - anonymous-shard-network
-
   consumer-1:
     image: pagahubbing/anonymous-shard-consumer-node:latest
     container_name: tor-consumer-1
@@ -112,7 +85,7 @@ services:
     environment:
       - ANONYMOUS_MODE=true
       - DEV_API_KEY=apikey-dev
-      - HOST=h3se2r3j7t7txezijeaffx45pjbtd32y452zdjkjexzcs7q767vqx5ad
+      #- HOST=h3se2r3j7t7txezijeaffx45pjbtd32y452zdjkjexzcs7q767vqx5ad
       - PORT=3000
       - API_PORT=4900
       - BOOTSTRAP_NODE_ADDRESS_1=cuffhcxwm63td4e2n67o3bq7j5qc2ipuegtsuo7cwi3i2j3oxns47kid
@@ -124,30 +97,7 @@ services:
       - "8085:8080"
     volumes:
       - tor1-data-consumer:/var/lib/tor/hidden_service
-    networks:
-      - anonymous-shard-network
-
-  consumer-2:
-    image: pagahubbing/anonymous-shard-consumer-node:latest
-    container_name: tor-consumer-2
-    build:
-      context: ..
-      dockerfile: consumer-node/Dockerfile
-    environment:
-      - ANONYMOUS_MODE=true
-      - DEV_API_KEY=apikey-dev
-      - HOST=xzzpioxaxstm6bqf6xj4hgfifxrnmrxp2qth2hffsf76vcaf3h2qhiid
-      - PORT=3000
-      - API_PORT=4901
-      - BOOTSTRAP_NODE_ADDRESS_1=cuffhcxwm63td4e2n67o3bq7j5qc2ipuegtsuo7cwi3i2j3oxns47kid
-      - BOOTSTRAP_NODE_PORT_1=3000
-      - BOOTSTRAP_NODE_ADDRESS_2=rlnox5ie2e6crrdajtohhwtqp5oz3nt3qewr24egczwftixh2jbgv4yd
-      - BOOTSTRAP_NODE_PORT_2=3000
-    ports:
-      - "4901:4000"
-      - "8086:8080"
-    volumes:
-      - tor2-data-consumer:/var/lib/tor/hidden_service
+      - ./results:/app/consumer-node/results
     networks:
       - anonymous-shard-network
 
@@ -158,12 +108,8 @@ volumes:
     name: tor2-data
   tor3-data:
     name: tor3-data
-  tor4-data:
-    name: tor4-data
   tor1-data-consumer:
     name: tor1-data-consumer
-  tor2-data-consumer:
-    name: tor2-data-consumer
 
 networks:
   anonymous-shard-network:

@@ -17,6 +17,9 @@ if [ "$ANONYMOUS_MODE" = "true" ]; then
     echo "Tor is running. Hidden Service Address:"
     cat /var/lib/tor/hidden_service/hostname
 
+    export HOST=""; HOST=$(sed 's/\.onion.*//' /var/lib/tor/hidden_service/hostname)
+    echo "HOST is set to: $HOST"
+
     # Wait for "Bootstrap 100%" in the logs
     echo "Waiting for Tor to complete bootstrap..."
     while ! grep -q "Bootstrapped 100% (done): Done" "$TEMP_LOG"; do
