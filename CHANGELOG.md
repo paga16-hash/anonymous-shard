@@ -1,3 +1,39 @@
+## [1.2.1](https://github.com/paga16-hash/anonymous-shard/compare/v1.2.0...v1.2.1) (2025-01-27)
+
+### Bug Fixes
+
+* local demo docker compose api_port ([2fabde4](https://github.com/paga16-hash/anonymous-shard/commit/2fabde4027a52e743ab329395cb6b494adc18edf))
+
+### General maintenance
+
+* link result volume to local demo ([9a1466c](https://github.com/paga16-hash/anonymous-shard/commit/9a1466cc928ccaa71cf27336f73048cb59588c35))
+* remove useles file ([61c2ec9](https://github.com/paga16-hash/anonymous-shard/commit/61c2ec95eaebd608ed8279ce51e973413cda5f1f))
+
+
+## [1.2.1](https://github.com/paga16-hash/anonymous-shard/compare/v1.2.0...v1.2.1) (2025-01-27)
+
+### Bug Fixes
+
+* local demo docker compose api_port ([2fabde4](https://github.com/paga16-hash/anonymous-shard/commit/2fabde4027a52e743ab329395cb6b494adc18edf))
+
+## [1.2.1](https://github.com/paga16-hash/anonymous-shard/compare/v1.2.0...v1.2.1) (2025-01-27)
+
+### Bug Fixes
+
+* local demo docker compose api_port ([2fabde4](https://github.com/paga16-hash/anonymous-shard/commit/2fabde4027a52e743ab329395cb6b494adc18edf))
+
+### General maintenance
+
+* link result volume to local demo ([9a1466c](https://github.com/paga16-hash/anonymous-shard/commit/9a1466cc928ccaa71cf27336f73048cb59588c35))
+* remove useles file ([61c2ec9](https://github.com/paga16-hash/anonymous-shard/commit/61c2ec95eaebd608ed8279ce51e973413cda5f1f))
+
+
+## [1.2.1](https://github.com/paga16-hash/anonymous-shard/compare/v1.2.0...v1.2.1) (2025-01-27)
+
+### Bug Fixes
+
+* local demo docker compose api_port ([2fabde4](https://github.com/paga16-hash/anonymous-shard/commit/2fabde4027a52e743ab329395cb6b494adc18edf))
+
 ## [1.2.0](https://github.com/paga16-hash/anonymous-shard/compare/v1.1.2...v1.2.0) (2025-01-23)
 
 ### Features
