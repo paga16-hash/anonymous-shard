@@ -31,8 +31,13 @@ export class Socks5Transport implements Transport {
         const server: Server = createServer((socket: Socket): void => {
             // Here you can add every default event that you want to the socket, like 'connect', 'end', etc..
             socket.on('data', (data: Buffer): void => {
-                this.handler(JSON.parse(data.toString()) as unknown as DomainEvent)
-                //TODO this.handler(presentationLayer.parseEvent(data));
+                try
+                {
+                    this.handler(JSON.parse(data.toString()) as unknown as DomainEvent)
+                    //TODO this.handler(presentationLayer.parseEvent(data));
+                } catch (error) {
+                    console.error('Error parsing message')
+                }
             })
         })
 
