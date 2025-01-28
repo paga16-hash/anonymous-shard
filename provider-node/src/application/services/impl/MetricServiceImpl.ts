@@ -13,7 +13,7 @@ export class MetricServiceImpl implements MetricService {
             case EventType.METRIC_AVAILABLE:
                 const metricAvailableEvent: MetricAvailableEvent = event as MetricAvailableEvent
                 this.updateKnownMetrics(event.peerId, metricAvailableEvent.metric)
-                console.log('KNOWN METRICS:', this.knownMetrics)
+                console.log('KNOWN METRICS:', this.knownMetrics.size)
                 break
             default:
                 console.error('Unrecognized or not supported event type', event.type)

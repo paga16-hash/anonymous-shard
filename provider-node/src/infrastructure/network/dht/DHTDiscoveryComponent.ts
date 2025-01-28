@@ -20,9 +20,9 @@ export class DHTDiscoveryComponent implements DiscoveryComponent {
         id: string,
         bootstrapNodes: Map<string, number>,
         sender: (address: string, message: string) => Promise<void>,
-        bucketSize: number = 20,
+        bucketSize: number = 30,
         gossipInterval: number = 10000,
-        pingInterval: number = 120000
+        pingInterval: number = 20000
     ) {
         this.id = id
         this.bucketSize = bucketSize
