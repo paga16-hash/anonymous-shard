@@ -1,3 +1,29 @@
+## [1.3.0](https://github.com/paga16-hash/anonymous-shard/compare/v1.2.1...v1.3.0) (2025-01-28)
+
+### Features
+
+* change demo, tune dht interval component and remove logs ([6761d39](https://github.com/paga16-hash/anonymous-shard/commit/6761d3979664b8d8c7abbae977e56dc9d392f121))
+
+
+## [1.3.0](https://github.com/paga16-hash/anonymous-shard/compare/v1.2.1...v1.3.0) (2025-01-28)
+
+### Features
+
+* change demo, tune dht interval component and remove logs ([6761d39](https://github.com/paga16-hash/anonymous-shard/commit/6761d3979664b8d8c7abbae977e56dc9d392f121))
+
+## [1.3.0](https://github.com/paga16-hash/anonymous-shard/compare/v1.2.1...v1.3.0) (2025-01-28)
+
+### Features
+
+* change demo, tune dht interval component and remove logs ([6761d39](https://github.com/paga16-hash/anonymous-shard/commit/6761d3979664b8d8c7abbae977e56dc9d392f121))
+
+
+## [1.3.0](https://github.com/paga16-hash/anonymous-shard/compare/v1.2.1...v1.3.0) (2025-01-28)
+
+### Features
+
+* change demo, tune dht interval component and remove logs ([6761d39](https://github.com/paga16-hash/anonymous-shard/commit/6761d3979664b8d8c7abbae977e56dc9d392f121))
+
 ## [1.2.1](https://github.com/paga16-hash/anonymous-shard/compare/v1.2.0...v1.2.1) (2025-01-27)
 
 ### Bug Fixes
