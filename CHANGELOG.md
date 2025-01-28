@@ -1,3 +1,53 @@
+## [1.4.0](https://github.com/paga16-hash/anonymous-shard/compare/v1.3.0...v1.4.0) (2025-01-28)
+
+### Features
+
+* tune intervals for anonymity ([390b97d](https://github.com/paga16-hash/anonymous-shard/commit/390b97da2a890b3422f978edda70457b8884b9b9))
+
+### Bug Fixes
+
+* chunk max dimension ([f14c7df](https://github.com/paga16-hash/anonymous-shard/commit/f14c7df78b820b6637114faf102c702b2e334773))
+
+### Style improvements
+
+* format ([123ddf1](https://github.com/paga16-hash/anonymous-shard/commit/123ddf13520163aea9187439a091840e29486e23))
+
+
+## [1.4.0](https://github.com/paga16-hash/anonymous-shard/compare/v1.3.0...v1.4.0) (2025-01-28)
+
+### Features
+
+* tune intervals for anonymity ([390b97d](https://github.com/paga16-hash/anonymous-shard/commit/390b97da2a890b3422f978edda70457b8884b9b9))
+
+### Bug Fixes
+
+* chunk max dimension ([f14c7df](https://github.com/paga16-hash/anonymous-shard/commit/f14c7df78b820b6637114faf102c702b2e334773))
+
+## [1.4.0](https://github.com/paga16-hash/anonymous-shard/compare/v1.3.0...v1.4.0) (2025-01-28)
+
+### Features
+
+* tune intervals for anonymity ([390b97d](https://github.com/paga16-hash/anonymous-shard/commit/390b97da2a890b3422f978edda70457b8884b9b9))
+
+### Bug Fixes
+
+* chunk max dimension ([f14c7df](https://github.com/paga16-hash/anonymous-shard/commit/f14c7df78b820b6637114faf102c702b2e334773))
+
+### Style improvements
+
+* format ([123ddf1](https://github.com/paga16-hash/anonymous-shard/commit/123ddf13520163aea9187439a091840e29486e23))
+
+
+## [1.4.0](https://github.com/paga16-hash/anonymous-shard/compare/v1.3.0...v1.4.0) (2025-01-28)
+
+### Features
+
+* tune intervals for anonymity ([390b97d](https://github.com/paga16-hash/anonymous-shard/commit/390b97da2a890b3422f978edda70457b8884b9b9))
+
+### Bug Fixes
+
+* chunk max dimension ([f14c7df](https://github.com/paga16-hash/anonymous-shard/commit/f14c7df78b820b6637114faf102c702b2e334773))
+
 ## [1.3.0](https://github.com/paga16-hash/anonymous-shard/compare/v1.2.1...v1.3.0) (2025-01-28)
 
 ### Features
