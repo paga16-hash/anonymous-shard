@@ -1,8 +1,8 @@
-import {createServer, Server, Socket} from 'net'
-import {Socks5Config} from './Socks5Config.js'
-import {SocksClient} from 'socks'
-import {Transport} from '../Transport.js'
-import {DomainEvent} from '../../../domain/events/DomainEvent.js'
+import { createServer, Server, Socket } from 'net'
+import { Socks5Config } from './Socks5Config.js'
+import { SocksClient } from 'socks'
+import { Transport } from '../Transport.js'
+import { DomainEvent } from '../../../domain/events/DomainEvent.js'
 
 export class Socks5Transport implements Transport {
     private readonly config: Socks5Config
@@ -35,7 +35,7 @@ export class Socks5Transport implements Transport {
                     this.handler(JSON.parse(data.toString()) as unknown as DomainEvent)
                     //TODO this.handler(presentationLayer.parseEvent(data));
                 } catch (error) {
-                    console.error('Error parsing message')
+                    console.error('Error parsing event')
                 }
             })
         })

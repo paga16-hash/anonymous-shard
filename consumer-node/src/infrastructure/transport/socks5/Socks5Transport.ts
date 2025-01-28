@@ -56,8 +56,12 @@ export class Socks5Transport implements Transport {
   async listen(address: string, port: number): Promise<void> {
     const server: Server = createServer((socket: Socket): void => {
       socket.on('data', (data: Buffer): void => {
-        this.handler(JSON.parse(data.toString()) as unknown as DomainEvent)
-        //TODO this.handler(presentationLayer.parseEvent(data));
+        try {
+          this.handler(JSON.parse(data.toString()) as unknown as DomainEvent)
+          //TODO this.handler(presentationLayer.parseEvent(data));
+        } catch (error) {
+          console.error('Error parsing event')
+        }
       })
     })
 

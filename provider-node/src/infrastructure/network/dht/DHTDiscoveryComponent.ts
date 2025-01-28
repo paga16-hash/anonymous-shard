@@ -14,15 +14,15 @@ export class DHTDiscoveryComponent implements DiscoveryComponent {
     private readonly gossipInterval: number
     private readonly pingInterval: number
     private readonly sender: (address: string, message: string) => Promise<void>
-    private readonly COLD_START_INTERVAL: number = 5000
+    private readonly COLD_START_INTERVAL: number = 6000
 
     constructor(
         id: string,
         bootstrapNodes: Map<string, number>,
         sender: (address: string, message: string) => Promise<void>,
         bucketSize: number = 30,
-        gossipInterval: number = 10000,
-        pingInterval: number = 20000
+        gossipInterval: number = 20000,
+        pingInterval: number = 40000
     ) {
         this.id = id
         this.bucketSize = bucketSize
