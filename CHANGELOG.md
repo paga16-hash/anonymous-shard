@@ -1,3 +1,39 @@
+## [1.5.0](https://github.com/paga16-hash/anonymous-shard/compare/v1.4.0...v1.5.0) (2025-01-29)
+
+### Features
+
+* transport layer support ([c114308](https://github.com/paga16-hash/anonymous-shard/commit/c1143080aedbbf9bf8595bb86e23154686af6564))
+
+### Style improvements
+
+* format ([4e1b9aa](https://github.com/paga16-hash/anonymous-shard/commit/4e1b9aa68a98388f7f35ab20411b7b6b03befcf7))
+* format ([d8ebc6e](https://github.com/paga16-hash/anonymous-shard/commit/d8ebc6eca15ffcabfcfd3a8e5f4195f51ff0bda3))
+
+
+## [1.5.0](https://github.com/paga16-hash/anonymous-shard/compare/v1.4.0...v1.5.0) (2025-01-29)
+
+### Features
+
+* transport layer support ([c114308](https://github.com/paga16-hash/anonymous-shard/commit/c1143080aedbbf9bf8595bb86e23154686af6564))
+
+## [1.5.0](https://github.com/paga16-hash/anonymous-shard/compare/v1.4.0...v1.5.0) (2025-01-29)
+
+### Features
+
+* transport layer support ([c114308](https://github.com/paga16-hash/anonymous-shard/commit/c1143080aedbbf9bf8595bb86e23154686af6564))
+
+### Style improvements
+
+* format ([4e1b9aa](https://github.com/paga16-hash/anonymous-shard/commit/4e1b9aa68a98388f7f35ab20411b7b6b03befcf7))
+* format ([d8ebc6e](https://github.com/paga16-hash/anonymous-shard/commit/d8ebc6eca15ffcabfcfd3a8e5f4195f51ff0bda3))
+
+
+## [1.5.0](https://github.com/paga16-hash/anonymous-shard/compare/v1.4.0...v1.5.0) (2025-01-29)
+
+### Features
+
+* transport layer support ([c114308](https://github.com/paga16-hash/anonymous-shard/commit/c1143080aedbbf9bf8595bb86e23154686af6564))
+
 ## [1.4.0](https://github.com/paga16-hash/anonymous-shard/compare/v1.3.0...v1.4.0) (2025-01-28)
 
 ### Features
