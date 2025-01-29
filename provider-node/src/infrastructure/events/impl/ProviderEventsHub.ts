@@ -159,20 +159,30 @@ export class ProviderEventsHub implements EventsHub {
      * Send a message directly to an address
      * @param address the address to send the message to
      * @param domainEvent the domain event to send to the address
+     * @param retries the number of times to retry sending the message
+     * @param delay the delay between retries, multiplied by 2 each retry
      * @private
      */
-    private async directPublish(address: string, domainEvent: DomainEvent): Promise<void> {
-        if (this.transportManager) {
-            await this.transportManager
-                .sendToPeer(address, JSON.stringify(domainEvent))
-                .then((): void => {
-                    console.log('Message sent to ' + address)
-                })
-                .catch((err: any): void => {
-                    console.error('Error sending message to ' + address, err)
-                })
-        } else {
-            console.error('No transport manager available to directly publish message')
+    private async directPublish(
+        address: string,
+        domainEvent: DomainEvent,
+        retries: number = 4,
+        delay: number = 5000
+    ): Promise<void> {
+        if (!this.transportManager) {
+            console.error('No transport manager available to directly publish message');
+            return;
+        }
+        try {
+            await this.transportManager.sendToPeer(address, JSON.stringify(domainEvent));
+            console.log('Message sent to ' + address);
+        } catch (err) {
+            if (retries > 0) {
+                console.error(`Error sending message to ${address}, retrying in ${delay / 1000} sec...`, err);
+                setTimeout(() => this.directPublish(address, domainEvent, retries - 1, delay * 2), delay);
+            } else {
+                console.error(`Failed to send message to ${address} after multiple attempts.`);
+            }
         }
     }
 }
