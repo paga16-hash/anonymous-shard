@@ -1,3 +1,37 @@
+## [1.6.0](https://github.com/paga16-hash/anonymous-shard/compare/v1.5.0...v1.6.0) (2025-01-29)
+
+### Features
+
+* add script for anonymous mode and add retry mechanism to direct communication ([138e88e](https://github.com/paga16-hash/anonymous-shard/commit/138e88e1dda7bfabe96abc3a78a892a6fbe04acb))
+
+### Style improvements
+
+* format ([5915787](https://github.com/paga16-hash/anonymous-shard/commit/591578713b616b972c840f1748a9606b9a9842ec))
+
+
+## [1.6.0](https://github.com/paga16-hash/anonymous-shard/compare/v1.5.0...v1.6.0) (2025-01-29)
+
+### Features
+
+* add script for anonymous mode and add retry mechanism to direct communication ([138e88e](https://github.com/paga16-hash/anonymous-shard/commit/138e88e1dda7bfabe96abc3a78a892a6fbe04acb))
+
+## [1.6.0](https://github.com/paga16-hash/anonymous-shard/compare/v1.5.0...v1.6.0) (2025-01-29)
+
+### Features
+
+* add script for anonymous mode and add retry mechanism to direct communication ([138e88e](https://github.com/paga16-hash/anonymous-shard/commit/138e88e1dda7bfabe96abc3a78a892a6fbe04acb))
+
+### Style improvements
+
+* format ([5915787](https://github.com/paga16-hash/anonymous-shard/commit/591578713b616b972c840f1748a9606b9a9842ec))
+
+
+## [1.6.0](https://github.com/paga16-hash/anonymous-shard/compare/v1.5.0...v1.6.0) (2025-01-29)
+
+### Features
+
+* add script for anonymous mode and add retry mechanism to direct communication ([138e88e](https://github.com/paga16-hash/anonymous-shard/commit/138e88e1dda7bfabe96abc3a78a892a6fbe04acb))
+
 ## [1.5.0](https://github.com/paga16-hash/anonymous-shard/compare/v1.4.0...v1.5.0) (2025-01-29)
 
 ### Features
