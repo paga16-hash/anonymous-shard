@@ -16,13 +16,16 @@ export class TransportManagerImpl implements TransportManager {
    */
   async sendToPeer(address: string, message: string): Promise<void> {
     try {
-      const socket: Socket = (await this.transport.dial(address))!
-      socket.write(JSON.stringify(message))
-      socket.end()
-      //console.log(`[TransportManager] Message sent to ${address}`);
+      const socket: Socket = (await this.transport.dial(address))!;
+      const jsonString: string = JSON.stringify(message);
+      //Fix buffer length
+      const lengthBuffer: Buffer = Buffer.alloc(4);
+      lengthBuffer.writeUInt32BE(Buffer.byteLength(jsonString), 0);
+      socket.write(Buffer.concat([lengthBuffer, Buffer.from(jsonString)]));
+      socket.end();
     } catch (error) {
-      console.error(`[TransportManager] Failed to send message to ${address}:`, error)
-      throw error
+      console.error(`[TransportManager] Failed to send message to ${address}:`, error);
+      throw error;
     }
   }
 

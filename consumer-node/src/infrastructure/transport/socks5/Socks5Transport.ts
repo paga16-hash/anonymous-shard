@@ -55,14 +55,31 @@ export class Socks5Transport implements Transport {
    */
   async listen(address: string, port: number): Promise<void> {
     const server: Server = createServer((socket: Socket): void => {
-      socket.on('data', (data: Buffer): void => {
-        try {
-          this.handler(JSON.parse(data.toString()) as unknown as DomainEvent)
-          //TODO this.handler(presentationLayer.parseEvent(data));
-        } catch (error) {
-          console.error('Error parsing event')
+      // Create a buffer to tmp store the incoming data
+      let buffer: Buffer = Buffer.alloc(0);
+
+      socket.on('data', (chunk: Buffer): void => {
+        buffer = Buffer.concat([buffer, chunk]);
+
+        // Assume length-prefix protocol, same for the sender
+        while (buffer.length >= 4) {
+          const messageLength: number = buffer.readUInt32BE(0);
+
+          if (buffer.length >= 4 + messageLength) {
+            const rawMessage: string = buffer.subarray(4, 4 + messageLength).toString();
+            buffer = buffer.subarray(4 + messageLength);
+            try {
+              const message = JSON.parse(rawMessage);
+              this.handler(message as unknown as DomainEvent)
+              //TODO: add presentation layer for validation
+            } catch (error) {
+              console.error('Error parsing event:', error);
+            }
+          } else {
+            break; // Wait for next chunk(s)
+          }
         }
-      })
+      });
     })
 
     server.listen(port, (): void => {
