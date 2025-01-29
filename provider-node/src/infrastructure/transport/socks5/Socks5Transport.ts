@@ -1,8 +1,8 @@
-import {createServer, Server, Socket} from 'net'
-import {Socks5Config} from './Socks5Config.js'
-import {SocksClient} from 'socks'
-import {Transport} from '../Transport.js'
-import {DomainEvent} from '../../../domain/events/DomainEvent.js'
+import { createServer, Server, Socket } from 'net'
+import { Socks5Config } from './Socks5Config.js'
+import { SocksClient } from 'socks'
+import { Transport } from '../Transport.js'
+import { DomainEvent } from '../../../domain/events/DomainEvent.js'
 
 export class Socks5Transport implements Transport {
     private readonly config: Socks5Config
@@ -32,30 +32,30 @@ export class Socks5Transport implements Transport {
             // Here you can add every default event that you want to the socket, like 'connect', 'end', etc..
 
             // Create a buffer to tmp store the incoming data
-            let buffer: Buffer = Buffer.alloc(0);
+            let buffer: Buffer = Buffer.alloc(0)
 
             socket.on('data', (chunk: Buffer): void => {
-                buffer = Buffer.concat([buffer, chunk]);
+                buffer = Buffer.concat([buffer, chunk])
 
                 // Assume length-prefix protocol, same for the sender
                 while (buffer.length >= 4) {
-                    const messageLength: number = buffer.readUInt32BE(0);
+                    const messageLength: number = buffer.readUInt32BE(0)
 
                     if (buffer.length >= 4 + messageLength) {
-                        const rawMessage: string = buffer.subarray(4, 4 + messageLength).toString();
-                        buffer = buffer.subarray(4 + messageLength);
+                        const rawMessage: string = buffer.subarray(4, 4 + messageLength).toString()
+                        buffer = buffer.subarray(4 + messageLength)
                         try {
-                            const message = JSON.parse(rawMessage);
+                            const message = JSON.parse(rawMessage)
                             this.handler(message as unknown as DomainEvent)
                             //TODO: add presentation layer for validation
                         } catch (error) {
-                            console.error('Error parsing event:', error);
+                            console.error('Error parsing event:', error)
                         }
                     } else {
-                        break; // Wait for next chunk(s)
+                        break // Wait for next chunk(s)
                     }
                 }
-            });
+            })
         })
 
         server.listen(port, (): void => {
