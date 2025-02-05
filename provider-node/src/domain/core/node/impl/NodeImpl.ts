@@ -7,8 +7,8 @@ import { TransportManager } from '../../../../infrastructure/transport/Transport
 import { Socks5Transport } from '../../../../infrastructure/transport/socks5/Socks5Transport.js'
 import { TaskEvent } from '../../../events/task/TaskEvent.js'
 import { SocketTransport } from '../../../../infrastructure/transport/socket/SocketTransport.js'
-import { DHTDiscoveryComponent } from '../../../../infrastructure/network/dht/DHTDiscoveryComponent.js'
-import { DiscoveryComponent } from '../../../../infrastructure/network/DiscoveryComponent.js'
+import { DHTDiscoveryComponent } from '../../../../infrastructure/discovery/dht/DHTDiscoveryComponent.js'
+import { DiscoveryComponent } from '../../../../infrastructure/discovery/DiscoveryComponent.js'
 import { DiscoveryEvent } from '../../../events/discovery/DiscoveryEvent.js'
 import { TransportManagerImpl } from '../../../../infrastructure/transport/impl/TransportManagerImpl.js'
 

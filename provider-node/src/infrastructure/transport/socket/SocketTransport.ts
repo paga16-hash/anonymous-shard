@@ -27,19 +27,32 @@ export class SocketTransport implements Transport {
      */
     async listen(address: string, port: number): Promise<void> {
         const server: Server = createServer((socket: Socket): void => {
-            //console.log(`Connection from ${socket.remoteAddress}:${socket.remotePort}`);
-            /*socket.on('connect', (): void => {
-                console.log('Connection established with', socket.remoteAddress);
-            });*/
+            let buffer: Buffer = Buffer.alloc(0)
 
-            socket.on('data', (data: Buffer): void => {
-                this.handler(JSON.parse(data.toString()) as unknown as DomainEvent)
-                //TODO this.handler(presentationLayer.parseEvent(data));
+            socket.on('data', (chunk: Buffer): void => {
+                buffer = Buffer.concat([buffer, chunk])
+
+                // Assume length-prefix protocol, same for the sender
+                while (buffer.length >= 4) {
+                    const messageLength: number = buffer.readUInt32BE(0)
+
+                    if (buffer.length >= 4 + messageLength) {
+                        const rawMessage: string = buffer.subarray(4, 4 + messageLength).toString()
+                        buffer = buffer.subarray(4 + messageLength)
+                        try {
+                            const message = JSON.parse(rawMessage)
+                            this.handler(message as unknown as DomainEvent)
+                            //TODO: add presentation layer for validation
+                        } catch (error) {
+                            console.error('Error parsing event:', error)
+                        }
+                    } else {
+                        break // Wait for next chunk(s)
+                    }
+                }
             })
 
-            /*socket.on('end', (): void => {
-                console.log('Connection ended with ', socket.remoteAddress);
-            });*/
+            /*example: socket.on('end',callback);*/
         })
 
         server.listen(port, (): void => {
@@ -66,15 +79,12 @@ export class SocketTransport implements Transport {
 
         while (attempt < maxRetries) {
             attempt++
-            //console.log(`Attempt ${attempt}: Trying to dial ${address} directly...`);
 
             try {
-                //console.log(`Dialing ${address}:${port}...`);
                 const socket: Socket = new Socket()
                 socket.connect(port, address)
                 return new Promise((resolve, reject): void => {
                     socket.once('connect', (): void => {
-                        //console.log('Connected to target.');
                         resolve(socket)
                     })
 
@@ -84,9 +94,7 @@ export class SocketTransport implements Transport {
                     })
                 })
             } catch (err) {
-                //console.error(`Attempt ${attempt} failed`);//: , err
                 if (attempt < maxRetries) {
-                    //console.log(`Retrying in ${this.config.sleepOnError / 1000} seconds...`);
                     await new Promise(
                         (resolve): NodeJS.Timeout => setTimeout(resolve, this.config.sleepOnError)
                     )

@@ -6,9 +6,6 @@ interface TaskService {
   + getActiveTasks(): Promise<Task[]>
   + getPendingTasks(): Promise<Task[]>
   + getFailedTask(taskId: TaskId): Promise<Task>
-  + pushTask(task: Task): void
-  + interruptTask(taskId: TaskId): void
-  + deleteTask(taskId: TaskId): void
 }
 
 interface TaskExecutor {
@@ -44,17 +41,7 @@ interface TaskFactory {
 TaskFactory -left-> Task : creates
 
 interface Task {
-    + getId(): TaskId
-    + getStatus(): TaskStatus
-    + getResult(): string
-    + setResult(result: string): void
-    + setStatus(status: TaskStatus): void
-    + getDetails(): string
-    + setDetails(details: string): void
-    + getCreatedAt(): Date
-    + setCreatedAt(date: Date): void
-    + getUpdatedAt(): Date
-    + setUpdatedAt(date: Date): void
+
 }
 note bottom of Task : Entity
 Task o-left- TaskStatus

@@ -1,7 +1,7 @@
 import { Socket } from 'net'
 import { TransportManager } from '../TransportManager.js'
-import { DiscoveryComponent } from '../../network/DiscoveryComponent.js'
-import { DHTDiscoveryComponent } from '../../network/dht/DHTDiscoveryComponent.js'
+import { DiscoveryComponent } from '../../discovery/DiscoveryComponent.js'
+import { DHTDiscoveryComponent } from '../../discovery/dht/DHTDiscoveryComponent.js'
 import { Transport } from '../Transport.js'
 
 export class TransportManagerImpl implements TransportManager {

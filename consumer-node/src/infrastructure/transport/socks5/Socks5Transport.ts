@@ -31,23 +31,6 @@ export class Socks5Transport implements Transport {
   }
 
   /**
-   * Add a mapping from an onion address to a port.
-   * @param address the onion address
-   * @param port the port to map to
-   */
-  addAddressMapping(address: string, port: number): void {
-    this.config.addressMap.set(address, port)
-  }
-
-  /**
-   * Remove a mapping from an onion address.
-   * @param onion the onion address
-   */
-  removeAddressMapping(onion: string): void {
-    this.config.addressMap.delete(onion)
-  }
-
-  /**
    * Listen on the given address.
    * @example await transport.listen(multiaddr('your-onion-address'))
    * @param address the address to listen on

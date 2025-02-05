@@ -1,0 +1,15 @@
+@startuml
+
+class MetricBasedTaskEvaluator {
+    - calculateScore(metric: Metric): number
+}
+
+interface TaskEvaluator {
+    + evaluate(task: Task): Promise<boolean>
+    + getCandidates(task: Task, n: number): Promise<string[]>
+}
+
+
+MetricBasedTaskEvaluator ..|> TaskEvaluator
+
+@enduml

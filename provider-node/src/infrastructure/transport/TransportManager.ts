@@ -1,4 +1,4 @@
-import { DiscoveryComponent } from '../network/DiscoveryComponent.js'
+import { DiscoveryComponent } from '../discovery/DiscoveryComponent.js'
 
 export interface TransportManager {
     /**

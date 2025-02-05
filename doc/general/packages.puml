@@ -1,0 +1,42 @@
+@startuml
+
+package Domain {
+
+  package Core {
+    entity Entity {}
+
+    entity EntityId {}
+  }
+  package Factories {
+    entity EntityFactory
+  }
+
+  package Repositories {
+    entity EntityRepository
+  }
+}
+
+package Application {
+  entity EntityService
+  entity BusinessLogicEvents
+}
+
+note bottom of Application: Executors, Evaluators and subservices \nare part of the Application layer
+
+package Infrastructure {
+  package Storage {
+    entity EntityRepositoryImpl
+  }
+  package Api {}
+  package Events {
+    entity BusinessLogicEventsImpl
+  }
+}
+
+EntityId -left-* Entity
+EntityFactory -down-> Entity : creates
+EntityRepository -down-> Entity : stores
+EntityService -right-> Domain : uses
+EntityRepositoryImpl --|> EntityRepository
+BusinessLogicEventsImpl --|> BusinessLogicEvents
+@enduml

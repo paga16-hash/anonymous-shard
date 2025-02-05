@@ -1,0 +1,48 @@
+@startuml
+
+class DHTDiscoveryService {
+    - id: string
+    - bucketSize: number
+    - buckets: Map<number, Map<string, number>>
+    - gossipInterval: number
+    - pingInterval: number
+    - sender: (address: string, message: string) => Promise<void>
+    - COLD_START_INTERVAL: number = 6000
+    - respondToDiscover(senderAddress: string): Promise<void>
+    - updateRoutingTable(peerAddresses: string[]): void
+    - xorDistance(a: string, b: string): number
+}
+
+note right of DHTDiscoveryService: DHT-based\nPeer Discovery implementation.\nKept only the private methods\nfor semplicity but to understood
+
+interface DiscoveryService {
+    + getAddresses(): string[]
+    + addAddressMapping(address: string, port: number): void
+    + removeAddressMapping(address: string): void
+    + joinNetwork(): Promise<void>
+    + handleDiscoveryEvent(discoveryEvent: PeerDiscoveryEvent): Promise<void>
+}
+
+class PeerDiscoveryEvent {
+    + type: EventType
+    + senderId: string
+}
+
+class DiscoveryResponseEvent {
+    + peers: string[]
+}
+
+class DiscoveryEventFactory {
+    + discoveryEventFrom(id: string): DiscoveryEvent
+    + discoveryResponseEventFrom(id: string, peers: string[]): DiscoveryResponseEvent
+    + pingEventFrom(id: string): PingEvent
+    + gossipEventFrom(id: string, peers: string[]): DiscoveryResponseEvent
+}
+
+
+DHTDiscoveryService ..|> DiscoveryService : implements
+DHTDiscoveryService --> DiscoveryEventFactory : uses
+DiscoveryEventFactory --> PeerDiscoveryEvent : creates
+DiscoveryEventFactory --> DiscoveryResponseEvent : creates
+
+@enduml
