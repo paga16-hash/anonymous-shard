@@ -1,3 +1,41 @@
+## [1.7.0](https://github.com/paga16-hash/anonymous-shard/compare/v1.6.0...v1.7.0) (2025-02-07)
+
+### Features
+
+* add other scripts ([a4ea69f](https://github.com/paga16-hash/anonymous-shard/commit/a4ea69fdfff68a5b878f4f3b5e5e12392d8f4bad))
+
+### General maintenance
+
+* packet split also for local demos ([b5fd0fd](https://github.com/paga16-hash/anonymous-shard/commit/b5fd0fdff9b28fd6fdd2e62fcbead57e22af8253))
+* remove useless dependecies: libp2p ([a729c5e](https://github.com/paga16-hash/anonymous-shard/commit/a729c5e7a6b5913a775254b5401ad1616940d25b))
+* update deploy script to make also local demos ([954d3ed](https://github.com/paga16-hash/anonymous-shard/commit/954d3ed03d00738e7d9a6cc410b6eb2f7b0f1ceb))
+
+
+## [1.7.0](https://github.com/paga16-hash/anonymous-shard/compare/v1.6.0...v1.7.0) (2025-02-07)
+
+### Features
+
+* add other scripts ([a4ea69f](https://github.com/paga16-hash/anonymous-shard/commit/a4ea69fdfff68a5b878f4f3b5e5e12392d8f4bad))
+
+## [1.7.0](https://github.com/paga16-hash/anonymous-shard/compare/v1.6.0...v1.7.0) (2025-02-07)
+
+### Features
+
+* add other scripts ([a4ea69f](https://github.com/paga16-hash/anonymous-shard/commit/a4ea69fdfff68a5b878f4f3b5e5e12392d8f4bad))
+
+### General maintenance
+
+* packet split also for local demos ([b5fd0fd](https://github.com/paga16-hash/anonymous-shard/commit/b5fd0fdff9b28fd6fdd2e62fcbead57e22af8253))
+* remove useless dependecies: libp2p ([a729c5e](https://github.com/paga16-hash/anonymous-shard/commit/a729c5e7a6b5913a775254b5401ad1616940d25b))
+* update deploy script to make also local demos ([954d3ed](https://github.com/paga16-hash/anonymous-shard/commit/954d3ed03d00738e7d9a6cc410b6eb2f7b0f1ceb))
+
+
+## [1.7.0](https://github.com/paga16-hash/anonymous-shard/compare/v1.6.0...v1.7.0) (2025-02-07)
+
+### Features
+
+* add other scripts ([a4ea69f](https://github.com/paga16-hash/anonymous-shard/commit/a4ea69fdfff68a5b878f4f3b5e5e12392d8f4bad))
+
 ## [1.6.0](https://github.com/paga16-hash/anonymous-shard/compare/v1.5.0...v1.6.0) (2025-01-29)
 
 ### Features
