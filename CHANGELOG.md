@@ -1,3 +1,33 @@
+## [1.7.1](https://github.com/paga16-hash/anonymous-shard/compare/v1.7.0...v1.7.1) (2025-02-11)
+
+### Documentation
+
+* uml and logo ([cb9185e](https://github.com/paga16-hash/anonymous-shard/commit/cb9185e86cf49822cd2181b101f8347d38a2b2d4))
+
+### General maintenance
+
+* doc logo ([5d965e7](https://github.com/paga16-hash/anonymous-shard/commit/5d965e7223612095a72e6edf706fb21b052549b4))
+* doc logo ([fe05025](https://github.com/paga16-hash/anonymous-shard/commit/fe05025665e0e7867f3e6ba0f5e53ccfc548809f))
+* logo also for prov ([0fe9b0d](https://github.com/paga16-hash/anonymous-shard/commit/0fe9b0da4024bbd644c5becf98653b406d393f34))
+
+
+## [1.7.1](https://github.com/paga16-hash/anonymous-shard/compare/v1.7.0...v1.7.1) (2025-02-11)
+
+## [1.7.1](https://github.com/paga16-hash/anonymous-shard/compare/v1.7.0...v1.7.1) (2025-02-11)
+
+### Documentation
+
+* uml and logo ([cb9185e](https://github.com/paga16-hash/anonymous-shard/commit/cb9185e86cf49822cd2181b101f8347d38a2b2d4))
+
+### General maintenance
+
+* doc logo ([5d965e7](https://github.com/paga16-hash/anonymous-shard/commit/5d965e7223612095a72e6edf706fb21b052549b4))
+* doc logo ([fe05025](https://github.com/paga16-hash/anonymous-shard/commit/fe05025665e0e7867f3e6ba0f5e53ccfc548809f))
+* logo also for prov ([0fe9b0d](https://github.com/paga16-hash/anonymous-shard/commit/0fe9b0da4024bbd644c5becf98653b406d393f34))
+
+
+## [1.7.1](https://github.com/paga16-hash/anonymous-shard/compare/v1.7.0...v1.7.1) (2025-02-11)
+
 ## [1.7.0](https://github.com/paga16-hash/anonymous-shard/compare/v1.6.0...v1.7.0) (2025-02-07)
 
 ### Features
