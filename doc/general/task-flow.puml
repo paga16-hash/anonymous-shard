@@ -12,7 +12,7 @@ alt Can execute the task
     IPFS -> Peer1: Return content identifier
     Peer1 -> Consumer: Return information to retrieve the result
 else Cannot execute the task
-    Peer1 -> Peer2: Forward task to the best peer
+    Peer1 -> Peer2: Force forward task to the best peer
     Peer2 -> Peer2: Evaluate ability to execute the task
     Peer2 -> IPFS: Save result encrypted with public key
     IPFS -> Peer2: Return content identifier

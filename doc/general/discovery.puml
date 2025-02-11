@@ -1,0 +1,30 @@
+@startuml
+autonumber
+
+participant "New Node" as NN
+participant "Bootstrap Node" as BN
+participant "Known Peer 1" as P1
+participant "Known Peer 2" as P2
+
+loop Every "interval" seconds until bucket size is reached
+    NN -> BN : Request new peers to join the network
+    BN --> NN : Respond with random subset {P1, P2}
+
+    NN -> P1 : Request additional peers
+    P1 --> NN : Respond with {P3}
+
+    NN -> P2 : Request additional peers
+    P2 --> NN : No additional peers available
+
+end
+
+NN -> NN : Bucket size reached, switching to routing mode
+
+group Routing operations
+    NN -> P1 : Lookup key X
+    P1 --> NN : Forward request to next hop
+    NN -> P2 : Lookup key Y
+    P2 --> NN : Key Y found, return value
+end
+
+@enduml

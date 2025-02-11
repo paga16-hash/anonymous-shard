@@ -1,0 +1,18 @@
+@startuml
+autonumber
+
+participant "Client" as C
+participant "Server" as S
+
+loop Every 60 minutes for 24 hours
+    loop 100 times
+        C -> S : Send request
+        S --> C : Respond with data
+        C -> C : Log response time
+    end
+    C -> C : Compute average response time for this hour
+end
+
+C -> C : Plot results to identify peak and slow periods
+
+@enduml
