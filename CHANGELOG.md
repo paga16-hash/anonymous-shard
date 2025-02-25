@@ -1,3 +1,29 @@
+## [1.7.8](https://github.com/paga16-hash/anonymous-shard/compare/v1.7.7...v1.7.8) (2025-02-25)
+
+### Bug Fixes
+
+* **website:** add button and corrected link ([1b33192](https://github.com/paga16-hash/anonymous-shard/commit/1b33192709014164c94e500294f1a14f5232c3fb))
+
+
+## [1.7.8](https://github.com/paga16-hash/anonymous-shard/compare/v1.7.7...v1.7.8) (2025-02-25)
+
+### Bug Fixes
+
+* **website:** add button and corrected link ([1b33192](https://github.com/paga16-hash/anonymous-shard/commit/1b33192709014164c94e500294f1a14f5232c3fb))
+
+## [1.7.8](https://github.com/paga16-hash/anonymous-shard/compare/v1.7.7...v1.7.8) (2025-02-25)
+
+### Bug Fixes
+
+* **website:** add button and corrected link ([1b33192](https://github.com/paga16-hash/anonymous-shard/commit/1b33192709014164c94e500294f1a14f5232c3fb))
+
+
+## [1.7.8](https://github.com/paga16-hash/anonymous-shard/compare/v1.7.7...v1.7.8) (2025-02-25)
+
+### Bug Fixes
+
+* **website:** add button and corrected link ([1b33192](https://github.com/paga16-hash/anonymous-shard/commit/1b33192709014164c94e500294f1a14f5232c3fb))
+
 ## [1.7.7](https://github.com/paga16-hash/anonymous-shard/compare/v1.7.6...v1.7.7) (2025-02-25)
 
 ### Bug Fixes
