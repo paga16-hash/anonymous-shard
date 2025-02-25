@@ -1,10 +1,10 @@
 position: 30
-label: (Domain-Driven) Design
+label: Design
 collapsible: true
 collapsed: true
 className: red
 link:
     type: generated-index
-    title: (Domain-Driven) Design
+    title: Design
 customProps:
     description: A description of the design process
