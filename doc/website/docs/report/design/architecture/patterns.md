@@ -2,9 +2,7 @@
 title: Microservices patterns
 position: 2
 ---
-
 # Patterns
-
 ## Communication
 
 Several communication patterns are used in the system. When a user needs to communicate with their node (or peer) backend to exchange information, the **Remote Procedure Invocation** (request/response) pattern is used. This follows a **one-to-one** model. In contrast, the **Asynchronous Messaging** pattern (publish/subscribe) is employed when a peer needs to notify other components about an event, state change, or action.
