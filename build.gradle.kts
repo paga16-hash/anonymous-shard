@@ -78,16 +78,6 @@ tasks.register("npmInstallAll") {
 }
 
 
-
-
-
-
-
-
-
-
-
-
 val swaggerUI = "swagger-ui"
 val openAPI = "openapi"
 
@@ -145,7 +135,7 @@ subprojects {
             dependsOn(":download-swagger-ui")
             from(
                 rootProject.layout.projectDirectory
-                    .dir("docs")
+                    .dir("doc")
                     .dir("api")
                     .dir(openAPI)
                     .dir(project.name)
