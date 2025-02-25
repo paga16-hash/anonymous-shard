@@ -232,19 +232,11 @@ Section.
 
 The total is the sum of all contributing factors.
 
-$$
-T_{\text{Request}} = (T_{\text{Client} \to \text{Entry}} + T_{\text{Entry} \to \text{Relays}} + T_{\text{Relays} \to
-\text{Exit}} + T_{\text{Exit} \to \text{Server}})
-$$
+T_Request = T_Client to Entry + T_Entry to Relays + T_Relays to Exit + T_Exit to Server
 
-$$
-T_{\text{Response}} = (T_{\text{Server} \to \text{Exit}} + T_{\text{Exit} \to \text{Relays}} + T_{\text{Relays} \to
-\text{Entry}} + T_{\text{Entry} \to \text{Client}})
-$$
+T_Response = T_Server to Exit + T_Exit to Relays + T_Relays to Entry + T_Entry to Client
 
-$$
-RTT = T_{\text{Request}} + T_{\text{Response}}
-$$
+RTT = T_Request + T_Response
 
 Where each term includes network latency, encryption/decryption overhead, relay processing time, and congestion delays.
 
