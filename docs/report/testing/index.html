@@ -3,11 +3,380 @@
 <head>
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.5.2">
-<title data-rh="true">Self-assessment / Validation | Anonymous Shard</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://paga16-hash.github.io/anonymous-shard/img/docusaurus-social-card.jpg"><meta data-rh="true" name="twitter:image" content="https://paga16-hash.github.io/anonymous-shard/img/docusaurus-social-card.jpg"><meta data-rh="true" property="og:url" content="https://paga16-hash.github.io/anonymous-shard/docs/report/testing"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Self-assessment / Validation | Anonymous Shard"><link data-rh="true" rel="icon" href="/anonymous-shard/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://paga16-hash.github.io/anonymous-shard/docs/report/testing"><link data-rh="true" rel="alternate" href="https://paga16-hash.github.io/anonymous-shard/docs/report/testing" hreflang="en"><link data-rh="true" rel="alternate" href="https://paga16-hash.github.io/anonymous-shard/docs/report/testing" hreflang="x-default"><link rel="stylesheet" href="/anonymous-shard/assets/css/styles.87eb4ffa.css">
-<script src="/anonymous-shard/assets/js/runtime~main.4bffb6cb.js" defer="defer"></script>
-<script src="/anonymous-shard/assets/js/main.387d1076.js" defer="defer"></script>
+<title data-rh="true">Testing and Evaluation | Anonymous Shard</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://paga16-hash.github.io/anonymous-shard/img/docusaurus-social-card.jpg"><meta data-rh="true" name="twitter:image" content="https://paga16-hash.github.io/anonymous-shard/img/docusaurus-social-card.jpg"><meta data-rh="true" property="og:url" content="https://paga16-hash.github.io/anonymous-shard/docs/report/testing"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Testing and Evaluation | Anonymous Shard"><meta data-rh="true" name="description" content="In this chapter, the tests conducted on the system and the metrics used to evaluate its performance are analyzed."><meta data-rh="true" property="og:description" content="In this chapter, the tests conducted on the system and the metrics used to evaluate its performance are analyzed."><link data-rh="true" rel="icon" href="/anonymous-shard/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://paga16-hash.github.io/anonymous-shard/docs/report/testing"><link data-rh="true" rel="alternate" href="https://paga16-hash.github.io/anonymous-shard/docs/report/testing" hreflang="en"><link data-rh="true" rel="alternate" href="https://paga16-hash.github.io/anonymous-shard/docs/report/testing" hreflang="x-default"><link rel="stylesheet" href="/anonymous-shard/assets/css/styles.87eb4ffa.css">
+<script src="/anonymous-shard/assets/js/runtime~main.6201d8de.js" defer="defer"></script>
+<script src="/anonymous-shard/assets/js/main.add682fd.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
-<script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();t(null!==e?e:"light")}(),function(){try{const n=new URLSearchParams(window.location.search).entries();for(var[t,e]of n)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="navbar navbar--fixed-top"><div class="navbar__inner"><div class="navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/anonymous-shard/"><div class="navbar__logo"><img src="/anonymous-shard/img/logo.svg" alt="Anonymous Shard Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/anonymous-shard/img/logo.svg" alt="Anonymous Shard Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">Anonymous Shard</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/anonymous-shard/docs/category/report">Report</a></div><div class="navbar__items navbar__items--right"><a href="https://github.com/paga16-hash/anonymous-shard" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="Switch between dark and light mode (currently light mode)" aria-label="Switch between dark and light mode (currently light mode)" aria-live="polite"><svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" class="darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item red"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--active" href="/anonymous-shard/docs/category/report">Report</a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/anonymous-shard/docs/report/introduction">Introduction</a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed red"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist" tabindex="0" href="/anonymous-shard/docs/category/analysis">Analysis</a><button aria-label="Expand sidebar category &#x27;Analysis&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed red"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist" tabindex="0" href="/anonymous-shard/docs/category/domain-driven-design">(Domain-Driven) Design</a><button aria-label="Expand sidebar category &#x27;(Domain-Driven) Design&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed red"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist" tabindex="0" href="/anonymous-shard/docs/category/implementation">Implementation</a><button aria-label="Expand sidebar category &#x27;Implementation&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/anonymous-shard/docs/report/devops">DevOps</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/anonymous-shard/docs/report/testing">Self-assessment / Validation</a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed red"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist" tabindex="0" href="/anonymous-shard/docs/category/deployment">Deployment</a><button aria-label="Expand sidebar category &#x27;Deployment&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/anonymous-shard/docs/report/conclusions">Conclusions</a></li></ul></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs" itemscope="" itemtype="https://schema.org/BreadcrumbList"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/anonymous-shard/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li itemscope="" itemprop="itemListElement" itemtype="https://schema.org/ListItem" class="breadcrumbs__item"><a class="breadcrumbs__link" itemprop="item" href="/anonymous-shard/docs/category/report"><span itemprop="name">Report</span></a><meta itemprop="position" content="1"></li><li itemscope="" itemprop="itemListElement" itemtype="https://schema.org/ListItem" class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link" itemprop="name">Self-assessment / Validation</span><meta itemprop="position" content="2"></li></ul></nav><div class="theme-doc-markdown markdown"><header><h1>Self-assessment / Validation</h1></header></div></article><nav class="pagination-nav docusaurus-mt-lg" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/anonymous-shard/docs/report/devops"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">DevOps</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/anonymous-shard/docs/category/deployment"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Deployment</div></a></nav></div></div></div></div></main></div></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">Docs</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/anonymous-shard/docs/intro">Report</a></li><li class="footer__item"><a class="footer__link-item" href="/anonymous-shard/openapi">OpenAPI</a></li></ul></div><div class="col footer__col"><div class="footer__title">More</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/paga16-hash/anonymous-shard" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2025 Anonymous Shard. Built with Docusaurus.</div></div></div></footer></div>
+<script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();t(null!==e?e:"light")}(),function(){try{const n=new URLSearchParams(window.location.search).entries();for(var[t,e]of n)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="navbar navbar--fixed-top"><div class="navbar__inner"><div class="navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/anonymous-shard/"><div class="navbar__logo"><img src="/anonymous-shard/img/logo.svg" alt="Anonymous Shard Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/anonymous-shard/img/logo.svg" alt="Anonymous Shard Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">Anonymous Shard</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/anonymous-shard/docs/category/report">Report</a></div><div class="navbar__items navbar__items--right"><a href="https://github.com/paga16-hash/anonymous-shard" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="Switch between dark and light mode (currently light mode)" aria-label="Switch between dark and light mode (currently light mode)" aria-live="polite"><svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" class="darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item red"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--active" href="/anonymous-shard/docs/category/report">Report</a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/anonymous-shard/docs/report/introduction">Introduction</a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed red"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist" tabindex="0" href="/anonymous-shard/docs/category/analysis">Analysis</a><button aria-label="Expand sidebar category &#x27;Analysis&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed red"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist" tabindex="0" href="/anonymous-shard/docs/category/domain-driven-design">(Domain-Driven) Design</a><button aria-label="Expand sidebar category &#x27;(Domain-Driven) Design&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed red"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist" tabindex="0" href="/anonymous-shard/docs/category/implementation">Implementation</a><button aria-label="Expand sidebar category &#x27;Implementation&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/anonymous-shard/docs/report/devops">DevOps</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/anonymous-shard/docs/report/testing">Testing and Evaluation</a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed red"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist" tabindex="0" href="/anonymous-shard/docs/category/deployment">Deployment</a><button aria-label="Expand sidebar category &#x27;Deployment&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/anonymous-shard/docs/report/conclusions">Conclusions</a></li></ul></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs" itemscope="" itemtype="https://schema.org/BreadcrumbList"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/anonymous-shard/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li itemscope="" itemprop="itemListElement" itemtype="https://schema.org/ListItem" class="breadcrumbs__item"><a class="breadcrumbs__link" itemprop="item" href="/anonymous-shard/docs/category/report"><span itemprop="name">Report</span></a><meta itemprop="position" content="1"></li><li itemscope="" itemprop="itemListElement" itemtype="https://schema.org/ListItem" class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link" itemprop="name">Testing and Evaluation</span><meta itemprop="position" content="2"></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>Testing and Evaluation</h1></header>
+<p>In this chapter, the tests conducted on the system and the metrics used to evaluate its performance are analyzed.<br>
+<!-- -->The system has been tested under different configurations to assess various scenarios.</p>
+<p>For the first prototype, the tests are mainly focused on evaluating the system&#x27;s functionalities.<br>
+<!-- -->In contrast, the second prototype is designed specifically to assess the performance of the Tor network in terms of
+latency.<br>
+<!-- -->More importantly, the second prototype was developed to make general measurements on the Tor network; in this case, the
+following presented measurements are used to understand how the first prototype can behave.</p>
+<p>Specifically, the tests aim to determine the effectiveness of the system&#x27;s scalability, identify potential improvements,
+or evaluate additional components to handle a large number of nodes.<br>
+<!-- -->More generally, the goal is to assess the feasibility or understand the areas that need further development.</p>
+<p>Multiple scalability scenarios have been tested, ranging from a small number of nodes to a large-scale network to
+observe system behavior in different conditions.</p>
+<p>Other tests have been conducted to measure the Round Trip Time (RTT) between nodes in the network.<br>
+<!-- -->This factor can have a significant impact on message delivery and task execution time, specifically within the Tor
+network.<br>
+<!-- -->Knowing this value is crucial for evaluating system performance since every operation possibly involves multiple nodes.</p>
+<p>Furthermore, all tests are conducted in <strong>anonymous mode</strong>, as performing tests in a non-anonymous mode would not
+provide meaningful insights given the nature of the system.</p>
+<p>More efforts can be made to enhance and refine this evaluation phase as discussed in the Limitations Section and in the
+Future Test Extensions Section.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="scalability-test">Scalability Test<a href="#scalability-test" class="hash-link" aria-label="Direct link to Scalability Test" title="Direct link to Scalability Test">​</a></h2>
+<p>This test aims to evaluate how the system behaves as the number of nodes increases.<br>
+<!-- -->The primary focus is to determine the scalability of the network and assess whether an efficient discovery algorithm,
+such as Kademlia, enables effective scaling.<br>
+<!-- -->The discovery (explained in the Discovery Mechanism section) and task processing mechanism have been verified for
+networks of up to 100 producer nodes and 30 consumer nodes on the same machine.<br>
+<!-- -->The number of submitted task requests was set to 200, and the system was able to handle them without any issues.</p>
+<p>A key factor influencing system performance is the tuning of specific parameters.<br>
+<!-- -->Specifically, since the discovery mechanism uses a hash table, the number of nodes each node can store in its routing
+table is one of them.<br>
+<!-- -->This parameter is crucial as it directly impacts the number of hops a message must take to reach its destination.<br>
+<!-- -->Additionally, it affects the time required for node discovery and the overall network stability.</p>
+<p>To analyze these effects, the routing table bucket size has been varied from 10 to 70 nodes, observing the system&#x27;s
+behavior under different configurations.<br>
+<!-- -->A frontend view from the point of the <em>Producers</em> can be seen in Figure 1 and Figure 2 where different bucket sizes have
+been tested.</p>
+<p>Another critical aspect that emerged from this test is the importance of the <strong>Metric-Sharing interval</strong>, which
+determines how frequently nodes exchange resource metrics.<br>
+<!-- -->This parameter represents a trade-off:</p>
+<ol>
+<li>If the interval is too long, metric propagation slows down, potentially delaying decision-making and task execution.</li>
+<li>If the interval is too short, the network may become flooded with messages, leading to unnecessary overhead.</li>
+</ol>
+<p>A high Metric-Sharing interval can degrade system performance by increasing task execution times and reducing overall
+efficiency.<br>
+<!-- -->As discussed in previous chapters, the component responsible for evaluating task execution feasibility relies on
+up-to-date resource metrics to make informed decisions.<br>
+<!-- -->Since the current <em>Evaluator</em> logic is straightforward and selects the best node for execution based solely on available
+metrics, outdated information may lead to suboptimal decisions.</p>
+<p>The worst-case scenario occurs when the selected provider lacks updated knowledge.<br>
+<!-- -->If this provider appears to have the best metrics for executing the task but the system is unaware of it, the task is
+redirected to a suboptimal provider.<br>
+<!-- -->This introduces a delay due to the need for task redirection, and since the new provider is not the most suitable,
+additional execution delays occur.</p>
+<p>Ultimately, network consistency is crucial: nodes must maintain an updated view of the system&#x27;s state to ensure
+efficient resource sharing.<br>
+<!-- -->If metric propagation is too slow, task execution performance will suffer.<br>
+<!-- -->To analyze the time needed for specific task execution and the time required to send a message to another node, a series
+of tests analyzed in the Average RTT Test section were conducted.</p>
+<p>Briefly, important aspects that only regard the network are:</p>
+<ol>
+<li>The number of nodes in the network.</li>
+<li>The physical distance between nodes.</li>
+<li>The number of hops a message must traverse to reach its destination.</li>
+</ol>
+<p>Other problems can arise from the execution of the task itself, but in this case, where the system is tested in a
+controlled environment and the tasks were simple, the focus was on the network itself.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="encountered-problems">Encountered Problems<a href="#encountered-problems" class="hash-link" aria-label="Direct link to Encountered Problems" title="Direct link to Encountered Problems">​</a></h3>
+<p>No significant problems were encountered during the scalability tests, as the system was able to handle a large number
+of nodes efficiently,<br>
+<!-- -->but some considerations regarding the latency introduced by the Tor network need to be made.<br>
+<!-- -->The network latency is not a problem of the system itself, and as mentioned, this network is designed to provide
+anonymity by routing messages through multiple relays (adding encryption layers), so this behavior is expected.<br>
+<!-- -->However, it poses a challenge for our system, as it increases the time required for message delivery.</p>
+<p>One key observation is that, due to the way the Tor network operates, a new circuit is needed when the previous one is
+closed due to expiration, inactivity, or other problems.<br>
+<!-- -->The creation and switching of circuits contribute to the overall latency.<br>
+<!-- -->This is something to consider when evaluating system performance, as it can introduce significant delays in task
+execution.<br>
+<!-- -->In particular, it could justify cases in which, apparently for no reason, the task execution time is higher than
+expected.</p>
+<p>In this case and in general, if some messages fail to be delivered, or something happens in the network, the retry
+mechanism is triggered and the communication is re-established.<br>
+<!-- -->This mechanism is essential to ensure the system&#x27;s robustness and reliability, as it allows the system to recover from
+errors and continue functioning correctly.<br>
+<!-- -->The interval of the retry mechanism is a parameter that can be tuned to balance performance and reliability, or it can
+be multiplied by the number of retries to avoid network flooding.</p>
+<p>Another secondary issue encountered is related to an implementation detail.<br>
+<!-- -->As the network grows in size, nodes exchange larger packets about metrics or neighbors, as discussed in the Discovery
+Mechanism section.<br>
+<!-- -->These packets contain information about the node&#x27;s neighbors, and when the network is large, they can become
+fragmented.<br>
+<!-- -->The problem, which has been promptly resolved, was related to the reconstruction of the packet at the destination node
+when it was fragmented.<br>
+<!-- -->This issue was solved by prefixing the packet length at the beginning of the packet, allowing the receiver to determine
+when the packet was fully received and ready for processing.</p>
+<p>The problem was only encountered when scalability tests were performed because before, the local network&#x27;s neighbor
+packet size was too small to encounter this problem.</p>
+<p>Apart from these two issues, the tests were satisfactory because the system was able to handle a large number of nodes
+and tasks efficiently.<br>
+<!-- -->Also, in cases where nodes are manually turned off, the system was able to continue functioning correctly, demonstrating
+its robustness.<br>
+<!-- -->In this case, what could clearly be improved and analyzed is the behavior of the network when these nodes are
+distributed worldwide.<br>
+<!-- -->This is a problem that will be addressed in the future and discussed in the Future Test Extensions section.<br>
+<!-- -->The average time for message delivery will be analyzed in the Detailed Analysis section.</p>
+<p><img decoding="async" loading="lazy" alt="Bucket Size 50 reaching saturation" src="/anonymous-shard/assets/images/peer-scaling-1-245a0c10022895a21a37892ab0382c5d.png" width="2996" height="2174" class="img_ev3q"><br>
+<em>Figure 1: Bucket Size 50 reaching saturation</em></p>
+<p><img decoding="async" loading="lazy" alt="Bucket Size 70 saturated" src="/anonymous-shard/assets/images/peer-scaling-2-f5489ae0e709b1adb9aa0ed32c5d56cd.png" width="2996" height="2174" class="img_ev3q"><br>
+<em>Figure 2: Bucket Size 70 saturated</em></p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="average-rtt-test">Average RTT Test<a href="#average-rtt-test" class="hash-link" aria-label="Direct link to Average RTT Test" title="Direct link to Average RTT Test">​</a></h2>
+<p>A series of tests were conducted to measure the average Round Trip Time (RTT) between nodes in the network, with the
+final goal of estimating possible message delivery time values when dealing with a real-world scenario. RTT is a
+critical metric for evaluating system performance, as it directly impacts message delivery and task execution time. For
+this test, the specially created <em>Analyzer</em> prototype was used.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="process">Process<a href="#process" class="hash-link" aria-label="Direct link to Process" title="Direct link to Process">​</a></h3>
+<p>In this experiment, <em>Entry</em> and <em>Exit</em> nodes were used to measure the time taken for a message to traverse the Tor
+network. The Analyzer sends a message to the Entry node, which then forwards it to the Exit node. The total time taken
+for the message to reach its destination and return is recorded. To get a quite accurate average RTT value, a set of 50
+requests was repeated each hour of the day with a total of 1200 requests per configuration. The number of requests is a
+tunable parameter that can be increased to have a more accurate average value if needed or if the experiment needs to be
+repeated for any reason.</p>
+<p>At the end of the process, the measurements were averaged per hour, and charts were generated to visualize the results
+clearly and provide a comprehensive view. Moreover, the standard deviation was calculated to understand the variance in
+RTT values and identify potential outliers or noteworthy time spans.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="considerations">Considerations<a href="#considerations" class="hash-link" aria-label="Direct link to Considerations" title="Direct link to Considerations">​</a></h3>
+<p>Before analyzing the results or taking a look at the configurations, it is essential to consider how the measurements
+are obtained and the factors that can influence them. The tests have been conducted using a Dockerized environment,
+where two containers simulated the client and the server respectively.</p>
+<p>To better explain and understand the internal mechanisms, an example is examined. In the Russia-USA case, the client was
+explicitly configured to use an entry node in Russia (<em>EntryNodes ru</em>) and an exit node in the United States (
+<em>ExitNodes us</em>). The server was only configured to use an exit node in the United States (<em>ExitNodes us</em>). This
+setup ensured that all traffic was routed through the specified locations.</p>
+<p>Although both the client and the server have been hosted on a machine in Italy, which may introduce slight bias in the
+results, this setup effectively simulates a controlled observer-based measurement; however, it does not fully replicate
+a globally distributed scenario. Still, it offers valuable insights into Tor network performance across different
+geographic configurations.</p>
+<p>The experiment was repeated with different entry-exit node pairs across the various countries configurations.</p>
+<p>The results revealed significant differences in RTT depending on the geographic distance between the nodes and the
+specific countries involved, as expected. Circuits spanning longer distances generally exhibited higher latency, while
+those confined to geographically closer nodes showed lower RTT values. Time-based variations also highlighted the impact
+of network congestion, with peak latency periods aligning with high-traffic hours in certain regions.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="specific-measurement-process">Specific Measurement Process<a href="#specific-measurement-process" class="hash-link" aria-label="Direct link to Specific Measurement Process" title="Direct link to Specific Measurement Process">​</a></h3>
+<p>The total RTT consists of the time taken for a message to travel from the client to the server through the Tor network
+and back, but as mentioned, the client and the server were hosted in Italy. So, the RTT is not a simple client-server
+ping but involves a multistep process.</p>
+<p>The measurement, keeping the example of the USA-Russia configuration, can be divided into three main phases:</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="request">Request<a href="#request" class="hash-link" aria-label="Direct link to Request" title="Direct link to Request">​</a></h4>
+<p>Steps involved from the client to reach the server through the Tor network.</p>
+<ol>
+<li><strong>Client to Entry Node:</strong> Italy → RU</li>
+<li><strong>Entry Node to Relay Nodes:</strong> RU → Relays</li>
+<li><strong>Relay Nodes to Exit Node:</strong> Relays → US</li>
+<li><strong>Exit Node forwards to Server:</strong> US → Italy</li>
+</ol>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="response">Response<a href="#response" class="hash-link" aria-label="Direct link to Response" title="Direct link to Response">​</a></h4>
+<p>In this phase, the response is sent back to the client via the same Tor path.</p>
+<ol>
+<li><strong>Server forward through Exit Node:</strong> Italy → US</li>
+<li><strong>Exit Node to Relay Nodes:</strong> US → Relays</li>
+<li><strong>Relay Nodes to Entry Node:</strong> Relays → RU</li>
+<li><strong>Entry Node to Client:</strong> RU → Italy</li>
+</ol>
+<p>Note that Tor circuit routing time, relay selection, and forwarding are included in the measurements. Same for the relay
+processing delay and network propagation delay between relays.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="other-latency-factors">Other Latency Factors<a href="#other-latency-factors" class="hash-link" aria-label="Direct link to Other Latency Factors" title="Direct link to Other Latency Factors">​</a></h4>
+<p>Several other elements impact RTT measurements.</p>
+<ol>
+<li>
+<p><strong>Tor Network Congestion:</strong> Congestion within the Tor network can introduce additional delays, particularly when
+relays become overloaded due to high traffic volume at specific times or on certain routes. Another contributing
+factor is the limited bandwidth of exit nodes, which can further slow down data transmission when handling large
+amounts of traffic.</p>
+</li>
+<li>
+<p><strong>Operating System and Docker Overhead:</strong> Although not directly related to the Tor network, system-level factors such
+as Docker container networking overhead and OS-related processing delays can contribute to additional latency. While
+these factors are generally minor, they should still be considered in performance evaluations.</p>
+</li>
+</ol>
+<p>Note that the Tor Circuit Setup Time is not included in the RTT measurements, as it is a separate factor that can vary
+depending also on relay availability. This setup time can be a significant factor in countries where the Tor network is
+either unavailable or rarely used, and some considerations about this phase can be found in the Encountered Problem
+Section.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="final-rtt-computation">Final RTT Computation<a href="#final-rtt-computation" class="hash-link" aria-label="Direct link to Final RTT Computation" title="Direct link to Final RTT Computation">​</a></h3>
+<p>The total is the sum of all contributing factors.</p>
+<p>T_Request = T_Client to Entry + T_Entry to Relays + T_Relays to Exit + T_Exit to Server</p>
+<p>T_Response = T_Server to Exit + T_Exit to Relays + T_Relays to Entry + T_Entry to Client</p>
+<p>RTT = T_Request + T_Response</p>
+<p>Where each term includes network latency, encryption/decryption overhead, relay processing time, and congestion delays.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="countries-configuration">Countries Configuration<a href="#countries-configuration" class="hash-link" aria-label="Direct link to Countries Configuration" title="Direct link to Countries Configuration">​</a></h3>
+<p>These tests were conducted using different country configurations trying to evaluate the system&#x27;s message delivery time
+across various geographic locations.</p>
+<ol>
+<li>
+<p><strong>Italy-Italy:</strong> This configuration serves as a baseline to understand the behavior of the system in a controlled
+environment. By testing within the same country, we can minimize the effects of network congestion and routing
+complexity, providing a reference to comparing other, more geographically spread configurations. In the following
+sections, this configuration will be called the basecase.</p>
+</li>
+<li>
+<p><strong>Italy-Bulgaria:</strong> The Italy-Bulgaria pair helps us analyze the impact of geographical distance and network
+congestion in the case of a longer, but still European, distance. This test will highlight how the system performs
+when routing through different countries within Europe, and how the performance changes as moving away from the
+baseline (Italy-Italy) configuration. What should be noted are timings similar to the basecase with a slight increase
+in the values due to the increased distance between the two countries.</p>
+</li>
+<li>
+<p><strong>Italy-Mexico:</strong> By introducing a significant transcontinental distance, the Italy-Mexico configuration will allow
+us to evaluate the system’s performance under different routing conditions. This test explores how the system behaves
+when traversing multiple international networks with potential bandwidth limitations and routing inefficiencies.</p>
+</li>
+<li>
+<p><strong>Russia-USA:</strong> A test spanning the continents of Europe and North America will evaluate the system&#x27;s performance
+over long distances. The results will help assess the impact of both physical distance and network congestion, which
+could vary due to differing levels of infrastructure and routing mechanisms across countries.</p>
+</li>
+<li>
+<p><strong>USA-India:</strong> This configuration tests a long-distance route between North America and Asia, which often experiences
+significant network congestion due to the amount of traffic routed through these regions. The USA-India test will
+offer insights into how well the system handles latency and congestion in the context of transoceanic connections,
+often influenced by both infrastructural limitations and geopolitical factors.</p>
+</li>
+<li>
+<p><strong>Japan-France:</strong> A test between Japan and France evaluates intercontinental network performance between Asia and
+Europe. This route often involves different network backbones and potential bottlenecks. This configuration will help
+understand how the system copes with varying network performance influenced by different regional routing schemes.</p>
+</li>
+</ol>
+<p>Each tested country configuration is represented in the figures below in the Detailed Analysis Section, where the average RTT for each location is displayed.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="detailed-analysis">Detailed Analysis<a href="#detailed-analysis" class="hash-link" aria-label="Direct link to Detailed Analysis" title="Direct link to Detailed Analysis">​</a></h3>
+<p>This section presents an analysis of the results obtained following the methodology described earlier. As introduced, a
+chart for each country configuration is provided to offer a comprehensive view of network latency.</p>
+<p>The analysis begins with the baseline configuration and gradually extends to other setups, depending on the geographic
+distance covered by the tests. The baseline configuration refers to the scenario where the client, server, and both the
+entry and exit nodes are located in Italy. This setup serves also as a reference for comparison, as it represents the
+minimum latency in these tests.</p>
+<p><strong>Figure 1:</strong> illustrates the average RTT for the Italy-Italy configuration.</p>
+<p><img decoding="async" loading="lazy" alt="AVG Italy-Italy" src="/anonymous-shard/assets/images/scale-ita-ita-d46307c36462b220da2d3a7eb4fe80de.png" width="2258" height="1220" class="img_ev3q"></p>
+<p>From the chart in <strong>Figure 1</strong>, it can be observed that the average RTT over time is approximately 710 ms, with a
+standard deviation of 170 ms. The relatively low standard deviation indicates that the network remains fairly stable
+throughout the day. However, as expected, there is a slight increase in RTT during the morning and evening, while the
+lowest latency is recorded at night. The impact of the Tor network on RTT is clear from this baseline case.</p>
+<p>A more interesting comparison emerges in the Italy-Bulgaria configuration, as shown in <strong>Figure 2</strong>. In this scenario the physical distance between the nodes increases.
+Consequently, the average RTT rises to approximately 760 ms, with a standard deviation of 245 ms.</p>
+<p>This result is noteworthy because, while an increase in RTT was expected due to the longer distance, the difference
+remains moderate, as both countries are within Europe. Additionally, the standard deviation grows slightly more than the
+RTT itself. This observation suggests that as the geographical distance increases and additional network routes are
+involved, not only RTT rises, but the variability in network performance also increases. The growing standard deviation
+indicates a degree of network instability over time, but it still remains within acceptable limits.</p>
+<p><img decoding="async" loading="lazy" alt="AVG Italy—Italy" src="/anonymous-shard/assets/images/scale-ita-ita-d46307c36462b220da2d3a7eb4fe80de.png" width="2258" height="1220" class="img_ev3q">
+<img decoding="async" loading="lazy" alt="AVG Italy—Bulgary" src="/anonymous-shard/assets/images/scale-ita-bulgary-cc75a7ec4565dad54029b910c1b92586.png" width="2204" height="1176" class="img_ev3q"></p>
+<p>An even more significant variation is observed in the Italy-Mexico configuration in <strong>Figure 3</strong>. In this case, the
+distance increases considerably, and the network infrastructure differs more significantly. The average RTT in this
+setup is approximately 815 ms, with a standard deviation of about 300 ms. As expected, both RTT and standard deviation
+increase with distance, confirming the correlation between geographical separation and network performance variability.</p>
+<p>Examining all three charts, it becomes clear that between 05:00 PM and 07:00 PM, the RTT values are higher. This
+pattern, unlike the European or intra-Italy measurements and averages, represents the peak hours during which network
+congestion is more pronounced.</p>
+<p><img decoding="async" loading="lazy" alt="AVG Italy-Mexico" src="/anonymous-shard/assets/images/scale-ita-mex-e066a6cdf13b12c38b792fe3fe6efff8.png" width="2200" height="1194" class="img_ev3q"></p>
+<p>The Russia-USA configuration, shown in <strong>Figure 4</strong>, exhibits different results compared to the previous configurations.</p>
+<p>An interesting aspect of this configuration is that the average RTT is approximately 820 ms, with a standard deviation
+of 320 ms. More than the increase in RTT, which remains consistent with the expected latency increase due to the greater
+distance between the nodes, what stands out is its similarity to the Italy-Mexico case. This similarity may be
+attributed to various factors, particularly the choice of the circuit. Since Tor selects nodes based only on the
+specified country, the actual nodes chosen in Russia and the USA significantly impact the results. A possible
+explanation is that the Tor network does not select nodes randomly within a country but rather uses an algorithm that
+balances multiple parameters, such as latency, network capacity, and load. In this case, despite the greater
+geographical distance, the RTT values are similar to those in the Italy-Mexico configuration, highlighting the crucial
+role of circuit selection.</p>
+<p>Additionally, this result suggests that, due to the high availability of nodes in the USA, the network includes
+significantly more high-performance nodes compared to Mexico. This is clear from the current number of available relays:
+9 in Mexico of which only one Entry (or Guard) and one Exit versus the USA where there are a total of almost 1700
+relays [According to Tor Metrics website at the time of testing].</p>
+<p><img decoding="async" loading="lazy" alt="AVG Russia-USA" src="/anonymous-shard/assets/images/scale-russia-usa-02936591179bdb10fe84204d965773f4.png" width="2202" height="1180" class="img_ev3q"></p>
+<p>Finally, the <strong>USA-India</strong> configuration, shown in <strong>Figure 5</strong>, examines a transoceanic connection between North
+America and Asia. The RTT here reflects the larger physical distance and more pronounced network congestion.</p>
+<p><img decoding="async" loading="lazy" alt="AVG USA-India" src="/anonymous-shard/assets/images/scale-usa-india-2530f473fd42bb3ebae113ec321bc978.png" width="2208" height="1190" class="img_ev3q"></p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="usa-india-configuration">USA-India Configuration<a href="#usa-india-configuration" class="hash-link" aria-label="Direct link to USA-India Configuration" title="Direct link to USA-India Configuration">​</a></h3>
+<p>The USA-India configuration, shown in Figure, shows an even more pronounced increase in
+RTT compared to the previous configurations. In this case, the measurements aim to analyze how the network handles
+transoceanic traffic routing and to assess whether infrastructural limitations or other factors influence performance.
+The average RTT is approximately 850 ms, with a standard deviation of 440 ms.</p>
+<p>A notable aspect of this configuration is the significant peak in RTT values, which exceed 2500 ms around 06:00 PM@.
+The difference between this time period and other hours is significant. Further investigation could help determine
+whether this peak is an isolated event or a recurring pattern. Conducting measurements over weeks or months would
+provide insights into whether this behavior is consistent or specific to that particular day.</p>
+<p>Aside from this peak, the measurements are generally consistent with the expected increase in RTT due to the increased
+distance between the nodes. However, the high standard deviation, over 400 ms, indicates significant variability in
+network performance. While this value is influenced by the extreme peak observed, it remains a noteworthy finding in
+itself.</p>
+<p><img decoding="async" loading="lazy" alt="AVG Japan-France" src="/anonymous-shard/assets/images/scale-japan-france-19d5f3006658679d5cea0e3e78481bec.png" width="2210" height="1184" class="img_ev3q"></p>
+<p>The measurement about the Japan-France configuration has been done to evaluate the system over intercontinental network
+performance between Europe and Asia. The average RTT is approximately 740 ms, with a standard deviation of 290 ms, as
+as shown in Figure. The results are consistent and no bottlenecks, but three possible
+peaks that reached the maximum of about 1500 ms are noted. They are isolated, so they can be considered situations in
+which the network was a little bit more congested but, like in the USA-India configurations, further investigation could
+help determine whether these peaks are recurring patterns or not.</p>
+<p>In summary, these tests provide valuable insights into the system&#x27;s performance across different geographic
+configurations. The results highlight the impact of physical distance, network congestion, and circuit selection on
+network latency. Moreover, the standard deviation values offer insights into network stability and variability over
+time.</p>
+<p>The prototype is available in this <a href="https://github.com/paga16-hash/tor-net-analyzer" target="_blank" rel="noopener noreferrer">GitHub repository</a>, and the
+configuration file can be easily modified to include new countries or to change the entry and exit nodes. A list of
+available relays available in different countries and interesting metrics can be found in
+the <a href="https://hackertarget.com/tor-exit-node-visualization/" target="_blank" rel="noopener noreferrer">Tor Metrics</a> website.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="encountered-problems-1">Encountered Problems<a href="#encountered-problems-1" class="hash-link" aria-label="Direct link to Encountered Problems" title="Direct link to Encountered Problems">​</a></h3>
+<p>One of the first issues encountered during this phase was the time required for the Tor network&#x27;s bootstrap process.
+Initially, I assumed this was influenced by the choice of entry or exit nodes, as the Tor network could also have no
+running relays in the specified country. So, selecting an entry or exit node in such locations could lead to long
+bootstrap times, and in some cases, if the <em>UseStrictNodes 1</em> line is present in the <em>torrc</em> configuration file<br>
+<!-- -->(This option forces Tor to use Entry or Exit node if set to 1, failing if no node is available), the bootstrap
+process could fail. This occurred when there were no suitable entry or exit nodes available in the specified region,
+preventing the bootstrap process from completing.</p>
+<p>Another observed issue was the variation in bootstrap performance depending on the network environment. For instance,
+when connecting from my home network, the process is completed quickly with valid entry and exit nodes. However, when
+using the University network, the bootstrap process was noticeably slower. A possible explanation for this discrepancy
+is that different ISPs have varying agreements with networks that route Tor traffic. Additionally, network policies may
+prioritize certain types of traffic over others.</p>
+<p>A potential solution to mitigate these issues is the use of <strong><a href="https://bridges.torproject.org/" target="_blank" rel="noopener noreferrer">Tor Bridges</a></strong> to bypass
+network-level throttling or censorship. Tor bridges are private, unlisted entry points into the Tor network that help
+circumvent restrictions imposed by ISPs.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="limitations">Limitations<a href="#limitations" class="hash-link" aria-label="Direct link to Limitations" title="Direct link to Limitations">​</a></h3>
+<p>The limitations of this testing phase are primarily related to the controlled environment in which the tests were
+conducted. The setup did not present some issues, in the sense that the tests were successfully completed. The primary
+limitation is that the tests were conducted in a local environment deploying the client and server on the same machine.
+Measuring the round-trip time (RTT) between nodes in a real-world scenario, where nodes should be distributed globally,
+would provide more accurate and relevant results. Additionally, in a real scenario, the locations of peers are not
+known, meaning the RTT can vary significantly depending on the physical distance between nodes. The tests were conducted
+in a controlled environment, and the results may not accurately reflect the exact system performance in a real-world
+setting but can give an idea of how the system can behave with different configurations. Moreover, since the Tor network
+is a shared network, the results are influenced by other users&#x27; activities and overall network congestion.</p>
+<p>The task execution could be subject to redirection before execution and completion, introducing additional delays that
+depend on the physical location of the new selected provider. This limitation can be addressed in future tests by
+deploying instances worldwide to evaluate system performance in a real-world setting, and by completing the Kademlia
+full discovery algorithm creating a way to represent coherently the distance between nodes.</p>
+<p>Furthermore, to get significant results and generate charts representing the average RTT over time, the tests should be
+conducted over an extended period (e.g., several months) to calculate a more accurate average RTT over really worldwide
+distributed nodes. In particular, a subset of nodes could execute these tests continuously to provide a more
+comprehensive view of network latency and performance at each task submission.</p>
+<p>An additional factor that could affect the measurements in a real-world scenario is the limited number of Tor nodes in
+certain countries. In this case, the bootstrap process could fail.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="future-test-extensions">Future Test Extensions<a href="#future-test-extensions" class="hash-link" aria-label="Direct link to Future Test Extensions" title="Direct link to Future Test Extensions">​</a></h3>
+<p>To improve the testing phase and get more comprehensive results, some extensions to the current methodology can be
+considered. Moreover, the limitations encountered during the tests can be addressed by implementing additional features
+and conducting more extensive evaluations. Additionally, metrics such as bandwidth and available relays can be
+considered to assess the system&#x27;s performance. Measuring other aspects of the network, such as Circuit Setup Time, can
+also provide insights into network behavior under different configurations.</p>
+<p>Beyond this approach, other improvements that can be explored:</p>
+<ol>
+<li><strong>Mocking:</strong> Mocking particular components of the system to simulate different conditions and evaluate system
+behavior under various scenarios. This approach could be a valuable tool for testing edge cases and assessing system
+robustness or to probe specific behaviors for feasibility checks.</li>
+<li><strong>Real-World Scenario:</strong> Setting up instances worldwide exploiting cloud services to analyze the system&#x27;s performance
+in a truly distributed setting, allowing for realistic measurements and better insights.</li>
+<li><strong>Network:</strong> Evaluating the system&#x27;s performance in various configurations, including fully connected networks,
+trying hierarchical structures (maybe more to adapt the system for other uses), and other sparse peer-to-peer
+topologies.</li>
+<li><strong>Robustness:</strong> Assessing the system&#x27;s fault tolerance by simulating node failures, abrupt disconnections, and
+high-load scenarios. In this case, retry mechanisms and fault tolerance mechanisms have been tested manually to
+ensure that the system can recover from errors and continue functioning correctly, but a more structured approach is
+for sure beneficial.</li>
+<li><strong>Security:</strong> Simulating network attacks, such as Sybil Attacks and traffic correlation attempts, to evaluate the
+resilience of the system against potential threats.</li>
+<li><strong>Optimization:</strong> Testing and comparing different routing mechanisms to determine the most efficient strategy for
+task distribution and peer discovery, including the full Kademlia discovery algorithm.</li>
+</ol>
+<p>By incorporating these extensions, the testing phase can be significantly improved, leading to more meaningful
+performance evaluations.</p></div></article><nav class="pagination-nav docusaurus-mt-lg" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/anonymous-shard/docs/report/devops"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">DevOps</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/anonymous-shard/docs/category/deployment"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Deployment</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#scalability-test" class="table-of-contents__link toc-highlight">Scalability Test</a><ul><li><a href="#encountered-problems" class="table-of-contents__link toc-highlight">Encountered Problems</a></li></ul></li><li><a href="#average-rtt-test" class="table-of-contents__link toc-highlight">Average RTT Test</a><ul><li><a href="#process" class="table-of-contents__link toc-highlight">Process</a></li><li><a href="#considerations" class="table-of-contents__link toc-highlight">Considerations</a></li><li><a href="#specific-measurement-process" class="table-of-contents__link toc-highlight">Specific Measurement Process</a></li><li><a href="#final-rtt-computation" class="table-of-contents__link toc-highlight">Final RTT Computation</a></li><li><a href="#countries-configuration" class="table-of-contents__link toc-highlight">Countries Configuration</a></li><li><a href="#detailed-analysis" class="table-of-contents__link toc-highlight">Detailed Analysis</a></li><li><a href="#usa-india-configuration" class="table-of-contents__link toc-highlight">USA-India Configuration</a></li><li><a href="#encountered-problems-1" class="table-of-contents__link toc-highlight">Encountered Problems</a></li><li><a href="#limitations" class="table-of-contents__link toc-highlight">Limitations</a></li><li><a href="#future-test-extensions" class="table-of-contents__link toc-highlight">Future Test Extensions</a></li></ul></li></ul></div></div></div></div></main></div></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">Docs</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/anonymous-shard/docs/intro">Report</a></li><li class="footer__item"><a class="footer__link-item" href="/anonymous-shard/openapi">OpenAPI</a></li></ul></div><div class="col footer__col"><div class="footer__title">More</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/paga16-hash/anonymous-shard" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2025 Anonymous Shard. Built with Docusaurus.</div></div></div></footer></div>
 </body>
 </html>
