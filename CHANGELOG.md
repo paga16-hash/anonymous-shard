@@ -1,3 +1,37 @@
+## [1.7.6](https://github.com/paga16-hash/anonymous-shard/compare/v1.7.5...v1.7.6) (2025-02-25)
+
+### Bug Fixes
+
+* **openapi:** automatic generation ([55a4307](https://github.com/paga16-hash/anonymous-shard/commit/55a4307452eec1851bcbf59bfc70089b184b4a9d))
+
+### Documentation
+
+* update readme with how to contr section ([109e1d4](https://github.com/paga16-hash/anonymous-shard/commit/109e1d45938a911d0f0459f710c70dd0faff0eb6))
+
+
+## [1.7.6](https://github.com/paga16-hash/anonymous-shard/compare/v1.7.5...v1.7.6) (2025-02-25)
+
+### Bug Fixes
+
+* **openapi:** automatic generation ([55a4307](https://github.com/paga16-hash/anonymous-shard/commit/55a4307452eec1851bcbf59bfc70089b184b4a9d))
+
+## [1.7.6](https://github.com/paga16-hash/anonymous-shard/compare/v1.7.5...v1.7.6) (2025-02-25)
+
+### Bug Fixes
+
+* **openapi:** automatic generation ([55a4307](https://github.com/paga16-hash/anonymous-shard/commit/55a4307452eec1851bcbf59bfc70089b184b4a9d))
+
+### Documentation
+
+* update readme with how to contr section ([109e1d4](https://github.com/paga16-hash/anonymous-shard/commit/109e1d45938a911d0f0459f710c70dd0faff0eb6))
+
+
+## [1.7.6](https://github.com/paga16-hash/anonymous-shard/compare/v1.7.5...v1.7.6) (2025-02-25)
+
+### Bug Fixes
+
+* **openapi:** automatic generation ([55a4307](https://github.com/paga16-hash/anonymous-shard/commit/55a4307452eec1851bcbf59bfc70089b184b4a9d))
+
 ## [1.7.5](https://github.com/paga16-hash/anonymous-shard/compare/v1.7.4...v1.7.5) (2025-02-25)
 
 ### Bug Fixes
