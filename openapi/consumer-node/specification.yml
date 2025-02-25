@@ -1,0 +1,120 @@
+openapi: 3.0.0
+info:
+  title: Consumer Service API
+  description: Consumer node service API
+  version: 1.0.0
+tags:
+  - name: Consumers
+    description: Operations related to consumer
+paths:
+  /tasks:
+    get:
+      summary: Get all tasks
+      tags: [ Consumers ]
+      responses:
+        200:
+          description: The map of all tasks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "./schemas.yml#/components/schemas/Task"
+              example:
+                [ [
+                  "-----BEGIN PRIVATE-----",
+                  {
+                    "id": {
+                      "value": "3w3b3b3b-3b3b-3b3b-3b3b-3b3b3b3b3b3b",
+                      "type": 0,
+                      "publicKey": "-----BEGIN PUBLIC-----"
+                    },
+                    "clientId": {
+                      "value": "3b3b3b3b-3b3b-3b3b-3b3b-3b3b3b3b3b3b"
+                    },
+                    "status": "PENDING",
+                    "details": {
+                      "addends": [ 1, 2, 3 ]
+                    }
+                  }
+                ] ]
+        403:
+          description: User is not authorized
+        404:
+          description: No tasks found
+  /tasks/{id}/results:
+    get:
+      summary: Get the results of a task
+      tags: [ Consumers ]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: The task id
+          schema:
+            type: string
+      responses:
+        200:
+          description: The task results
+          content:
+            application/json:
+              schema:
+                $ref: "./schemas.yml#/components/schemas/TaskResult"
+              example: {
+                taskId: {
+                  value: "3b3b3b3b-3b3b-3b3a-3b3b-3b3b3b3b3b3b",
+                  type: 0,
+                  publicKey: "-----BEGIN PUBLIC-----"
+                },
+                result: 6,
+                cId: {
+                  value: "4b3b3b3b-3b3b-3b3a-3b3b-3b3b3b3b3b3b"
+                }
+              }
+        403:
+          description: User is not authorized
+        404:
+          description: No task results found
+
+  /tasks/{status}:
+    get:
+      summary: Get all tasks by status
+      tags: [ Consumers ]
+      parameters:
+        - in: path
+          name: status
+          required: true
+          description: The task status
+          schema:
+            type: string
+      responses:
+        200:
+          description: The list of all tasks by status
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "./schemas.yml#/components/schemas/Task"
+              example:
+                  [ [
+                    "-----BEGIN PRIVATE-----",
+                    {
+                      "id": {
+                        "value": "3w3b3b3b-3b3b-3b3b-3b3b-3b3b3b3b3b3b",
+                        "type": 0,
+                        "publicKey": "-----BEGIN PUBLIC-----"
+                      },
+                      "clientId": {
+                        "value": "3b3b3b3b-3b3b-3b3b-3b3b-3b3b3b3b3b3b"
+                      },
+                      "status": "PENDING",
+                      "details": {
+                        "addends": [ 1, 2, 3 ]
+                      }
+                    }
+                  ] ]
+        403:
+          description: User is not authorized
+        404:
+          description: No tasks found by status

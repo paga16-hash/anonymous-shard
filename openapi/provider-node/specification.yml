@@ -1,0 +1,49 @@
+openapi: 3.0.0
+info:
+    title: Provider Service API
+    description: Provider node service API
+    version: 1.0.0
+tags:
+    - name: Providers
+      description: Operations related to providers
+paths:
+    /peers:
+        get:
+            summary: Get all peers
+            tags: [ Providers ]
+            responses:
+                200:
+                    description: The list of all peers
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: "./schemas.yml#/components/schemas/Peer"
+                            example: ["peer-address"]
+                403:
+                    description: User is not authorized
+                404:
+                    description: No peers found
+    /peers/{id}/metrics:
+        get:
+            summary: Get metrics of a peer
+            tags: [ Providers ]
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  description: The peer id
+                  schema:
+                      type: string
+            responses:
+                200:
+                    description: The peer metrics
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "./schemas.yml#/components/schemas/PeerMetric"
+                403:
+                    description: User is not authorized
+                404:
+                    description: No peer metrics found

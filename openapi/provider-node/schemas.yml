@@ -1,0 +1,49 @@
+components:
+    schemas:
+        Peer:
+            type: string
+            description: The peer id
+        PeerMetric:
+            type: object
+            properties:
+                memory:
+                    type: object
+                    properties:
+                        total:
+                            type: integer
+                            description: The total memory in MB
+                        free:
+                            type: integer
+                            description: The free memory in MB
+                        used:
+                            type: integer
+                            description: The used memory in MB
+                cpu:
+                    type: object
+                    properties:
+                        model:
+                            type: string
+                            description: The model name
+                        load:
+                            type: number
+                            description: The CPU load
+                        cores:
+                            type: integer
+                            description: The number of cores
+                        threads:
+                            type: integer
+                            description: The number of threads
+                        speed:
+                            type: number
+                            description: The CPU speed in GHz
+                gpu:
+                    type: array
+                    items:
+                        type: object
+                        properties:
+                            model:
+                                type: string
+                                description: The model name
+                            memoryTotal:
+                                type: integer
+                                description: The total GPU memory in MB

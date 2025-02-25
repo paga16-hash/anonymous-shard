@@ -1,0 +1,86 @@
+components:
+  schemas:
+    TaskId:
+      type: object
+      properties:
+        value:
+          nullable: false
+          type: string
+          format: uuid
+          example: dbf825b9-67c8-4df8-8b75-8152dd5f8316
+        type:
+          type: integer
+          example: 1
+        publicKey:
+          type: string
+          example: |
+            -----BEGIN PUBLIC KEY-----
+            ...
+            -----END PUBLIC KEY-----
+    ClientId:
+      type: object
+      properties:
+        value:
+          type: string
+          example: 127.0.0.1:3010
+    TaskStatus:
+      type: string
+      enum:
+        - PENDING
+        - RUNNING
+        - COMPLETED
+        - FAILED
+      example: PENDING
+    SumTaskDetails:
+        type: object
+        properties:
+            addends:
+              type: array
+              items:
+                  type: integer
+              example: [1, 2, 3]
+    TaskDetails:
+        oneOf:
+          - $ref: '#/components/schemas/SumTaskDetails'
+          # other ref to other task details possible schema
+    Task:
+      type: object
+      items:
+        anyOf:
+          - type: string
+            example: |
+              -----BEGIN PRIVATE KEY-----
+              ...
+              -----END PRIVATE KEY-----
+          - type: object
+            properties:
+              id:
+                type: ./schemas.yml#/components/schemas/TaskId
+              clientId:
+                type: ./schemas.yml#/components/schemas/ClientId
+              status:
+                type: ./schemas.yml#/components/schemas/TaskStatus
+              details:
+                type: ./schemas.yml#/components/schemas/TaskDetails
+    SumTaskResult:
+      type: number
+      example: 6
+    SpecificTaskResult:
+        oneOf:
+          - $ref: '#/components/schemas/SumTaskResult'
+    TaskResultIdentifier:
+      type: object
+      properties:
+        value:
+          type: string
+          format: uuid
+          example: 3b3b3b3b-3b3b-3b3b-3b3b-3b3b3b3b3b3b
+    TaskResult:
+      type: object
+      properties:
+        taskId:
+          type: ./schemas.yml#/components/schemas/TaskId
+        result:
+          type: ./schemas.yml#/components/schemas/SpecificTaskResult
+        cId:
+          type: ./schemas.yml#/components/schemas/TaskResultIdentifier
