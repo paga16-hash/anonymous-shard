@@ -1,3 +1,37 @@
+## [1.7.4](https://github.com/paga16-hash/anonymous-shard/compare/v1.7.3...v1.7.4) (2025-02-25)
+
+### Bug Fixes
+
+* sidebar positions ([18ceb0c](https://github.com/paga16-hash/anonymous-shard/commit/18ceb0cc164b7b8af17751e24e34bf93db1a098a))
+* **website:** image in impl ([fdfb75f](https://github.com/paga16-hash/anonymous-shard/commit/fdfb75f06f30fdb7782766af4c35e0d02f248554))
+* **website:** label design ([555b940](https://github.com/paga16-hash/anonymous-shard/commit/555b940c821dc5f81fc67c65db2925c4d6d63038))
+
+
+## [1.7.4](https://github.com/paga16-hash/anonymous-shard/compare/v1.7.3...v1.7.4) (2025-02-25)
+
+### Bug Fixes
+
+* sidebar positions ([18ceb0c](https://github.com/paga16-hash/anonymous-shard/commit/18ceb0cc164b7b8af17751e24e34bf93db1a098a))
+* **website:** image in impl ([fdfb75f](https://github.com/paga16-hash/anonymous-shard/commit/fdfb75f06f30fdb7782766af4c35e0d02f248554))
+* **website:** label design ([555b940](https://github.com/paga16-hash/anonymous-shard/commit/555b940c821dc5f81fc67c65db2925c4d6d63038))
+
+## [1.7.4](https://github.com/paga16-hash/anonymous-shard/compare/v1.7.3...v1.7.4) (2025-02-25)
+
+### Bug Fixes
+
+* sidebar positions ([18ceb0c](https://github.com/paga16-hash/anonymous-shard/commit/18ceb0cc164b7b8af17751e24e34bf93db1a098a))
+* **website:** image in impl ([fdfb75f](https://github.com/paga16-hash/anonymous-shard/commit/fdfb75f06f30fdb7782766af4c35e0d02f248554))
+* **website:** label design ([555b940](https://github.com/paga16-hash/anonymous-shard/commit/555b940c821dc5f81fc67c65db2925c4d6d63038))
+
+
+## [1.7.4](https://github.com/paga16-hash/anonymous-shard/compare/v1.7.3...v1.7.4) (2025-02-25)
+
+### Bug Fixes
+
+* sidebar positions ([18ceb0c](https://github.com/paga16-hash/anonymous-shard/commit/18ceb0cc164b7b8af17751e24e34bf93db1a098a))
+* **website:** image in impl ([fdfb75f](https://github.com/paga16-hash/anonymous-shard/commit/fdfb75f06f30fdb7782766af4c35e0d02f248554))
+* **website:** label design ([555b940](https://github.com/paga16-hash/anonymous-shard/commit/555b940c821dc5f81fc67c65db2925c4d6d63038))
+
 ## [1.7.3](https://github.com/paga16-hash/anonymous-shard/compare/v1.7.2...v1.7.3) (2025-02-25)
 
 ### Bug Fixes
