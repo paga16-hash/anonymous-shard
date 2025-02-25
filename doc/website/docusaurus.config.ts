@@ -75,11 +75,19 @@ const config: Config = {
           items: [
             {
               label: 'Report',
-              to: '/docs/intro',
+              to: 'docs/category/report',
             },
             {
-              label: 'OpenAPI',
-              to: '/openapi',
+              label: 'Provider OpenAPI',
+              to: '/openapi/provider-node',
+            },
+            {
+              label: 'Consumer OpenAPI',
+              to: '/openapi/consumer-node',
+            },
+            {
+                label: 'AsyncAPI',
+                to: '/asyncapi',
             }
           ],
         },
