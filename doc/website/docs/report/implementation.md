@@ -1,3 +1,6 @@
+---
+sidebar_position: 45
+---
 # Implementation
 
 From the detailed design section, the system exploits a lot of interfaces fixing the business logic and the separation of concerns also before the real implementation. One of the principles that have been followed is the **Dependency Inversion Principle** that is a key principle of the Clean Architecture.
