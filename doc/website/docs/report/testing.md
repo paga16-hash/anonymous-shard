@@ -165,8 +165,8 @@ are obtained and the factors that can influence them. The tests have been conduc
 where two containers simulated the client and the server respectively.
 
 To better explain and understand the internal mechanisms, an example is examined. In the Russia-USA case, the client was
-explicitly configured to use an entry node in Russia (*EntryNodes {ru}*) and an exit node in the United States (
-*ExitNodes {us}*). The server was only configured to use an exit node in the United States (*ExitNodes {us}*). This
+explicitly configured to use an entry node in Russia (*EntryNodes ru*) and an exit node in the United States (
+*ExitNodes us*). The server was only configured to use an exit node in the United States (*ExitNodes us*). This
 setup ensured that all traffic was routed through the specified locations.
 
 Although both the client and the server have been hosted on a machine in Italy, which may introduce slight bias in the
