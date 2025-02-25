@@ -35,5 +35,5 @@ The CI/CD pipeline is an essential part of the development process, ensuring tha
 6. **Deploy Documentation**: Retrieves the pre-built documentation and publishes it to GitHub Pages.
 7. **Docker Image Deployment**: Builds Docker images for all nodes upon release trigger and pushes the new images to Docker Hub with the *latest* tag.
 
-![CI/CD Pipeline](images/ci-cd-pipeline)
+![CI/CD Pipeline](images/ci-cd-pipeline.png)
 *Figure 1: CI/CD Pipeline*

@@ -41,7 +41,7 @@ An encountered problem while the containerization process of the system inherent
 
 **[Exit Nodes](https://blog.torproject.org/tips-running-exit-node/)** are the last relay in the Tor network that your traffic passes through before reaching its final destination. They are responsible for sending the encrypted traffic and decrypting the final layer of encryption. However, the exit node can see your traffic’s destination but not its source (IP address). An updated list of the Tor Relays and a lot of interesting metrics can be found [here](https://metrics.torproject.org/rs.html).
 
-![Mapped Exit node](images/exit-and-entry-nodes)
+![Mapped Exit node](../images/exit-and-entry-nodes.png)
 *Figure: Mapped Exit node*
 
 ### IPFS

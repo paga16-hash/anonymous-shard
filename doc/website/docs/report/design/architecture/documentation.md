@@ -7,14 +7,14 @@ position: 1
 
 The system consists of nodes with various components that interact to deliver the described functionalities. The design follows **Clean Architecture** principles [Martin, 2017], promoting independence from frameworks and libraries. This methodology separates the system into layers, each responsible for specific tasks, ensuring modularity and flexibility.
 
-![Clean Architecture](images/clean-architecture)
+![Clean Architecture](../../images/clean-architecture.png)
 *Figure 1: Clean Architecture*
 
 This architecture emphasizes the separation of concerns and follows the *Dependency Inversion Principle (DIP)* [Martin, 1996], facilitating a robust and maintainable system design.
 
 ## Components
 
-![Components and Connectors](images/more-components)
+![Components and Connectors](../../images/more-components.png)
 *Figure 2: Components and connectors*
 
 Nodes in the system have different components based on their roles. Provider and consumer nodes share some components but differ in responsibilities.
@@ -31,7 +31,7 @@ Consumer nodes have a simpler structure, omitting the **Discovery Service** and 
 
 The Event Broker in a decentralized system represents a challenging component. Gossip-based publish-subscribe is the decentralized messaging paradigm used, which leverages gossip protocols for disseminating events across a network [Vyzovitis, 2020]. Unlike traditional broker-based pub-sub systems, where a central broker manages subscriptions and message delivery, gossip-based pub-sub distributes messages in a Peer-to-Peer (P2P) fashion. Nodes periodically exchange information with a subset of their peers, ensuring that events propagate throughout the network in an eventually consistent manner. This approach enhances fault tolerance, scalability, and resilience against failures, making it well-suited for large-scale distributed systems. However, redundant message transmission combined with high-latency networks like Tor introduces challenges compared to structured pub-sub models.
 
-![Gossip Pub-Sub Mechanism](images/gossip-pub-sub)
+![Gossip Pub-Sub Mechanism](../../images/gossip-pub-sub.png)
 *Figure 3: Gossip Pub-Sub Mechanism*
 
 ## Other Considered Alternatives

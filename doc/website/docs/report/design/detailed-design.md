@@ -10,7 +10,7 @@ In this section, the detailed design of the system is presented.
 
 Each provider and consumer node is composed of different packages, structured based on the clean architecture principles.
 
-![Packages Structure](images/packages)
+![Packages Structure](../images/packages.png)
 *Figure 1: Packages Structure*
 
 ## Domain Events
@@ -21,24 +21,24 @@ A particular design choice that has been made is to create interfaces for basic 
 
 ### Provider Events:
 
-![Provider Domain Events](images/provider-events)
+![Provider Domain Events](../images/provider-events.png)
 *Figure 2: Provider Domain Events*
 
 ### Consumer Events:
 
-![Consumer Domain Events](images/consumer-events)
+![Consumer Domain Events](../images/consumer-events.png)
 *Figure 3: Consumer Domain Events*
 
 These events are documented using the **Async API** specification.
 As can be read in the Dev/Ops Section~\ref{sec:devops}, the documentation is automatically generated and published on the GitHub Pages of the repository.
 In this case, accepted payloads, examples, and responses are documented to make the system more understandable for possible new developers and to make the system more usable for the user.
 
-![Documentation Example](images/events-documentation)
+![Documentation Example](../images/events-documentation.png)
 *Figure 4: Documentation Example*
 
-![Handlers and Payload Example](images/event-topics)
+![Handlers and Payload Example](../images/event-topics.png)
 *Figure 5: Handlers Example*
-![Payload Example](images/event-payload)
+![Payload Example](../images/event-payload.png)
 *Figure 6: Payload Example*
 
 The same approach has been used to document the REST API (following **OpenAPI** specification), available on the GitHub Pages of the repository, which can be found [here](https://paga16-hash.github.io/anonymous-shard/).
@@ -53,31 +53,31 @@ Some implementations of the main interfaces do not repeat all the methods for si
 
 ### Discovery Service
 
-![Provider Discovery Service](images/provider-discovery-service)
+![Provider Discovery Service](../images/provider-discovery-service.png)
 *Figure 7: Provider Discovery Service*
 
 ### Metric Service
 
-![Provider Metric Service](images/provider-metric-service)
+![Provider Metric Service](../images/provider-metric-service.png)
 *Figure 8: Provider Metric Service*
 
 ### Task Service
 
-![Provider Task Service](images/provider-task-service)
+![Provider Task Service](../images/provider-task-service.png)
 *Figure 9: Provider Task Service*
 
 An important note here is the definition of the **Evaluator**, which is used to evaluate the task and understand if the node can execute it or if it has to redirect it to another node.
 As seen in the **Task Service** diagram (Figure~\ref{fig:provider-task-service}), the **Task Evaluator** is a component used by it.
 It is a simple interface that has to be implemented by the user to define the evaluation logic, supporting extensibility but fixing the business logic.
 
-![Provider Task Evaluator](images/provider-task-evaluator)
+![Provider Task Evaluator](../images/provider-task-evaluator.png)
 *Figure 10: Provider Task Evaluator*
 
 ## Consumer Node
 
 ### Consumer Task Service:
 
-![Consumer Task Service](images/consumer-task-service)
+![Consumer Task Service](../images/consumer-task-service.png)
 *Figure 11: Consumer Task Service*
 
 As seen in the **Consumer Task Service** diagram (Figure~\ref{fig:consumer-task-service}), the **Task Service** is the main component of the consumer node used by the **Node Service** to interact with the network.

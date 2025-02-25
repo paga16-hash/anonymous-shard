@@ -27,7 +27,7 @@ In the first part of this section, the quality attributes are divided into two s
 
 ## Quality Scenarios
 
-In this section, quality attributes scenarios are presented following the *Stimulus-Response* formalism. This model is used to describe the system's behavior in different scenarios and to understand how the system should behave in real situations~\cite{bass2012quality}.
+In this section, quality attributes scenarios are presented following the *Stimulus-Response* formalism. This model is used to describe the system's behavior in different scenarios and to understand how the system should behave in real situations.
 
 1. **Scalability**:
     - **Stimulus**: An unexpected increase in the number of providers and consumers in the network.

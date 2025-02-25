@@ -74,7 +74,7 @@ The most convenient deployment mode of the system is to use Docker containers, p
 
 ### Prerequisite
 
-Docker is the only prerequisite to deploy the system. Keeping the system lightweight and easy to deploy was a key design goal, and Docker was chosen for its simplicity and portability. Moreover, a Docker feature that adapts well to this system is that containers are one-shot, meaning they are temporary and can be easily replaced. This is particularly useful when thinking about Consumer Nodes. A consumer node can be deployed, get a task result, store it locally, and then be destroyed, simply by deleting the linked volume. In this way, one-shot containers improve the system's security. More details can be found in the Containerization Section~\ref{subsec:containerization}.
+Docker is the only prerequisite to deploy the system. Keeping the system lightweight and easy to deploy was a key design goal, and Docker was chosen for its simplicity and portability. Moreover, a Docker feature that adapts well to this system is that containers are one-shot, meaning they are temporary and can be easily replaced. This is particularly useful when thinking about Consumer Nodes. A consumer node can be deployed, get a task result, store it locally, and then be destroyed, simply by deleting the linked volume. In this way, one-shot containers improve the system's security. More details can be found in the Containerization Section.
 
 ## Sample Scripts
 
@@ -86,7 +86,7 @@ The key script for running a demo on your local computer is the *anonymous-shard
 
 To use the script, follow these steps:
 
-1. **Clone**: Clone the repository or download the scripts folder from the [repository](https://github.com/paga16-hash/anonymous-shard). Source code is not needed because Docker images are already available on Docker Hub, and the externalized configuration allows the system to run without any code modification. For details, refer to the Containerization Pattern Section~\ref{subsec:patterns}.
+1. **Clone**: Clone the repository or download the scripts folder from the [repository](https://github.com/paga16-hash/anonymous-shard). Source code is not needed because Docker images are already available on Docker Hub, and the externalized configuration allows the system to run without any code modification. For details, refer to the Containerization Pattern Section.
 ```bash
    git clone https://github.com/paga16-hash/anonymous-shard.git
 ```
