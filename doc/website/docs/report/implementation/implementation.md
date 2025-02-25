@@ -35,7 +35,7 @@ To access an onion service, users must know its .onion address, which consists o
 
 A possible enhancement involves authenticated onion services, which require users to provide an authentication token before gaining access. This strengthens security by restricting access to authorized users only. Tor Browser supports this mechanism, allowing users to enter a private key when prompted.
 
-An encountered problem while the containerization process of the system inherent to how Hidden Services are managed by Tor can be found in the Deployment Chapter~\ref{subsubsec:dockerfile}.
+An encountered problem while the containerization process of the system inherent to how Hidden Services are managed by Tor can be found in the Deployment Chapter.
 
 **[Entry Nodes](https://support.torproject.org/about/entry-guards/)** (or **Guard Nodes**) are the first relay point your traffic passes through when connecting to Tor. They are responsible for establishing the connection between your device and the Tor network, providing anonymity by masking your real IP address.
 
@@ -48,7 +48,7 @@ An encountered problem while the containerization process of the system inherent
 
 **[IPFS](https://ipfs.tech/)** (InterPlanetary File System) is a distributed, peer-to-peer network for storing and sharing data in a decentralized manner. Instead of relying on a central server, IPFS uses content-addressing, where each file is identified by its cryptographic hash, ensuring immutability and resistance to censorship. In this system, it is used to store and retrieve data efficiently avoiding reliance on centralized storage solutions. This choice was made because of its decentralized architecture and data persistence.
 
-The problem encountered here is that, as mentioned, this technology exploits content-addressing, so once the data are stored on IPFS they become immutable. Moreover, the stored data are not encrypted by default, so it is necessary to encrypt them before storing to ensure privacy and confidentiality. In this system, it is used to persist the info about tasks and tasks results. The design choice to avoid the storage of clear data on IPFS is the generation of a key pair by the consumer node that is used to encrypt the result before the storage. Mechanism deepened in Security Pattern Section~\ref{subsubsec:security-patterns}.
+The problem encountered here is that, as mentioned, this technology exploits content-addressing, so once the data are stored on IPFS they become immutable. Moreover, the stored data are not encrypted by default, so it is necessary to encrypt them before storing to ensure privacy and confidentiality. In this system, it is used to persist the info about tasks and tasks results. The design choice to avoid the storage of clear data on IPFS is the generation of a key pair by the consumer node that is used to encrypt the result before the storage. Mechanism deepened in Security Pattern Section.
 
 #### Pinata
 
@@ -60,7 +60,7 @@ Beyond this, however, the main purpose of the system would require one or more i
 
 ### SOCKS5 Proxy
 
-**[SOCKS5](https://support.torproject.org/glossary/socks5/)** is a networking protocol that routes network packets between a client and a server through a proxy server. In this system, every communication is tunneled through a SOCKS5 proxy to ensure anonymity and privacy when *Anonymous Mode* is enabled. As mentioned in the Background Section~\ref{sec:background}, the choice of SOCKS5 was made because of the Tor network's support for this protocol, making it ideal for routing network traffic through that network. Moreover, this type of proxy supports various protocols, and with this fifth version, also the UDP, that is a nice feature. The problem is that the UDP protocol is not supported by the Tor network, so it is not used in this system.
+**[SOCKS5](https://support.torproject.org/glossary/socks5/)** is a networking protocol that routes network packets between a client and a server through a proxy server. In this system, every communication is tunneled through a SOCKS5 proxy to ensure anonymity and privacy when *Anonymous Mode* is enabled. As mentioned in the Background Section, the choice of SOCKS5 was made because of the Tor network's support for this protocol, making it ideal for routing network traffic through that network. Moreover, this type of proxy supports various protocols, and with this fifth version, also the UDP, that is a nice feature. The problem is that the UDP protocol is not supported by the Tor network, so it is not used in this system.
 
 Briefly, this proxy mechanism is very powerful; it allows the system to transparently route packets through an intermediate relay, preserving anonymity while maintaining efficient communication.
 
@@ -102,7 +102,7 @@ To use the SOCKS5h version, the `type` field in the proxy configuration object m
 
 **[Docker](https://www.docker.com/)** is a containerization platform that allows applications to run in isolated environments, ensuring consistency across different systems. It enables the packaging of software and its dependencies into lightweight containers, making deployment more efficient and reproducible. In this system, Docker is used to encapsulate various components, ensuring that they run in a controlled and consistent manner across different machines. The choice of Docker was made to simplify deployment, enhance portability, and manage dependencies efficiently.
 
-In this particular system, the exploitation of Docker *Volumes* brings the possibility to store the data outside the container, ensuring data persistence even for a consumer that wants to submit tasks always using different Hidden Service onion addresses. This is possible because the system is configured to store the hidden service private key in a volume that is shared with the container. For more explanations about job unit submissions, refer to the Data Flow Analysis Figure~\ref{fig:task-submission-flow}, while for the specific containerization process, where this feature is exploited, continue to the Deployment Chapter~\ref{sec:deployment}.
+In this particular system, the exploitation of Docker *Volumes* brings the possibility to store the data outside the container, ensuring data persistence even for a consumer that wants to submit tasks always using different Hidden Service onion addresses. This is possible because the system is configured to store the hidden service private key in a volume that is shared with the container. For more explanations about job unit submissions, refer to the Data Flow Analysis Figure, while for the specific containerization process, where this feature is exploited, continue to the Deployment Chapter.
 
 ### Transport Layer
 
