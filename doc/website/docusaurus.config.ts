@@ -79,15 +79,15 @@ const config: Config = {
             },
             {
               label: 'Provider OpenAPI',
-              to: '/openapi/provider-node',
+              to: '/openapi/provider-node/',
             },
             {
               label: 'Consumer OpenAPI',
-              to: '/openapi/consumer-node',
+              to: '/openapi/consumer-node/',
             },
             {
                 label: 'AsyncAPI',
-                to: '/asyncapi',
+                to: '/asyncapi/',
             }
           ],
         },
