@@ -30,7 +30,7 @@ A particular design choice that has been made is to create interfaces for basic 
 *Figure 3: Consumer Domain Events*
 
 These events are documented using the **Async API** specification.
-As can be read in the Dev/Ops Section~\ref{sec:devops}, the documentation is automatically generated and published on the GitHub Pages of the repository.
+As can be read in the DevOps Section, the documentation is automatically generated and published on the GitHub Pages of the repository.
 In this case, accepted payloads, examples, and responses are documented to make the system more understandable for possible new developers and to make the system more usable for the user.
 
 ![Documentation Example](../images/events-documentation.png)
@@ -67,7 +67,7 @@ Some implementations of the main interfaces do not repeat all the methods for si
 *Figure 9: Provider Task Service*
 
 An important note here is the definition of the **Evaluator**, which is used to evaluate the task and understand if the node can execute it or if it has to redirect it to another node.
-As seen in the **Task Service** diagram (Figure~\ref{fig:provider-task-service}), the **Task Evaluator** is a component used by it.
+As seen in the **Task Service** diagram, the **Task Evaluator** is a component used by it.
 It is a simple interface that has to be implemented by the user to define the evaluation logic, supporting extensibility but fixing the business logic.
 
 ![Provider Task Evaluator](../images/provider-task-evaluator.png)
@@ -80,7 +80,7 @@ It is a simple interface that has to be implemented by the user to define the ev
 ![Consumer Task Service](../images/consumer-task-service.png)
 *Figure 11: Consumer Task Service*
 
-As seen in the **Consumer Task Service** diagram (Figure~\ref{fig:consumer-task-service}), the **Task Service** is the main component of the consumer node used by the **Node Service** to interact with the network.
+As seen in the **Consumer Task Service** diagram, the **Task Service** is the main component of the consumer node used by the **Node Service** to interact with the network.
 In this case, the service is simpler than the provider one, with complementary functionalities.
 An important design choice that fixed the business logic is the **Encryptor**, which can be used only to decrypt the task result.
 
