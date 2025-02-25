@@ -383,7 +383,7 @@ One of the first issues encountered during this phase was the time required for 
 Initially, I assumed this was influenced by the choice of entry or exit nodes, as the Tor network could also have no
 running relays in the specified country. So, selecting an entry or exit node in such locations could lead to long
 bootstrap times, and in some cases, if the *UseStrictNodes 1* line is present in the *torrc* configuration file  
-\footnote{This option forces Tor to use Entry or Exit node if set to 1, failing if no node is available}, the bootstrap
+(This option forces Tor to use Entry or Exit node if set to 1, failing if no node is available), the bootstrap
 process could fail. This occurred when there were no suitable entry or exit nodes available in the specified region,
 preventing the bootstrap process from completing.
 
