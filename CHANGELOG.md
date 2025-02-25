@@ -1,3 +1,75 @@
+## [1.7.2](https://github.com/paga16-hash/anonymous-shard/compare/v1.7.1...v1.7.2) (2025-02-25)
+
+### Bug Fixes
+
+* doc testing ([3dbac5d](https://github.com/paga16-hash/anonymous-shard/commit/3dbac5d3130e851dc62de6cc509da739d09b4243))
+* **website:** detailed design ([378f6a5](https://github.com/paga16-hash/anonymous-shard/commit/378f6a585a1d86b4cec7bfbadbb34ae2e1b566c9))
+* **website:** fix formula ([f183067](https://github.com/paga16-hash/anonymous-shard/commit/f1830674d9e4a82e6de9de1d523fe7fc284a5709))
+* **website:** implementation section ([24f9664](https://github.com/paga16-hash/anonymous-shard/commit/24f966458b932e2259abe0423bcc62665b495139))
+* **website:** testing section ([b6483b1](https://github.com/paga16-hash/anonymous-shard/commit/b6483b1a0a40c64cd589654f147717b89dfa8914))
+
+### Documentation
+
+* business requirements ([8bea407](https://github.com/paga16-hash/anonymous-shard/commit/8bea40793e09b2562989316cc855e4fcdd893e0a))
+* functional requirements ([803b296](https://github.com/paga16-hash/anonymous-shard/commit/803b296c68992daceb234cb794b21cad21be461e))
+* **intro:** add introduction for documentation in gh pages ([736cd59](https://github.com/paga16-hash/anonymous-shard/commit/736cd59ef780e62c37012d7472ba4ee717d9f526))
+* **website:** architecture ([d6ffdb1](https://github.com/paga16-hash/anonymous-shard/commit/d6ffdb120ec8cb20c4b25125dd39175bbbbca19b))
+* **website:** conclusion ([a1cf2dc](https://github.com/paga16-hash/anonymous-shard/commit/a1cf2dca252476e911ca96c75c41df8c77263b28))
+* **website:** deployment ([38b870b](https://github.com/paga16-hash/anonymous-shard/commit/38b870bd37016a21de8d276f5da6c06b33adc8c9))
+* **website:** design ([0d342f7](https://github.com/paga16-hash/anonymous-shard/commit/0d342f777383a10c01eac774c28446e7eb89c449))
+* **website:** devops ([144e6f8](https://github.com/paga16-hash/anonymous-shard/commit/144e6f8878b21d18db0ae317bd5ce1ec30d4056d))
+* **website:** implementation ([adef1ec](https://github.com/paga16-hash/anonymous-shard/commit/adef1ec74b55ffae42b4447ab4ac732843e2b31a))
+* **website:** quality attributes ([cd689cf](https://github.com/paga16-hash/anonymous-shard/commit/cd689cfca48cd5f9ebeb23e2c580e2b43000dd74))
+* **website:** remove \cite and added images ([df74b55](https://github.com/paga16-hash/anonymous-shard/commit/df74b557fc01ec18484996e271d100d76775996c))
+* **website:** testinng ([db7d084](https://github.com/paga16-hash/anonymous-shard/commit/db7d0840999fc16adbe1c9dfc3de61807e764179))
+
+
+## [1.7.2](https://github.com/paga16-hash/anonymous-shard/compare/v1.7.1...v1.7.2) (2025-02-25)
+
+### Bug Fixes
+
+* doc testing ([3dbac5d](https://github.com/paga16-hash/anonymous-shard/commit/3dbac5d3130e851dc62de6cc509da739d09b4243))
+* **website:** detailed design ([378f6a5](https://github.com/paga16-hash/anonymous-shard/commit/378f6a585a1d86b4cec7bfbadbb34ae2e1b566c9))
+* **website:** fix formula ([f183067](https://github.com/paga16-hash/anonymous-shard/commit/f1830674d9e4a82e6de9de1d523fe7fc284a5709))
+* **website:** implementation section ([24f9664](https://github.com/paga16-hash/anonymous-shard/commit/24f966458b932e2259abe0423bcc62665b495139))
+* **website:** testing section ([b6483b1](https://github.com/paga16-hash/anonymous-shard/commit/b6483b1a0a40c64cd589654f147717b89dfa8914))
+
+## [1.7.2](https://github.com/paga16-hash/anonymous-shard/compare/v1.7.1...v1.7.2) (2025-02-25)
+
+### Bug Fixes
+
+* doc testing ([3dbac5d](https://github.com/paga16-hash/anonymous-shard/commit/3dbac5d3130e851dc62de6cc509da739d09b4243))
+* **website:** detailed design ([378f6a5](https://github.com/paga16-hash/anonymous-shard/commit/378f6a585a1d86b4cec7bfbadbb34ae2e1b566c9))
+* **website:** fix formula ([f183067](https://github.com/paga16-hash/anonymous-shard/commit/f1830674d9e4a82e6de9de1d523fe7fc284a5709))
+* **website:** implementation section ([24f9664](https://github.com/paga16-hash/anonymous-shard/commit/24f966458b932e2259abe0423bcc62665b495139))
+* **website:** testing section ([b6483b1](https://github.com/paga16-hash/anonymous-shard/commit/b6483b1a0a40c64cd589654f147717b89dfa8914))
+
+### Documentation
+
+* business requirements ([8bea407](https://github.com/paga16-hash/anonymous-shard/commit/8bea40793e09b2562989316cc855e4fcdd893e0a))
+* functional requirements ([803b296](https://github.com/paga16-hash/anonymous-shard/commit/803b296c68992daceb234cb794b21cad21be461e))
+* **intro:** add introduction for documentation in gh pages ([736cd59](https://github.com/paga16-hash/anonymous-shard/commit/736cd59ef780e62c37012d7472ba4ee717d9f526))
+* **website:** architecture ([d6ffdb1](https://github.com/paga16-hash/anonymous-shard/commit/d6ffdb120ec8cb20c4b25125dd39175bbbbca19b))
+* **website:** conclusion ([a1cf2dc](https://github.com/paga16-hash/anonymous-shard/commit/a1cf2dca252476e911ca96c75c41df8c77263b28))
+* **website:** deployment ([38b870b](https://github.com/paga16-hash/anonymous-shard/commit/38b870bd37016a21de8d276f5da6c06b33adc8c9))
+* **website:** design ([0d342f7](https://github.com/paga16-hash/anonymous-shard/commit/0d342f777383a10c01eac774c28446e7eb89c449))
+* **website:** devops ([144e6f8](https://github.com/paga16-hash/anonymous-shard/commit/144e6f8878b21d18db0ae317bd5ce1ec30d4056d))
+* **website:** implementation ([adef1ec](https://github.com/paga16-hash/anonymous-shard/commit/adef1ec74b55ffae42b4447ab4ac732843e2b31a))
+* **website:** quality attributes ([cd689cf](https://github.com/paga16-hash/anonymous-shard/commit/cd689cfca48cd5f9ebeb23e2c580e2b43000dd74))
+* **website:** remove \cite and added images ([df74b55](https://github.com/paga16-hash/anonymous-shard/commit/df74b557fc01ec18484996e271d100d76775996c))
+* **website:** testinng ([db7d084](https://github.com/paga16-hash/anonymous-shard/commit/db7d0840999fc16adbe1c9dfc3de61807e764179))
+
+
+## [1.7.2](https://github.com/paga16-hash/anonymous-shard/compare/v1.7.1...v1.7.2) (2025-02-25)
+
+### Bug Fixes
+
+* doc testing ([3dbac5d](https://github.com/paga16-hash/anonymous-shard/commit/3dbac5d3130e851dc62de6cc509da739d09b4243))
+* **website:** detailed design ([378f6a5](https://github.com/paga16-hash/anonymous-shard/commit/378f6a585a1d86b4cec7bfbadbb34ae2e1b566c9))
+* **website:** fix formula ([f183067](https://github.com/paga16-hash/anonymous-shard/commit/f1830674d9e4a82e6de9de1d523fe7fc284a5709))
+* **website:** implementation section ([24f9664](https://github.com/paga16-hash/anonymous-shard/commit/24f966458b932e2259abe0423bcc62665b495139))
+* **website:** testing section ([b6483b1](https://github.com/paga16-hash/anonymous-shard/commit/b6483b1a0a40c64cd589654f147717b89dfa8914))
+
 ## [1.7.1](https://github.com/paga16-hash/anonymous-shard/compare/v1.7.0...v1.7.1) (2025-02-11)
 
 ### Documentation
