@@ -157,6 +157,11 @@ evaluate the system in different scenarios.
 
 ---
 
+### How to Contribute
+
+If you want to contribute to the project, please contact me via mail or LinkedIn. I would be happy to discuss the
+project and future improvements.
+Otherwise, open a Pull Request or an Issue on the repository 😎
 
 
 
