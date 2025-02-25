@@ -5,7 +5,7 @@ import java.net.URI
 import java.util.*
 import java.util.zip.ZipInputStream
 
-group = "it-anonymous-shard"
+group = "it.anonymousshard"
 version = "0.1.0"
 
 repositories {
@@ -20,7 +20,6 @@ val nodes = listOf(
 )
 
 nodes.forEach { submodule ->
-
     val formattedSubmoduleName = submodule.replaceFirstChar {
         if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
     }.split("-")[0]
