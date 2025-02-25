@@ -1,0 +1,17 @@
+@startuml
+participant "Client (Italy)" as Client
+participant "Tor Entry Node (RU)" as Entry
+participant "Tor Relay(s)" as Relay
+participant "Tor Exit Node (US)" as Exit
+participant "Server (Italy)" as Server
+
+Client -> Entry: Encrypted request
+Entry -> Relay: Forward request (encrypted)
+Relay -> Exit: Forward request (encrypted)
+Exit -> Server: Decrypt & send final request
+
+Server -> Exit: Response
+Exit -> Relay: Forward response (encrypted)
+Relay -> Entry: Forward response (encrypted)
+Entry -> Client: Deliver response (encrypted)
+@enduml
