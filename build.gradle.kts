@@ -115,7 +115,7 @@ val openApiPath = rootProject.layout.buildDirectory.dir("openapi")
 tasks.register<Copy>("generate-openapi-index-page") {
     from(project.layout.projectDirectory.dir("src").dir("resources"))
     into(openApiPath.get())
-    expand("nodes" to nodes.joinToString(separator = "\n") {
+    expand("node" to nodes.joinToString(separator = "\n") {
         "<li><a href=\"$it\">${it.capitalize()}</a></li>"//
     })
 }
