@@ -1,3 +1,21 @@
+## [1.7.10](https://github.com/paga16-hash/anonymous-shard/compare/v1.7.9...v1.7.10) (2025-03-04)
+
+### Documentation
+
+* scn prototype sequence diagram ([0fe6b4c](https://github.com/paga16-hash/anonymous-shard/commit/0fe6b4c77590a1c5f85f108a23dcacdcb81d3478))
+
+
+## [1.7.10](https://github.com/paga16-hash/anonymous-shard/compare/v1.7.9...v1.7.10) (2025-03-04)
+
+## [1.7.10](https://github.com/paga16-hash/anonymous-shard/compare/v1.7.9...v1.7.10) (2025-03-04)
+
+### Documentation
+
+* scn prototype sequence diagram ([0fe6b4c](https://github.com/paga16-hash/anonymous-shard/commit/0fe6b4c77590a1c5f85f108a23dcacdcb81d3478))
+
+
+## [1.7.10](https://github.com/paga16-hash/anonymous-shard/compare/v1.7.9...v1.7.10) (2025-03-04)
+
 ## [1.7.9](https://github.com/paga16-hash/anonymous-shard/compare/v1.7.8...v1.7.9) (2025-02-25)
 
 ### Bug Fixes
