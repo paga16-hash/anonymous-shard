@@ -5,7 +5,7 @@ participant "Client" as C
 participant "Server" as S
 
 loop Every 60 minutes for 24 hours
-    loop 100 times
+    loop 50 times
         C -> S : Send request
         S --> C : Respond with data
         C -> C : Log response time
